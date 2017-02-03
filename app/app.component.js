@@ -14,7 +14,17 @@ var AppComponent = (function () {
         this.title = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
+        this.myDateRangePickerOptions = {
+            // other options...
+            dateFormat: 'dd.mm.yyyy',
+            height: '34px',
+            width: '200px',
+        };
     }
+    AppComponent.prototype.onDateRangeChanged = function (event) {
+        // event properties are: event.beginDate, event.endDate, event.formatted,
+        // event.beginEpoc and event.endEpoc
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',

@@ -13,6 +13,10 @@ var platform_browser_1 = require('@angular/platform-browser');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
+var mydaterangepicker_1 = require('mydaterangepicker');
+//for datepicker
+var mydatepicker_1 = require('mydatepicker');
+//for map
 var core_2 = require('angular2-google-maps/core');
 var AppModule = (function () {
     function AppModule() {
@@ -23,6 +27,8 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
+                mydatepicker_1.MyDatePickerModule,
+                mydaterangepicker_1.MyDateRangePickerModule,
                 core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
                 })
