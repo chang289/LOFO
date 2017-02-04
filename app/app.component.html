@@ -2,9 +2,98 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 
-<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="15" style="height: 100vh">
-  <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-</sebm-google-map>
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">LOFO</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse" >
+      <ul class="nav navbar-nav navbar-left" style="margin-top: 4px;">
+        <li><my-date-range-picker 
+			[options]="myDateRangePickerOptions"
+		    (dateRangeChanged)="onDateRangeChanged($event)">
+		</my-date-range-picker>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<my-date-range-picker [options]="myDateRangePickerOptions"
-                   (dateRangeChanged)="onDateRangeChanged($event)" style="position: absolute; top: 20px; left: 20px;" ></my-date-range-picker>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Analytics</a></li>
+        <li><a href="#">Export</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="">Nav item</a></li>
+        <li><a href="">Nav item again</a></li>
+        <li><a href="">One more nav</a></li>
+        <li><a href="">Another nav item</a></li>
+        <li><a href="">More navigation</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="">Nav item again</a></li>
+        <li><a href="">One more nav</a></li>
+        <li><a href="">Another nav item</a></li>
+      </ul>
+    </div>
+    <div >
+		<sebm-google-map 
+		[latitude]="lat" 
+		[longitude]="lng" 
+		[zoom]="15"
+		[disableDefaultUI]="false"
+		(mapClick)="mapClicked($event)"
+		style="height: 100vh">
+		  <sebm-google-map-marker 
+		  *ngFor = "let m of markers; let i = index"
+		  (markerClick)="clickedMarker(m, i)"
+		  [latitude]="m.lat" 
+		  [longitude]="m.lng"
+		  [markerDraggable]="m.draggable"
+		  (dragEnd)="markerDragEnd(m, $event)"
+		  >
+		  <sebm-google-map-info-window>
+		  	<strong>{{m.name}}</strong>>
+		  </sebm-google-map-info-window>
+
+		  </sebm-google-map-marker>
+		</sebm-google-map>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<button type="button" class="btn btn-primary"
+    (click)="isCollapsed = !isCollapsed">Toggle collapse
+</button>
+<hr>
+<div (collapsed)="collapsed($event)"
+     (expanded)="expanded($event)"
+     [collapse]="isCollapsed"
+     class="card card-block card-header">
+  <div class="well well-lg">Some content</div>
+</div> -->

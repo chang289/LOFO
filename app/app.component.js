@@ -14,16 +14,55 @@ var AppComponent = (function () {
         this.title = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
+        this.markers = [
+            {
+                name: 'LWSN',
+                lat: 40.427704,
+                lng: -86.916937,
+                draggable: false,
+            },
+            {
+                name: 'PMU',
+                lat: 40.424660,
+                lng: -86.911482,
+                draggable: false,
+            },
+            {
+                name: 'PHYS',
+                lat: 40.430124,
+                lng: -86.913057,
+                draggable: false,
+            },
+            {
+                name: 'ARMS',
+                lat: 40.431184,
+                lng: -86.915602,
+                draggable: false,
+            },
+            {
+                name: 'KRAN',
+                lat: 40.423975,
+                lng: -86.910803,
+                draggable: false,
+            },
+        ];
+        //-------------for datepicler-----------------
         this.myDateRangePickerOptions = {
             // other options...
             dateFormat: 'dd.mm.yyyy',
             height: '34px',
             width: '200px',
         };
+        //-------------for datepicler-----------------
+        this._opened = false;
+        this._closeOnClickOutside = true;
     }
     AppComponent.prototype.onDateRangeChanged = function (event) {
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
+    };
+    AppComponent.prototype._toggleSidebar = function () {
+        this._opened = !this._opened;
     };
     AppComponent = __decorate([
         core_1.Component({

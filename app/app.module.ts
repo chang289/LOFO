@@ -8,8 +8,14 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
 //for datepicker
 import { MyDatePickerModule } from 'mydatepicker';
 
+//for sidebar
+import { SidebarModule } from 'ng-sidebar';
+
 //for map
 import { AgmCoreModule } from 'angular2-google-maps/core';
+
+import { CollapseModule } from 'ng2-bootstrap';
+
 
 @NgModule({
   imports: [ 
@@ -18,10 +24,12 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
     FormsModule,
     MyDatePickerModule,
     MyDateRangePickerModule,
+    SidebarModule,
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
-    }) 
+    }),
+    CollapseModule.forRoot()
   ],
   providers: [],
   declarations: [ AppComponent ],

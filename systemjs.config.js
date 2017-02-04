@@ -28,12 +28,18 @@
       'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
       
       'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.js',
-      'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js'
+      'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js',
+      'ng-sidebar': 'node_modules/ng-sidebar',
+      'ng2-bootstrap': 'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
       app: {
         main: './main.js',
+        defaultExtension: 'js'
+      },
+      'ng-sidebar': {
+        main: 'lib/index',
         defaultExtension: 'js'
       },
       rxjs: {
