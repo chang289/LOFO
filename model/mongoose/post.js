@@ -10,6 +10,8 @@ var postSchema = new mongoose.Schema({
     contact: String,
     photo: String,
     lost: Boolean,
+    createTime: { type: Date, default: new Date() },
+    modifiedTime: { type: Date, default: new Date() },
     complete: { type: Boolean, default: 0 },
 });
 var Post = mongoose.model("Post", postSchema);

@@ -12,8 +12,10 @@ var postSchema = new mongoose.Schema({
   tag         : [Number],
   location    : [Number],
   contact     : String,
-  photo        : String,
+  photo       : String,
   lost        : Boolean,
+  createTime  : { type: Date, default: new Date() },
+  modifiedTime: { type: Date, default: new Date() },
   complete    : { type: Boolean, default: 0 },
   // confirmer   : { type: Schema.Types.ObjectId, ref: 'User', default: null},
 });

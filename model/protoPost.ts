@@ -8,6 +8,8 @@ export interface protoPost{
     contact     : string,
     hoto        : string,
     lost        : boolean,
+    createTime  : Date,
+    modifiedTime: Date,
     complete    : boolean,
     confirmer   : string;
 }
