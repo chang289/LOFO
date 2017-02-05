@@ -6,8 +6,7 @@ var path = require('path');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set('port', (process.env.PORT || 3000));
-app.set('views', path.join(__dirname, 'views'));
+var port = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URL, function(error){
   if (error)
       console.log(error);
@@ -15,13 +14,9 @@ mongoose.connect(process.env.MONGO_URL, function(error){
       console.log('mongo connected');
   }
 });
-app.use('/', index);
+app.use('/', express.static(__dirname + '/'));
 
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+
 
 const server = app.listen(port, function(err) {
   if (err) {
@@ -30,5 +25,3 @@ const server = app.listen(port, function(err) {
   }
   console.log("Listening on port " + port);
 });
-
-module.exports = app;
