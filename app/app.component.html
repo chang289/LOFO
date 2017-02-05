@@ -27,7 +27,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div id="sidebar" style="width: 0%" class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Reports</a></li>
@@ -47,42 +47,53 @@
         <li><a href="">Another nav item</a></li>
       </ul>
     </div>
-    <div >
-		<sebm-google-map 
-		[latitude]="lat" 
-		[longitude]="lng" 
-		[zoom]="15"
-		[disableDefaultUI]="false"
-		(mapClick)="mapClicked($event)"
-		style="height: 100vh">
-		  <sebm-google-map-marker 
-		  *ngFor = "let m of markers; let i = index"
-		  (markerClick)="clickedMarker(m, i)"
-		  [latitude]="m.lat" 
-		  [longitude]="m.lng"
-		  [markerDraggable]="m.draggable"
-		  (dragEnd)="markerDragEnd(m, $event)"
-		  >
-		  <sebm-google-map-info-window>
-		  	<strong>{{m.name}}</strong>>
-		  </sebm-google-map-info-window>
+    <div id="map">
+  		<sebm-google-map 
+  		[latitude]="lat" 
+  		[longitude]="lng" 
+  		[zoom]="15"
+  		[disableDefaultUI]="false"
+  		(mapClick)="mapClicked($event)"
+      (idle)="cluster($event)"
+  		style="height: 100vh">
+  		  <sebm-google-map-marker id='oldMarker'
+    		  *ngFor = "let m of markers; let i = index"
+    		  (markerClick)="clickedMarker(m, i)"
+    		  [latitude]="m.lat"
+    		  [longitude]="m.lng"
+    		  [markerDraggable]="m.draggable"
+          [iconUrl]="m.iconUrl"
+  		  >
+  		  <sebm-google-map-info-window id='oldInfo'>
+          <strong>{{m.name}}</strong><br>
+          <strong>{{m.lat}}</strong><br>
+          <strong>{{m.lng}}</strong>  
+  		  </sebm-google-map-info-window>
+  		  </sebm-google-map-marker>
 
-		  </sebm-google-map-marker>
-		</sebm-google-map>
+        <sebm-google-map-marker id='newMarker'
+          *ngIf="newMarker"
+          [latitude]="newMarker.lat"
+          [longitude]="newMarker.lng"
+          [markerDraggable]="newMarker.draggable"
+        >
+        <sebm-google-map-info-window id='newInfo'
+        [isOpen]=true
+        (infoWindowClose)="cancelPost($event)">
+          <div *ngIf="newMarker">
+            <button 
+              type="button" 
+              class="btn btn-primary"
+              (click)="newPostOnMap()" 
+            >New Post</button>
+          </div>
+        </sebm-google-map-info-window>
+
+        </sebm-google-map-marker>
+  		</sebm-google-map>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -31,6 +31,9 @@
       'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js',
       'ng-sidebar': 'node_modules/ng-sidebar',
       'ng2-bootstrap': 'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+
+      'ts':                         'https://npmcdn.com/plugin-typescript@4.0.10/lib/plugin.js',
+      'typescript':                 'https://npmcdn.com/typescript@1.8.10/lib/typescript.js',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -45,7 +48,7 @@
       rxjs: {
         defaultExtension: 'js'
       },
-
     }
+    
   });
 })(this);
