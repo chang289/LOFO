@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require('path');
+var Post = require("./model/mongoose/post");
+// var routes = require('./model/api/posts');
 
 var app = express();
 app.use(bodyParser.json());
@@ -14,9 +16,20 @@ mongoose.connect(process.env.MONGO_URL, function(error){
       console.log('mongo connected');
   }
 });
+
+
+// routes(app);
+
 app.use('/', express.static(__dirname + '/'));
-
-
+app.post('/post', function (req, res){
+  var newPost = new Post(req.body);
+  newPost.save((err)=>{
+      if (err){
+          res.json({info: 'error', error: err});
+      }
+      res.json({info: 'Post created successfully', data: newPost});
+  });
+});
 
 const server = app.listen(port, function(err) {
   if (err) {
