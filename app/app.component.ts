@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+
+import { addPostComponent } from './addPost.component';
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>`,
+  templateUrl: `/html/app.component.html`,
 })
-export class AppComponent  { name = 'Angular'; }
+export class AppComponent {}
