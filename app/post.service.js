@@ -14,7 +14,7 @@ require('rxjs/add/operator/toPromise');
 var PostService = (function () {
     function PostService(http) {
         this.http = http;
-        this.URL = 'http://localhost:3000/post'; // URL to web api
+        this.URL = 'http://localhost:3000/post/create'; // URL to web api
     }
     // demo(): Posts {
     // 	return this.http.post(this.URL)

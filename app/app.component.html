@@ -14,13 +14,51 @@
       <a class="navbar-brand" href="#">LOFO</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse" >
-      <ul class="nav navbar-nav navbar-left" style="margin-top: 4px;">
-        <li><my-date-range-picker 
+      <ul class="nav navbar-nav navbar-left" >
+        <li style="margin-top: 10px;">
+        <my-date-range-picker placeholder="Select the date range"
 			  [options]="myDateRangePickerOptions"
 		    (dateRangeChanged)="onDateRangeChanged($event)">
 		    </my-date-range-picker>
 		    </li>
-        <li>
+        <li style="margin-top: 4px;">
+          <div class="form-group" dropdown>
+            <label for="sel1"></label>
+            <select [(ngModel)]="mapItem" class="form-control" id="itemFilter">
+              <option selected="selected">All</option>
+              <option>Phone</option>
+              <option>Key</option>
+              <option>Wallet</option>
+              <option>Bag</option>
+              <option>Cloth</option>
+            </select>
+          </div>
+        </li>
+        <li style="margin-top: 4px;">
+          <div class="form-group" dropdown>
+            <label for="sel1"></label>
+            <select [(ngModel)]="mapLostOrFound" class="form-control" id="LostOrFoundFilter">
+              <option selected="selected">All</option>
+              <option>Lost</option>
+              <option>Found</option>
+            </select>
+          </div>
+        </li>
+        <li style="margin-top: 4px;">
+          <div class="form-group" dropdown>
+            <label for="sel1"></label>
+            <select [(ngModel)]="mapExpired" class="form-control" id="expiredFilter">
+              <option selected="selected">All</option>
+              <option>Ongoing</option>
+              <option>Expired</option>
+            </select>
+          </div>
+        </li>
+
+        <li style="margin-top: 9px;">
+          <div id="updateBtn">
+            <button class="btn btn-primary">Update</button>
+          </div>
         </li>
       </ul>
     </div>
@@ -84,7 +122,6 @@
         (infoWindowClose)="cancelPost($event)">
           <div *ngIf="newMarker">
             <button class="btn btn-primary" (click)="lgModal.show()">New Post</button>
-
           </div>
         </sebm-google-map-info-window>
 
@@ -110,7 +147,7 @@
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea [(ngModel)]="description" class="form-control" rows="5" id="description"></textarea>
+          <textarea [(ngModel)]="description" class="form-control" rows="5" id="description" style="max-width: 100%"></textarea>
         </div>
         <div class="form-group">
           <label for="photo">Photo URL</label>

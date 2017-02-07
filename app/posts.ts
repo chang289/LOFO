@@ -4,8 +4,9 @@ export class Posts {
     fullname    : string;
     title       : string;
     description : string;
-    tag         : number[];
-    location    : number[];
+    tag         : number;
+    locationX    : number;
+    locationY    : number;
     contact     : string;
     photo        : string;
     lost        : boolean;

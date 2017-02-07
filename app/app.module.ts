@@ -18,7 +18,6 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 
 import { CollapseModule, ModalModule } from 'ng2-bootstrap';
 
-import { addPostComponent } from './addPost.component';
 
 @NgModule({
   imports: [ 
@@ -37,7 +36,7 @@ import { addPostComponent } from './addPost.component';
     CollapseModule.forRoot()
   ],
   providers: [],
-  declarations: [ AppComponent, addPostComponent ],
+  declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

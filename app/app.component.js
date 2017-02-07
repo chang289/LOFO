@@ -9,12 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var post_service_1 = require('./post.service');
 require('./markerclusterer.js');
+var posts_1 = require('./posts');
 var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'LOFO';
+    function AppComponent(postService) {
+        this.postService = postService;
+        // title: string = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
+        this.str = 'abc';
+        this.tags = 1;
         this.backpackUrl = 'app/backpack_icon.png';
         this.walletUrl = 'app/wallet_icon.png';
         this.keyUrl = 'app/key_icon.png';
@@ -22,36 +27,79 @@ var AppComponent = (function () {
         this.clothUrl = 'app/cloth_icon.png';
         this.markers = [
             {
-                name: 'LWSN',
+                name: 'Wallet_0',
                 lat: 40.427704,
                 lng: -86.916937,
                 draggable: false,
+                iconUrl: 'app/icon_wallet.png'
             },
             {
-                name: 'PMU',
+                name: 'Wallet_1',
                 lat: 40.424660,
                 lng: -86.911482,
                 draggable: false,
+                iconUrl: 'app/icon_wallet.png'
             },
             {
-                name: 'PHYS',
+                name: 'Wallet_2',
                 lat: 40.430124,
                 lng: -86.913057,
                 draggable: false,
+                iconUrl: 'app/icon_wallet.png'
             },
             {
-                name: 'ARMS',
+                name: 'Wallet_3',
                 lat: 40.431184,
                 lng: -86.915602,
                 draggable: false,
+                iconUrl: 'app/icon_wallet.png'
             },
             {
-                name: 'KRAN',
+                name: 'Wallet_4',
                 lat: 40.423975,
                 lng: -86.910803,
                 draggable: false,
+                iconUrl: 'app/icon_wallet.png'
+            },
+            {
+                name: 'Wallet_5',
+                lat: 40.427704,
+                lng: -86.916937,
+                draggable: false,
+                iconUrl: 'app/icon_wallet.png'
+            },
+            {
+                name: 'phone_1',
+                lat: 40.42473535424809,
+                lng: -86.92073822021484,
+                draggable: false,
+                iconUrl: 'app/icon_phone.png'
+            },
+            {
+                name: 'phone_2',
+                lat: 40.42734887689348,
+                lng: -86.91297054290771,
+                draggable: false,
+                iconUrl: 'app/icon_phone.png'
+            },
+            {
+                name: 'phone_3',
+                lat: 40.42845959326608,
+                lng: -86.90915107727051,
+                draggable: false,
+                iconUrl: 'app/icon_phone.png'
+            },
+            {
+                name: 'phone_4',
+                lat: 40.42509471963362,
+                lng: -86.90803527832031,
+                draggable: false,
+                iconUrl: 'app/icon_phone.png'
             },
         ];
+        this.mapItem = 'All';
+        this.mapLostOrFound = 'All';
+        this.mapExpired = 'All';
         //-------------for datepicler-----------------
         this.myDateRangePickerOptions = {
             // other options...
@@ -63,6 +111,19 @@ var AppComponent = (function () {
         this._opened = false;
         this._closeOnClickOutside = true;
     }
+    AppComponent.prototype.onClick = function () {
+        this.post = new posts_1.Posts();
+        this.post.fullname = this.fullname;
+        this.post.title = this.title;
+        this.post.description = this.description;
+        this.post.tag = this.tags;
+        this.post.locationX = this.lat;
+        this.post.locationY = this.lng;
+        this.post.createTime = new Date();
+        this.post.modifiedTime = new Date();
+        this.postService.createPost(this.post);
+        // console.log(this.postService.createPost(post));
+    };
     AppComponent.prototype.clickedMarker = function (marker, index) {
         console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
         var sidebar = document.getElementById('sidebar');
@@ -81,6 +142,7 @@ var AppComponent = (function () {
             name: 'New Post',
             lat: $event.coords.lat,
             lng: $event.coords.lng,
+            item: 'none',
             draggable: false,
         };
         this.newMarker = newMarker;
@@ -113,8 +175,9 @@ var AppComponent = (function () {
             selector: 'my-app',
             templateUrl: '/app/app.component.html',
             styleUrls: ['/app/app.component.css'],
+            providers: [post_service_1.PostService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [post_service_1.PostService])
     ], AppComponent);
     return AppComponent;
 }());

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PostService {
-	private URL = 'http://localhost:3000/post';  // URL to web api
+	private URL = 'http://localhost:3000/post/create';  // URL to web api
 
 	constructor(private http: Http) { }
 

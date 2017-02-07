@@ -22,7 +22,6 @@ var ng_sidebar_1 = require('ng-sidebar');
 //for map
 var core_2 = require('angular2-google-maps/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var addPost_component_1 = require('./addPost.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -43,7 +42,7 @@ var AppModule = (function () {
                 ng2_bootstrap_1.CollapseModule.forRoot()
             ],
             providers: [],
-            declarations: [app_component_1.AppComponent, addPost_component_1.addPostComponent],
+            declarations: [app_component_1.AppComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
