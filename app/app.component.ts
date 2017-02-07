@@ -31,13 +31,14 @@ export class AppComponent {
     constructor(private postService: PostService) { }
     tags: number = 1;
     onClick(): void{
+        console.log(this.tag);
         this.post = new Posts();
         this.post.fullname = this.fullname;
         this.post.title = this.title;
         this.post.description = this.description;
         this.post.tag = this.tags;
-        this.post.locationX = this.lat;
-        this.post.locationY = this.lng;
+        this.post.locationX = this.newMarker.lat;
+        this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
         this.postService.createPost(this.post);
