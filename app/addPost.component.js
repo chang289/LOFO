@@ -25,7 +25,9 @@ var addPostComponent = (function () {
         this.post.description = this.description;
         this.post.tag = this.tags;
         this.post.location = this.locations;
-        console.log(this.post);
+        this.post.createTime = new Date();
+        this.post.modifiedTime = new Date();
+        this.postService.createPost(this.post);
         // console.log(this.postService.createPost(post));
     };
     return addPostComponent;

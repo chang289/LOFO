@@ -22,16 +22,16 @@ export class addPostComponent  {
 
 	tags: number[] = [1];
 	locations: number[] = [40.4247704, -86.916937];	
-
 	onClick(): void{
-
 		this.post = new Posts();
 		this.post.fullname = this.fullname;
 		this.post.title = this.title;
 		this.post.description = this.description;
 		this.post.tag = this.tags;
 		this.post.location = this.locations;
-		console.log(this.post);
+		this.post.createTime = new Date();
+		this.post.modifiedTime = new Date();
+		this.postService.createPost(this.post);
 		// console.log(this.postService.createPost(post));
 	}
 

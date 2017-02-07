@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Attribute } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Posts } from './posts';
 import 'rxjs/add/operator/toPromise';
@@ -6,8 +6,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class PostService {
 	private URL = 'http://localhost:3000/post';  // URL to web api
-
 	constructor(private http: Http) { }
+
 
 	// demo(): Posts {
 	// 	return this.http.post(this.URL)
@@ -17,6 +17,7 @@ export class PostService {
 	// }
 
 	createPost(post: Posts): Promise<Posts> {
+
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
 		return this.http.post(this.URL, post, options)
