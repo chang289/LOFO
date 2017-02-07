@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGO_URL, function(error){
   }
 });
 
+
 // routes(app);
 
 app.use('/', express.static(__dirname + '/'));
