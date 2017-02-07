@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
-    "start": "node app.js",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
@@ -31,18 +31,16 @@
     "core-js": "^2.4.1",
     "ejs": "^2.5.5",
     "express": "^4.14.1",
-    "gulp": "^3.9.1",
     "mongoose": "^4.8.1",
     "morgan": "^1.8.0",
     "path": "^0.12.7",
     "rxjs": "5.0.1",
     "sendgrid": "^4.7.1",
     "systemjs": "0.19.40",
-    "typescript": "^2.1.5",
     "zone.js": "^0.7.4"
   },
   "devDependencies": {
-    "@types/core-js": "^0.9.35",
+
     "@types/jasmine": "^2.5.36",
     "@types/mongoose": "^4.7.3",
     "@types/node": "^7.0.5",
