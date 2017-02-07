@@ -2,6 +2,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var postSchema = new mongoose.Schema({
+    // poster      : { type: Schema.Types.ObjectId, ref: 'User'},
     fullname: String,
     title: String,
     description: String,
