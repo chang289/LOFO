@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require('path');
 var Post = require("./model/mongoose/post");
+var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
 
 var app = express();
