@@ -16,10 +16,12 @@
     <div id="navbar" class="navbar-collapse collapse" >
       <ul class="nav navbar-nav navbar-left" style="margin-top: 4px;">
         <li><my-date-range-picker 
-			[options]="myDateRangePickerOptions"
+			  [options]="myDateRangePickerOptions"
 		    (dateRangeChanged)="onDateRangeChanged($event)">
-		</my-date-range-picker>
-		</li>
+		    </my-date-range-picker>
+		    </li>
+        <li>
+        </li>
       </ul>
     </div>
   </div>
@@ -81,16 +83,72 @@
         [isOpen]=true
         (infoWindowClose)="cancelPost($event)">
           <div *ngIf="newMarker">
-            <button 
-              type="button" 
-              class="btn btn-primary"
-              (click)="newPostOnMap()" 
-            >New Post</button>
+            <button class="btn btn-primary" (click)="lgModal.show()">New Post</button>
+
           </div>
         </sebm-google-map-info-window>
 
         </sebm-google-map-marker>
   		</sebm-google-map>
+    </div>
+
+
+<div class="modal fade" bsModal #lgModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="lgModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input [(ngModel)]="title" type="text" class="form-control" id="title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea [(ngModel)]="description" class="form-control" rows="5" id="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="photo">Photo URL</label>
+          <input [(ngModel)]="photoUrl" type="text" class="form-control" id="photo">
+        </div>
+        <div *ngIf="photoUrl">
+          <img src={{photoUrl}} class="img-thumbnail" alt="If you cannot see photo here, double check url" width="304" height="236">
+        </div>
+        <div class="form-group">
+          <label for="name">Full Name(Optional)</label>
+          <input [(ngModel)]="fullname" type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number(Optional)</label>
+          <input [(ngModel)]="phone" type="text" class="form-control" id="phone">
+        </div>       
+        <div class="form-group">
+          <label for="email">Email Address(Optional)</label>
+          <input [(ngModel)]="email" type="text" class="form-control" id="email">
+        </div>
+        <div>
+        <div class="form-group" dropdown>
+          <label for="sel1">Select list:</label>
+          <select [(ngModel)]="tag" class="form-control" id="sel1">  
+            <option>Phone</option>
+            <option>Key</option>
+            <option>Wallet</option>
+            <option>Bag</option>
+            <option>Cloth</option>
+          </select>
+        </div>
+
+        </div>   
+        <br>
+        <div>
+          <button type="button" class="btn btn-primary" (click)="onClick()">Single Toggle</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

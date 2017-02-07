@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
+import { HttpModule } from '@angular/http';
+
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 
 //for datepicker
@@ -14,8 +16,9 @@ import { SidebarModule } from 'ng-sidebar';
 //for map
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { CollapseModule } from 'ng2-bootstrap';
+import { CollapseModule, ModalModule } from 'ng2-bootstrap';
 
+import { addPostComponent } from './addPost.component';
 
 @NgModule({
   imports: [ 
@@ -25,6 +28,8 @@ import { CollapseModule } from 'ng2-bootstrap';
     MyDatePickerModule,
     MyDateRangePickerModule,
     SidebarModule,
+    HttpModule,
+    ModalModule.forRoot(),
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
@@ -32,7 +37,7 @@ import { CollapseModule } from 'ng2-bootstrap';
     CollapseModule.forRoot()
   ],
   providers: [],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, addPostComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

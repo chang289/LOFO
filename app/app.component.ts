@@ -1,7 +1,8 @@
 import { Component, ContentChild, ContentChildren, OnInit } from '@angular/core';
 import {IMyOptions, IMyDateRangeModel} from 'mydaterangepicker';
 import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
-import './markerclusterer.js'
+import './markerclusterer.js';
+import { addPostComponent } from './addPost.component';
 declare var google: any;
 
 @Component({

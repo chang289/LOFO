@@ -13,6 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
+var http_1 = require('@angular/http');
 var mydaterangepicker_1 = require('mydaterangepicker');
 //for datepicker
 var mydatepicker_1 = require('mydatepicker');
@@ -21,6 +22,7 @@ var ng_sidebar_1 = require('ng-sidebar');
 //for map
 var core_2 = require('angular2-google-maps/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
+var addPost_component_1 = require('./addPost.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,13 +35,15 @@ var AppModule = (function () {
                 mydatepicker_1.MyDatePickerModule,
                 mydaterangepicker_1.MyDateRangePickerModule,
                 ng_sidebar_1.SidebarModule,
+                http_1.HttpModule,
+                ng2_bootstrap_1.ModalModule.forRoot(),
                 core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
                 }),
                 ng2_bootstrap_1.CollapseModule.forRoot()
             ],
             providers: [],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, addPost_component_1.addPostComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
