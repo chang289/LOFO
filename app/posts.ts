@@ -5,8 +5,8 @@ export class Posts {
     title       : string;
     description : string;
     tag         : number;
-    locationX    : number;
-    locationY    : number;
+    locationX   : number;
+    locationY   : number;
     contact     : string;
     photo        : string;
     lost        : boolean;

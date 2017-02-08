@@ -36,6 +36,7 @@ var AppModule = (function () {
                 ng_sidebar_1.SidebarModule,
                 http_1.HttpModule,
                 ng2_bootstrap_1.ModalModule.forRoot(),
+                ng2_bootstrap_1.ButtonsModule.forRoot(),
                 core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
                 }),
