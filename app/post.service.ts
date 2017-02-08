@@ -26,6 +26,7 @@ export class PostService {
 	}
 
 	getOngoingPosts(): Promise<Posts[]> {
+		console.log("ongoing");
 		return this.http.get(this.getOngoingURL)
 			.toPromise()
 			.then(response => response.json().data as Posts[])

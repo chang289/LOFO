@@ -32,6 +32,7 @@ var PostService = (function () {
             .catch(this.handleError);
     };
     PostService.prototype.getOngoingPosts = function () {
+        console.log("ongoing");
         return this.http.get(this.getOngoingURL)
             .toPromise()
             .then(function (response) { return response.json().data; })

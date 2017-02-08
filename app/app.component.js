@@ -14,7 +14,6 @@ require('./markerclusterer.js');
 var posts_1 = require('./posts');
 var AppComponent = (function () {
     function AppComponent(postService) {
-        var _this = this;
         this.postService = postService;
         // title: string = 'LOFO';
         this.lat = 40.424660;
@@ -27,7 +26,6 @@ var AppComponent = (function () {
             'Bag',
             'Cloth'
         ];
-        this.posts = [];
         this.markers = [];
         this.backpackUrl = 'app/backpack_icon.png';
         this.walletUrl = 'app/wallet_icon.png';
@@ -56,9 +54,53 @@ var AppComponent = (function () {
         //-------------for datepicler-----------------
         this._opened = false;
         this._closeOnClickOutside = true;
-        this.postService.getOngoingPosts().then(function (posts) { return _this.posts = posts; });
     }
+    AppComponent.prototype.getPost = function () {
+        var _this = this;
+        console.log("pdd");
+        return this.postService.getOngoingPosts().then(function (posts) { return _this.posts = posts; });
+    };
     AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var promise = this.getPost();
+        console.log(promise);
+        promise.then(function (posts) {
+            // Here you can use the data because it's ready
+            // this.myVariable = data;
+            _this.posts = posts;
+            console.log(posts);
+            var newPostIcon;
+            for (var i in posts) {
+                console.log(i);
+                var singlePost = posts[i];
+                var tag = posts[i].tag;
+                if (tag == 0) {
+                    newPostIcon = 'app/icon_phone.png';
+                }
+                else if (tag == 1) {
+                    newPostIcon = 'app/icon_key.png';
+                }
+                else if (tag == 2) {
+                    newPostIcon = 'app/icon_wallet.png';
+                }
+                else if (tag == 3) {
+                    newPostIcon = 'app/icon_backpack.png';
+                }
+                else if (tag == 4) {
+                    newPostIcon = 'app/icon_cloth.png';
+                }
+                var newMarker = {
+                    name: singlePost.fullname,
+                    lat: singlePost.locationX,
+                    lng: singlePost.locationY,
+                    iconUrl: newPostIcon,
+                    draggable: false,
+                };
+                _this.markers.push(newMarker);
+            }
+        }).catch(function (ex) {
+            console.log(ex);
+        });
         console.log(this.posts);
     };
     AppComponent.prototype.onClick = function () {

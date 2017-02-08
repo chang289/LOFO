@@ -4,6 +4,7 @@ import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 import { PostService } from './post.service';
 import './markerclusterer.js';
 import { Posts } from './posts';
+
 declare var google: any;
 
 @Component({
@@ -36,19 +37,61 @@ export class AppComponent implements OnInit{
         'Bag',
         'Cloth'
     ]
+    posts: Posts[]; 
 
     constructor(private postService: PostService) {
-        this.postService.getOngoingPosts().then(posts => this.posts = posts);
-
     }
 
-    posts: Posts[] = []; 
     markers: marker[] = [];
     m: marker;
 
-    ngOnInit(): void {
-        console.log(this.posts);
+    getPost(): Promise<Posts[]> {
+        console.log("pdd");
+        return this.postService.getOngoingPosts().then(posts => this.posts = posts);
+    }
 
+    ngOnInit(): void {
+        var promise = this.getPost();
+        console.log(promise);
+        promise.then(posts => {
+            // Here you can use the data because it's ready
+            // this.myVariable = data;
+            this.posts = posts;
+            console.log(posts);
+            var newPostIcon: string;
+
+            for (var i in posts) {
+                console.log(i);
+                var singlePost = posts[i];
+                var tag = posts[i].tag;
+                if (tag == 0) {
+                    newPostIcon = 'app/icon_phone.png';
+                } else if (tag == 1) {
+                    newPostIcon = 'app/icon_key.png';
+                } else if (tag == 2) {
+                    newPostIcon = 'app/icon_wallet.png';
+                } else if (tag == 3) {
+                    newPostIcon = 'app/icon_backpack.png';
+                } else if (tag == 4) {
+                    newPostIcon = 'app/icon_cloth.png';
+                }
+
+                var newMarker = {
+                    name: singlePost.fullname,
+                    lat: singlePost.locationX,
+                    lng: singlePost.locationY,
+                    iconUrl: newPostIcon,
+                    draggable: false,
+                }
+                this.markers.push(newMarker);
+            }
+
+
+          }).catch((ex) => {
+            console.log(ex);
+          }
+        );
+        console.log(this.posts);
     }
 
     onClick(): void{
@@ -124,7 +167,7 @@ export class AppComponent implements OnInit{
     newMarker: marker;
 
     clickedMarker(marker:marker, index:number) {
-        
+    
         console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
         var sidebar = document.getElementById('sidebar');
         if (sidebar.style.width != '0%') {
