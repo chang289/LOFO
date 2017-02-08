@@ -93,6 +93,30 @@ app.post('/post/edit/:id', function(req, res){
   });
 });
 
+//signup
+app.post('/user/signup', function(req, res) {
+  var newUser = new User(req.body);
+  newUser.save((err)=>{
+      if (err){
+          res.json({info: 'error', error: err});
+      }
+      res.json({info: 'User created successfully', data: newUser});
+  });
+});
+
+//login
+app.post('/user/login', function(req, res) {
+  User.findOne({'email': req.body.email}, function(err, user) {
+    if(err)
+      res.json({info: 'error', error: err});
+    if (!user) {
+      res.json({ message : 'No such user'});
+    }
+    if (req.body.password == user.password) {
+      res.json({info: 'Login successfully', data: user});
+    } else { res.json({ message : 'Password invalid'}); }
+  })
+});
 
 const server = app.listen(port, function(err) {
   if (err) {
