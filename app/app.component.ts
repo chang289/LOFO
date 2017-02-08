@@ -28,21 +28,59 @@ export class AppComponent {
     post: Posts;
     photoUrl: string;
 
+    tags: string[] = [
+        'Phone',
+        'Key',
+        'Wallet',
+        'Bag',
+        'Cloth'
+    ]
+
     constructor(private postService: PostService) { }
-    tags: number = 1;
     onClick(): void{
         console.log(this.tag);
         this.post = new Posts();
         this.post.fullname = this.fullname;
         this.post.title = this.title;
         this.post.description = this.description;
-        this.post.tag = this.tags;
+        this.post.tag = this.tag;
+        this.post.photo = this.phone;
         this.post.locationX = this.newMarker.lat;
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
         this.postService.createPost(this.post);
-        // console.log(this.postService.createPost(post));
+
+
+        var newPostIcon: string;
+
+        if (this.post.tag == 0) {
+            newPostIcon = 'app/icon_phone.png';
+        } else if (this.post.tag == 1) {
+            newPostIcon = 'app/icon_key.png';
+        } else if (this.post.tag == 2) {
+            newPostIcon = 'app/icon_wallet.png';
+        } else if (this.post.tag == 3) {
+            newPostIcon = 'app/icon_backpack.png';
+        } else if (this.post.tag == 4) {
+            newPostIcon = 'app/icon_cloth.png';
+        }
+
+        var newMarker = {
+            name: 'New Post',
+            lat: this.newMarker.lat,
+            lng: this.newMarker.lng,
+            iconUrl: newPostIcon,
+            draggable: false,
+        }
+        this.markers.push(newMarker);
+        this.newMarker = null;
+        this.fullname = null;
+        this.title = null;
+        this.description = null;
+        this.phone = null;
+        this.tag = -1;
+        //console.log(this.postService.createPost(post));
     }
 
 	googleMarkers : any;
@@ -62,75 +100,6 @@ export class AppComponent {
             lng: -86.916937,
             draggable: false,
             iconUrl: 'app/icon_wallet.png'
-        },
-        {
-            name: 'Wallet_1',
-            lat: 40.424660,
-            lng: -86.911482,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-
-        },
-        {
-            name: 'Wallet_2',
-            lat: 40.430124,
-            lng: -86.913057,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-
-        },
-        {
-            name: 'Wallet_3',
-            lat: 40.431184,
-            lng: -86.915602,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-
-        },
-        {
-            name: 'Wallet_4',
-            lat: 40.423975,
-            lng: -86.910803,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-        },
-        {
-            name: 'Wallet_5',
-            lat: 40.427704,
-            lng: -86.916937,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-        },
-        {
-            name: 'phone_1',
-            lat: 40.42473535424809,
-            lng: -86.92073822021484,
-            draggable: false,
-            iconUrl: 'app/icon_phone.png'
-
-        },
-        {
-            name: 'phone_2',
-            lat: 40.42734887689348,
-            lng: -86.91297054290771,
-            draggable: false,
-            iconUrl: 'app/icon_phone.png'
-
-        },
-        {
-            name: 'phone_3',
-            lat: 40.42845959326608,
-            lng: -86.90915107727051,
-            draggable: false,
-            iconUrl: 'app/icon_phone.png'
-
-        },
-        {
-            name: 'phone_4',
-            lat: 40.42509471963362,
-            lng: -86.90803527832031,
-            draggable: false,
-            iconUrl: 'app/icon_phone.png'
         },
     ];
 
@@ -156,6 +125,7 @@ export class AppComponent {
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);
+        console.log(this.markers);
         var newMarker = {
             name: 'New Post',
             lat: $event.coords.lat,
