@@ -141,6 +141,11 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="btn-group">
+          <label class="btn btn-primary" [(ngModel)]="lost" btnRadio="true">Lost</label>
+          <label class="btn btn-primary" [(ngModel)]="lost" btnRadio="false">Found</label>
+      </div>
+
         <div class="form-group">
           <label for="title">Title</label>
           <input [(ngModel)]="title" type="text" class="form-control" id="title">
@@ -164,10 +169,6 @@
           <label for="phone">Phone Number(Optional)</label>
           <input [(ngModel)]="phone" type="text" class="form-control" id="phone">
         </div>       
-        <div class="form-group">
-          <label for="email">Email Address(Optional)</label>
-          <input [(ngModel)]="email" type="text" class="form-control" id="email">
-        </div>
         <div>
         <div class="form-group" dropdown>
           <label for="sel1">Select list:</label>

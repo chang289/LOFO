@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
 	lat: number = 40.424660;
 	lng: number = -86.911482;
     str='abc';
-
+    posts: Posts[]; 
     title: string;
     description: string;
     fullname: string;
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit{
     tag: number;
     post: Posts;
     photoUrl: string;
+    lost: boolean = true;
 
 
     tags: string[] = [
@@ -37,7 +38,6 @@ export class AppComponent implements OnInit{
         'Bag',
         'Cloth'
     ]
-    posts: Posts[]; 
 
     constructor(private postService: PostService) {
     }
@@ -101,11 +101,14 @@ export class AppComponent implements OnInit{
         this.post.title = this.title;
         this.post.description = this.description;
         this.post.tag = this.tag;
-        this.post.photo = this.phone;
+        this.post.photo = this.photoUrl;
+        this.post.contact = this.phone;
         this.post.locationX = this.newMarker.lat;
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
+        this.post.lost = this.lost;
+        console.log(this.post);
         this.postService.createPost(this.post);
 
 
@@ -233,7 +236,18 @@ export class AppComponent implements OnInit{
 	private _toggleSidebar() {
 		this._opened = !this._opened;
 	}
+
+    setLost(): void {
+        console.log("lost");
+        this.lost = true;
+    }
+    setFound(): void {
+        console.log("found");
+        this.lost = false;
+    }
 }
+
+
 
 interface marker {
     name?: string;

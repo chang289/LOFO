@@ -16,7 +16,8 @@ import { SidebarModule } from 'ng-sidebar';
 //for map
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { CollapseModule, ModalModule } from 'ng2-bootstrap';
+import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
+
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CollapseModule, ModalModule } from 'ng2-bootstrap';
     SidebarModule,
     HttpModule,
     ModalModule.forRoot(),
+    ButtonsModule.forRoot(),
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
