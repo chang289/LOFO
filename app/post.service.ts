@@ -5,8 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PostService {
-	private URL = 'http://localhost:3000/post/create';  // URL to web api
-
+	private createURL = 'http://localhost:3000/post/create';  // URL to web api
+	private getOngoingURL = 'http://localhost:3000/post/get/ongoing';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -19,9 +19,16 @@ export class PostService {
 	createPost(post: Posts): Promise<Posts> {
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
-		return this.http.post(this.URL, post, options)
+		return this.http.post(this.createURL, post, options)
 			.toPromise()
 			.then(response => response.json().data as Posts)
+			.catch(this.handleError);
+	}
+
+	getOngoingPosts(): Promise<Posts[]> {
+		return this.http.get(this.getOngoingURL)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);
 	}
 

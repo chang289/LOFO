@@ -14,6 +14,7 @@ require('./markerclusterer.js');
 var posts_1 = require('./posts');
 var AppComponent = (function () {
     function AppComponent(postService) {
+        var _this = this;
         this.postService = postService;
         // title: string = 'LOFO';
         this.lat = 40.424660;
@@ -26,20 +27,22 @@ var AppComponent = (function () {
             'Bag',
             'Cloth'
         ];
+        this.posts = [];
+        this.markers = [];
         this.backpackUrl = 'app/backpack_icon.png';
         this.walletUrl = 'app/wallet_icon.png';
         this.keyUrl = 'app/key_icon.png';
         this.cellphoneUrl = 'app/cellphone_icon.png';
         this.clothUrl = 'app/cloth_icon.png';
-        this.markers = [
-            {
-                name: 'Wallet_0',
-                lat: 40.427704,
-                lng: -86.916937,
-                draggable: false,
-                iconUrl: 'app/icon_wallet.png'
-            },
-        ];
+        // markers: marker[] = [
+        //     {
+        //         name: 'Wallet_0',
+        //         lat: 40.427704,
+        //         lng: -86.916937,
+        //         draggable: false,
+        //         iconUrl: 'app/icon_wallet.png'
+        //     },
+        // ];
         this.mapItem = 'All';
         this.mapLostOrFound = 'All';
         this.mapExpired = 'All';
@@ -53,7 +56,11 @@ var AppComponent = (function () {
         //-------------for datepicler-----------------
         this._opened = false;
         this._closeOnClickOutside = true;
+        this.postService.getOngoingPosts().then(function (posts) { return _this.posts = posts; });
     }
+    AppComponent.prototype.ngOnInit = function () {
+        console.log(this.posts);
+    };
     AppComponent.prototype.onClick = function () {
         console.log(this.tag);
         this.post = new posts_1.Posts();
@@ -110,6 +117,7 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.mapClicked = function ($event) {
+        console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);

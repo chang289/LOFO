@@ -12,7 +12,7 @@ declare var google: any;
   styleUrls: ['/app/app.component.css'],
   providers: [PostService]
 })
-export class AppComponent { 
+export class AppComponent implements OnInit{ 
 
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
@@ -28,6 +28,7 @@ export class AppComponent {
     post: Posts;
     photoUrl: string;
 
+
     tags: string[] = [
         'Phone',
         'Key',
@@ -36,7 +37,20 @@ export class AppComponent {
         'Cloth'
     ]
 
-    constructor(private postService: PostService) { }
+    constructor(private postService: PostService) {
+        this.postService.getOngoingPosts().then(posts => this.posts = posts);
+
+    }
+
+    posts: Posts[] = []; 
+    markers: marker[] = [];
+    m: marker;
+
+    ngOnInit(): void {
+        console.log(this.posts);
+
+    }
+
     onClick(): void{
         console.log(this.tag);
         this.post = new Posts();
@@ -93,15 +107,15 @@ export class AppComponent {
     cellphoneUrl: string = 'app/cellphone_icon.png';
     clothUrl: string = 'app/cloth_icon.png';
 
-    markers: marker[] = [
-        {
-            name: 'Wallet_0',
-            lat: 40.427704,
-            lng: -86.916937,
-            draggable: false,
-            iconUrl: 'app/icon_wallet.png'
-        },
-    ];
+    // markers: marker[] = [
+    //     {
+    //         name: 'Wallet_0',
+    //         lat: 40.427704,
+    //         lng: -86.916937,
+    //         draggable: false,
+    //         iconUrl: 'app/icon_wallet.png'
+    //     },
+    // ];
 
     mapItem: String = 'All';
     mapLostOrFound: String = 'All';
@@ -121,7 +135,7 @@ export class AppComponent {
     }
 
     mapClicked($event:any) {
-
+        console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);

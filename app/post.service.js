@@ -14,7 +14,8 @@ require('rxjs/add/operator/toPromise');
 var PostService = (function () {
     function PostService(http) {
         this.http = http;
-        this.URL = 'http://localhost:3000/post/create'; // URL to web api
+        this.createURL = 'http://localhost:3000/post/create'; // URL to web api
+        this.getOngoingURL = 'http://localhost:3000/post/get/ongoing';
     }
     // demo(): Posts {
     // 	return this.http.post(this.URL)
@@ -25,7 +26,13 @@ var PostService = (function () {
     PostService.prototype.createPost = function (post) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(this.URL, post, options)
+        return this.http.post(this.createURL, post, options)
+            .toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+    };
+    PostService.prototype.getOngoingPosts = function () {
+        return this.http.get(this.getOngoingURL)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
