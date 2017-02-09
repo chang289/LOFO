@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 interface protoUserModel extends protoUser, mongoose.Document {}
 
 var userSchema = new mongoose.Schema({
-  email       : String,
+  email       : { type: String, unique: true },
   username    : String,
   password    : String,
   history     : [String]
