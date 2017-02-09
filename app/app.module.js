@@ -14,6 +14,7 @@ var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
 var mydaterangepicker_1 = require('mydaterangepicker');
 //for datepicker
 var mydatepicker_1 = require('mydatepicker');
@@ -22,6 +23,8 @@ var ng_sidebar_1 = require('ng-sidebar');
 //for map
 var core_2 = require('angular2-google-maps/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
+var pipi_component_1 = require('./pipi.component');
+var map_component_1 = require('./map.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,13 +40,28 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 ng2_bootstrap_1.ModalModule.forRoot(),
                 ng2_bootstrap_1.ButtonsModule.forRoot(),
+                router_1.RouterModule.forRoot([
+                    {
+                        path: '',
+                        redirectTo: '/map',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'pipi',
+                        component: pipi_component_1.PipiComponent
+                    },
+                    {
+                        path: 'map',
+                        component: map_component_1.MapComponent
+                    }
+                ]),
                 core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
                 }),
                 ng2_bootstrap_1.CollapseModule.forRoot()
             ],
             providers: [],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

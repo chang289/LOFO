@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var PipiComponent = (function () {
+    function PipiComponent() {
     }
-    AppComponent = __decorate([
+    PipiComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: '<router-outlet></router-outlet>',
+            selector: 'pi-pi',
+            template: '<h1>Pipi</h1>',
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], PipiComponent);
+    return PipiComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.PipiComponent = PipiComponent;
+//# sourceMappingURL=pipi.component.js.map

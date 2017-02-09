@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 
@@ -17,8 +18,8 @@ import { SidebarModule } from 'ng-sidebar';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
 import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
-
-
+import { PipiComponent } from './pipi.component';
+import { MapComponent } from './map.component';
 
 @NgModule({
   imports: [ 
@@ -31,6 +32,21 @@ import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
     HttpModule,
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
+    RouterModule.forRoot([
+        {
+          path: '',
+          redirectTo: '/map',
+          pathMatch: 'full'
+        },
+        {
+          path: 'pipi',
+          component: PipiComponent
+        },
+        {
+          path: 'map',
+          component: MapComponent
+        }
+      ]),
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9uiQRUlJhkX7x0Vf0ZAvzOF-qcXO-O5Y'
@@ -38,7 +54,7 @@ import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
     CollapseModule.forRoot()
   ],
   providers: [],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, PipiComponent, MapComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
