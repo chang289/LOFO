@@ -30,7 +30,15 @@ app.post('/post/create', function (req, res){
       if (err){
           return res.json({info: 'error', error: err});
       }
-      res.json({info: 'Post created successfully', data: newPost});
+      User.findById( req.body.poster, function(err, user) {
+        user.history.push(newPost._id);
+        user.save((err)=>{
+            if (err){
+                return res.json({info: 'error', error: err});
+            }
+            res.json({info: 'Post created successfully', data: newPost});
+        });
+      })
   });
 });
 

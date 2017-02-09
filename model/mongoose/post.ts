@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 interface protoPostModel extends protoPost, mongoose.Document {}
 
 var postSchema = new mongoose.Schema({
-  // poster      : { type: Schema.Types.ObjectId, ref: 'User'},
+  poster      : { type: Schema.Types.ObjectId, ref: 'User'},
   fullname    : String,
   title       : String,
   description : String,
