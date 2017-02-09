@@ -19,7 +19,7 @@ var AppComponent = (function () {
         this.lat = 40.424660;
         this.lng = -86.911482;
         this.str = 'abc';
-        this.lost = true;
+        this.lost = 'true';
         this.tags = [
             'Phone',
             'Key',
@@ -117,7 +117,10 @@ var AppComponent = (function () {
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
-        this.post.lost = this.lost;
+        if (this.lost == 'true')
+            this.post.lost = true;
+        else if (this.lost == 'false')
+            this.post.lost = false;
         console.log(this.post);
         this.postService.createPost(this.post);
         var newPostIcon;
@@ -199,14 +202,6 @@ var AppComponent = (function () {
     };
     AppComponent.prototype._toggleSidebar = function () {
         this._opened = !this._opened;
-    };
-    AppComponent.prototype.setLost = function () {
-        console.log("lost");
-        this.lost = true;
-    };
-    AppComponent.prototype.setFound = function () {
-        console.log("found");
-        this.lost = false;
     };
     AppComponent = __decorate([
         core_1.Component({

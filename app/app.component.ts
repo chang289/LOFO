@@ -28,8 +28,7 @@ export class AppComponent implements OnInit{
     tag: number;
     post: Posts;
     photoUrl: string;
-    lost: boolean = true;
-
+    lost: string = 'true';
 
     tags: string[] = [
         'Phone',
@@ -107,7 +106,9 @@ export class AppComponent implements OnInit{
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
-        this.post.lost = this.lost;
+
+        if (this.lost == 'true') this.post.lost = true;
+        else if (this.lost == 'false') this.post.lost = false;
         console.log(this.post);
         this.postService.createPost(this.post);
 
@@ -236,15 +237,6 @@ export class AppComponent implements OnInit{
 	private _toggleSidebar() {
 		this._opened = !this._opened;
 	}
-
-    setLost(): void {
-        console.log("lost");
-        this.lost = true;
-    }
-    setFound(): void {
-        console.log("found");
-        this.lost = false;
-    }
 }
 
 
