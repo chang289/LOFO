@@ -1,4 +1,4 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,10 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
 import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
+
+const APP_DECLARATION = [
+    AppComponent
+];
 
 @NgModule({
   imports: [ 
@@ -53,8 +57,10 @@ import { MapComponent } from './map.component';
     }),
     CollapseModule.forRoot()
   ],
+  exports: [RouterModule],
   providers: [],
-  declarations: [ AppComponent, PipiComponent, MapComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION ],
+  bootstrap:    [ AppComponent ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

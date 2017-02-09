@@ -173,10 +173,10 @@ export class MapComponent implements OnInit{
     
         console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
         var sidebar = document.getElementById('sidebar');
-        if (sidebar.style.width != '0%') {
-            sidebar.style.width = '0%';
+        if (sidebar.style.display != 'none') {
+            sidebar.style.display = 'none';
         } else {
-            sidebar.style.width = '20%';
+            sidebar.style.display = 'block';
         }
     }
 

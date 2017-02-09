@@ -25,6 +25,9 @@ var core_2 = require('angular2-google-maps/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var pipi_component_1 = require('./pipi.component');
 var map_component_1 = require('./map.component');
+var APP_DECLARATION = [
+    app_component_1.AppComponent
+];
 var AppModule = (function () {
     function AppModule() {
     }
@@ -60,9 +63,11 @@ var AppModule = (function () {
                 }),
                 ng2_bootstrap_1.CollapseModule.forRoot()
             ],
+            exports: [router_1.RouterModule],
             providers: [],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent],
-            bootstrap: [app_component_1.AppComponent]
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION],
+            bootstrap: [app_component_1.AppComponent],
+            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
