@@ -30,15 +30,7 @@ app.post('/post/create', function (req, res){
       if (err){
           return res.json({info: 'error', error: err});
       }
-      User.findById( req.body.poster, function(err, user) {
-        user.history.push(newPost._id);
-        user.save((err)=>{
-            if (err){
-                return res.json({info: 'error', error: err});
-            }
-            res.json({info: 'Post created successfully', data: newPost});
-        });
-      })
+      res.json({info: 'Post created successfully', data: newPost});
   });
 });
 
@@ -71,6 +63,15 @@ app.get('/post/get/complete', function(req, res) {
 //get post by id
 app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
+    if(err)
+      return res.json({info: 'error', error: err});
+    res.json({info: 'Post found', data: post});
+  });
+});
+
+//get post by poster's email
+app.post('/post/get/email', function(req, res){
+  Post.find( {'poster': req.body.poster}, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
     res.json({info: 'Post found', data: post});

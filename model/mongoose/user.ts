@@ -8,7 +8,6 @@ var userSchema = new mongoose.Schema({
   email       : { type: String, unique: true },
   username    : String,
   password    : String,
-  history     : [String]
 });
 
 var User = mongoose.model<protoUserModel>("User", userSchema);
