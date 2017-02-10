@@ -48,7 +48,7 @@ var AppModule = (function () {
                 router_1.RouterModule.forRoot([
                     {
                         path: '',
-                        redirectTo: '/map',
+                        redirectTo: '/login',
                         pathMatch: 'full'
                     },
                     {

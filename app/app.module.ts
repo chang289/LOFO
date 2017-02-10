@@ -45,7 +45,7 @@ const APP_DECLARATION = [
     RouterModule.forRoot([
         {
           path: '',
-          redirectTo: '/map',
+          redirectTo: '/login',
           pathMatch: 'full'
         },
         {
