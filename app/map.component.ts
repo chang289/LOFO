@@ -49,6 +49,8 @@ export class MapComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.cookieService.put("lofoemail","zhou482@purdue.edu");
+        this.cookieService.put("lofouser","pipixia");
         var promise = this.getPost();
         console.log(promise);
         promise.then(posts => {
@@ -91,8 +93,9 @@ export class MapComponent implements OnInit{
     }
 
     onClick(): void{
-        console.log(this.tag);
+        console.log(this.cookieService.get("lofoemail"));
         this.post = new Posts();
+        this.post.poster = this.cookieService.get("lofoemail");
         this.post.fullname = this.fullname;
         this.post.title = this.title;
         this.post.description = this.description;
@@ -106,8 +109,7 @@ export class MapComponent implements OnInit{
 
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
-        console.log(this.post);
-        this.postService.createPost(this.post);
+        console.log(this.postService.createPost(this.post));
 
 
         var newPostIcon: string;

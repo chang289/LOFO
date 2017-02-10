@@ -1,5 +1,6 @@
 
 export class Post {
+    _id         : string;
     poster      : string;
     fullname    : string;
     title       : string;
