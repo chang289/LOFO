@@ -27,6 +27,7 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var pipi_component_1 = require('./pipi.component');
 var map_component_1 = require('./map.component');
 var history_component_1 = require('./history.component');
+var edit_component_1 = require('./edit.component');
 var APP_DECLARATION = [
     app_component_1.AppComponent
 ];
@@ -71,7 +72,7 @@ var AppModule = (function () {
             ],
             exports: [router_1.RouterModule],
             providers: [cookies_service_1.CookieService],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 

@@ -22,6 +22,7 @@ import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
 import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
 import { HistoryComponent } from './history.component';
+import { EditComponent } from './edit.component';
 
 const APP_DECLARATION = [
     AppComponent
@@ -65,7 +66,7 @@ const APP_DECLARATION = [
   ],
   exports: [RouterModule],
   providers: [ CookieService ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

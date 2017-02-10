@@ -10,7 +10,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 var port = process.env.PORT || 3000;
-mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground" ,function(error){
+mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", function(error){
   if (error)
       console.log(error);
   else {
@@ -28,7 +28,7 @@ app.post('/post/create', function (req, res){
   var newPost = new Post(req.body);
   newPost.save((err)=>{
       if (err){
-          res.json({info: 'error', error: err});
+          return res.json({info: 'error', error: err});
       }
       res.json({info: 'Post created successfully', data: newPost});
   });
@@ -40,7 +40,7 @@ app.get('/post/get/ongoing', function(req, res) {
     .sort({ createTime: -1 , modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
-          res.json({info: 'error', error: err});
+          return res.json({info: 'error', error: err});
       }
       if (post.length == 0) {res.json({info: 'No posts found'});}
       else {res.json({info: 'Posts found', data: post}); }
@@ -53,7 +53,7 @@ app.get('/post/get/complete', function(req, res) {
     .sort({ createTime: -1 , modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
-          res.json({info: 'error', error: err});
+          return res.json({info: 'error', error: err});
       }
       if (post.length == 0) {res.json({info: 'No posts found'});}
       else {res.json({info: 'Posts found', data: post}); }
@@ -64,7 +64,20 @@ app.get('/post/get/complete', function(req, res) {
 app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
     if(err)
-      res.json({info: 'error', error: err});
+      return res.json({info: 'error', error: err});
+    if (!post)
+      return res.json({info: 'No post found'});
+    res.json({info: 'Post found', data: post});
+  });
+});
+
+//get post by poster's email
+app.get('/post/get/email/:poster', function(req, res){
+  Post.find( {'poster': req.params.poster}, function (err, post) {
+    if(err)
+      return res.json({info: 'error', error: err});
+    if (post.length == 0)
+      return res.json({info: 'No post found'});
     res.json({info: 'Post found', data: post});
   });
 });
@@ -74,7 +87,17 @@ app.delete('/post/delete/:id', function(req, res){
   //remove post by ID
   Post.remove({ _id: req.params.id }, function(err){
     if(err)
-      res.json({info: 'error', error: err});
+      return res.json({info: 'error', error: err});
+    res.json({ message : 'Post delete'});
+  });
+});
+
+//delete all post with title contains "test"
+app.delete('/post/deleteAll', function(req, res){
+  //remove post by ID
+  Post.remove({ "title" : {$regex : ".*Test.*"} }, function(err){
+    if(err)
+      return res.json({info: 'error', error: err});
     res.json({ message : 'Post delete'});
   });
 });
@@ -83,16 +106,50 @@ app.delete('/post/delete/:id', function(req, res){
 app.post('/post/edit/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
     if(err)
-      res.json({info: 'error', error: err});
-    post = new Post(req.body);
+      return res.json({info: 'error', error: err});
+    if(!post){
+      return res.json({ message : 'No such post'});
+    }
+    post.fullname = req.body.fullname;
+    post.title = req.body.title;
+    post.description = req.body.description;
+    post.tag = req.body.tag;
+    post.contact = req.body.contact;
+    post.photo = req.body.photo;
+    post.modifiedTime = new Date();
+
     post.save(function(err, po){
       if(err)
-        res.json({info: 'error', error: err});
+        return res.json({info: 'error', error: err});
       res.json({info: 'Posts updated', data: post});
     });
   });
 });
 
+//signup
+app.post('/user/signup', function(req, res) {
+  var newUser = new User(req.body);
+  newUser.save((err)=>{
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      res.json({info: 'User created successfully', data: newUser});
+  });
+});
+
+//login
+app.post('/user/login', function(req, res) {
+  User.findOne({'email': req.body.email}, function(err, user) {
+    if(err)
+      return res.json({info: 'error', error: err});
+    if (!user) {
+      return res.json({ message : 'No such user'});
+    }
+    if (req.body.password == user.password) {
+      res.json({info: 'Login successfully', data: user});
+    } else { res.json({ message : 'Password invalid'}); }
+  })
+});
 
 const server = app.listen(port, function(err) {
   if (err) {

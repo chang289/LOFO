@@ -10,32 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var core_2 = require('angular2-cookie/core');
 require('rxjs/add/operator/toPromise');
 var HistoryService = (function () {
-    function HistoryService(http) {
+    function HistoryService(http, cookieService) {
         this.http = http;
-        this.getOngoingPostUrl = 'http://localhost:3000/post/get/ongoing';
-        this.updatePostUrl = 'http://localhost:3000/post/edit/589cdb4d92ac621c085563fb';
-        this.createPostUrl = 'http://localhost:3000/post/create';
-        this.deletePostByIdUrl = 'http://localhost:3000/post/delete/589bdc68f9e45f250c75c588';
+        this.cookieService = cookieService;
+        this.lofoEmail = this.cookieService.get("lofoemail");
+        this.getUserPostsUrl = 'http://localhost:3000/post/get/email/';
+        this.updatePostUrl = 'http://localhost:3000/post/edit/';
+        this.deletePostByIdUrl = 'http://localhost:3000/post/delete/';
     }
     HistoryService.prototype.getPosts = function () {
-        return this.http.get(this.getOngoingPostUrl)
+        console.log(this.getUserPostsUrl);
+        return this.http.get(this.getUserPostsUrl + this.lofoEmail)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
     HistoryService.prototype.updatePosts = function (post) {
+        console.log(post._id);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         console.log("hhhh");
-        return this.http.post(this.updatePostUrl, post, options)
+        return this.http.post(this.updatePostUrl + post._id, post, options)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
     HistoryService.prototype.deletePostByID = function (post) {
-        return this.http.delete(this.deletePostByIdUrl)
+        return this.http.delete(this.deletePostByIdUrl + post._id)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
@@ -46,7 +50,7 @@ var HistoryService = (function () {
     };
     HistoryService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, core_2.CookieService])
     ], HistoryService);
     return HistoryService;
 }());

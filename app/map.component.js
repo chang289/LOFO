@@ -65,6 +65,8 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.cookieService.put("lofoemail", "zhou482@purdue.edu");
+        this.cookieService.put("lofouser", "pipixia");
         var promise = this.getPost();
         console.log(promise);
         promise.then(function (posts) {
@@ -107,8 +109,9 @@ var MapComponent = (function () {
         console.log(this.posts);
     };
     MapComponent.prototype.onClick = function () {
-        console.log(this.tag);
+        console.log(this.cookieService.get("lofoemail"));
         this.post = new posts_1.Posts();
+        this.post.poster = this.cookieService.get("lofoemail");
         this.post.fullname = this.fullname;
         this.post.title = this.title;
         this.post.description = this.description;
@@ -123,8 +126,7 @@ var MapComponent = (function () {
             this.post.lost = true;
         else if (this.lost == 'false')
             this.post.lost = false;
-        console.log(this.post);
-        this.postService.createPost(this.post);
+        console.log(this.postService.createPost(this.post));
         var newPostIcon;
         if (this.post.tag == 0) {
             newPostIcon = 'app/icon_phone.png';
@@ -168,7 +170,6 @@ var MapComponent = (function () {
         }
     };
     MapComponent.prototype.mapClicked = function ($event) {
-        console.log(this.cookieService.get("username"));
         console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
