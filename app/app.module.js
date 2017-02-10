@@ -17,8 +17,6 @@ var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var cookies_service_1 = require('angular2-cookie/services/cookies.service');
 var mydaterangepicker_1 = require('mydaterangepicker');
-//for datepicker
-var mydatepicker_1 = require('mydatepicker');
 //for sidebar
 var ng_sidebar_1 = require('ng-sidebar');
 //for map
@@ -42,7 +40,6 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
-                mydatepicker_1.MyDatePickerModule,
                 mydaterangepicker_1.MyDateRangePickerModule,
                 ng_sidebar_1.SidebarModule,
                 http_1.HttpModule,

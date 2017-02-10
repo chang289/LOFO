@@ -1,8 +1,8 @@
 import { Component, ContentChild, ContentChildren, OnInit } from '@angular/core';
 import {IMyOptions, IMyDateRangeModel} from 'mydaterangepicker';
 import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
-import { CookieService } from 'angular2-cookie/core';
 import { PostService } from './post.service';
+import { CookieService } from 'angular2-cookie/core';
 import './markerclusterer.js';
 import { Posts } from './posts';
 
@@ -85,8 +85,6 @@ export class MapComponent implements OnInit{
                 }
                 this.markers.push(newMarker);
             }
-
-
           }).catch((ex) => {
             console.log(ex);
           }

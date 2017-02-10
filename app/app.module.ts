@@ -26,6 +26,8 @@ import { EditComponent } from './edit.component';
 import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
 
+import { myDateRangePickerDirective } from './my-date-range-picker.directive'
+
 const APP_DECLARATION = [
     AppComponent
 ];
@@ -35,7 +37,6 @@ const APP_DECLARATION = [
   	BrowserModule,
   	CommonModule,
     FormsModule,
-    MyDatePickerModule,
     MyDateRangePickerModule,
     SidebarModule,
     HttpModule,

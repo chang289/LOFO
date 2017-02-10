@@ -9,19 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var PipiComponent = (function () {
-    function PipiComponent() {
+/**
+ * dummy directive to allow html-tag "sidebar"
+ */
+var myDateRangePickerDirective = (function () {
+    function myDateRangePickerDirective() {
     }
-    PipiComponent.prototype.ngOnInit = function () {
-    };
-    PipiComponent = __decorate([
-        core_1.Component({
-            selector: 'pi-pi',
-            template: '<h1>Pipi</h1>',
-        }), 
+    myDateRangePickerDirective = __decorate([
+        core_1.Directive({ selector: 'my-date-range-picker' }), 
         __metadata('design:paramtypes', [])
-    ], PipiComponent);
-    return PipiComponent;
+    ], myDateRangePickerDirective);
+    return myDateRangePickerDirective;
 }());
-exports.PipiComponent = PipiComponent;
-//# sourceMappingURL=pipi.component.js.map
+exports.myDateRangePickerDirective = myDateRangePickerDirective;
+//# sourceMappingURL=my-date-range-picker.directive.js.map
