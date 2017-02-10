@@ -18,14 +18,18 @@ var UserService = (function () {
         this.loginURL = 'http://localhost:3000/user/login';
     }
     UserService.prototype.signupUser = function (user) {
-        return this.http.post(this.signupURL, user)
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post(this.signupURL, user, options)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
     UserService.prototype.loginUser = function (user) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
         console.log("Login process...");
-        return this.http.post(this.loginURL, user)
+        return this.http.post(this.loginURL, user, options)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);

@@ -1,13 +1,14 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
-import { RouterModule }  from '@angular/router'
-import { APP_BASE_HREF } from '@angular/common';
+import { NgModule }       from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { FormsModule }    from '@angular/forms';
+import { RouterModule }   from '@angular/router';
+import { APP_BASE_HREF }  from '@angular/common';
+import { HttpModule }     from '@angular/http';
 
-import { AppComponent}        from './app.component'
+import { AppComponent}        from './app.component';
 import { LoginComponent }     from './login.component';
+import { RegisterComponent }  from './register.component';
 import { UserService }        from './user.service';
-import { RegisterComponent }  from './register.component'
 
 
 
@@ -15,6 +16,7 @@ import { RegisterComponent }  from './register.component'
   imports: [      //angular自带模块
   	BrowserModule,
   	FormsModule,
+    HttpModule,
     RouterModule.forRoot([
     {
       path: '',
@@ -38,7 +40,6 @@ import { RegisterComponent }  from './register.component'
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/'},
-    UserService
   ],
   bootstrap:    [ AppComponent]  //默认启动模块
 })

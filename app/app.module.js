@@ -10,9 +10,9 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login.component");
-var user_service_1 = require("./user.service");
 var register_component_1 = require("./register.component");
 var AppModule = (function () {
     function AppModule() {
@@ -24,6 +24,7 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
+            http_1.HttpModule,
             router_1.RouterModule.forRoot([
                 {
                     path: '',
@@ -47,7 +48,6 @@ AppModule = __decorate([
         ],
         providers: [
             { provide: common_1.APP_BASE_HREF, useValue: '/' },
-            user_service_1.UserService
         ],
         bootstrap: [app_component_1.AppComponent] //默认启动模块
     })

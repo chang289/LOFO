@@ -11,15 +11,19 @@ export class UserService {
 	constructor(private http: Http) { }
 
     signupUser(user: Users): Promise<Users> {
-		return this.http.post(this.signupURL, user)
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+    	let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.signupURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
 			.catch(this.handleError);
 	}
 
     loginUser(user: Users): Promise<Users> {
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+    	let options = new RequestOptions({ headers: headers });
         console.log("Login process...");
-		return this.http.post(this.loginURL, user)
+		return this.http.post(this.loginURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
 			.catch(this.handleError);

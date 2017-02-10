@@ -1,22 +1,28 @@
 <h1 style="text-align: center;">LOFO</h1>
-<h3 style="text-align: center;">Registion</h3>
 <h5 style="text-align: center;">Purdue Lost & Found Online System</h5>
+<h3 style="text-align: center;">Registion</h3>
 <div style="text-align: center;">
     <div>
         <label>username: </label>
-        <input value="{{pUsername}}" placeholder="set username">
+        <input [(ngModel)]="pUsername" placeholder="set username">
     </div>
     <div>
         <label>password: </label>
-        <input value="{{pPassword}}" placeholder="set password">
+        <input [(ngModel)]="pPassword" placeholder="set password">
     </div>
     <div>
         <label>re-enter password: </label>
-        <input value="{{pPassword02}}" placeholder="re-enter password">
+        <input [(ngModel)]="pPassword02" placeholder="re-enter password">
     </div>
     <div>  
         <label>purdue email </label>
-        <input value="{{pEmail}}" placeholder="@purdue.edu">
+        <input [(ngModel)]="pEmail" placeholder="@purdue.edu">
     </div>
-    <button onclick="clickSumbit()">Sumbit</button>
+    <button (click)="clickSumbit()">Sumbit</button>
+
+
+    <h1>{{pUsername}}</h1>
+    <h1>{{pPassword}}</h1>
+    <h1>{{pUsername02}}</h1>
+    <h1>{{pEmail}}</h1>
 </div>

@@ -9,19 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var users_1 = require("./users");
 var user_service_1 = require("./user.service");
 var RegisterComponent = (function () {
     function RegisterComponent(userService) {
         this.userService = userService;
     }
     RegisterComponent.prototype.clickSumbit = function () {
+        var _this = this;
+        this.user = new users_1.Users();
         this.user.username = this.pUsername;
         this.user.password = this.pPassword;
         this.user.email = this.pEmail;
-        this.userService.signupUser(this.user);
-    };
-    RegisterComponent.prototype.ngOnInit = function () {
-        this.clickSumbit();
+        var promise = this.userService.signupUser(this.user);
+        promise.then(function (user) {
+            _this.user = user;
+            console.log(user);
+        }).catch();
+        console.log(this.user);
     };
     return RegisterComponent;
 }());

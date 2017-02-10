@@ -3,18 +3,19 @@
 <div style="text-align: center;">
     <div>
         <label>username: </label>
-        <input value="{{pUsername}}" placeholder="your username">
+        <input [(ngModel)]="pUsername" placeholder="your username">
     </div>
     <div>
         <label>password: </label>
-        <input value="{{pPassword}}" placeholder="your password">
+        <input [(ngModel)]="pPassword" placeholder="your password">
     </div>
     <div>
-        <nav>
-            <a onclick="clickLogin()">Login</a>
-            <a routerLink="/register">Register</a>
-        </nav>
+        <button (click)="clickLogin()">Login</button>
+        <button routerLink="/register">Register</button>
         <router-outlet></router-outlet>
     </div>
     
+
+    <h1>{{pUsername}}</h1>
+    <h1>{{pPassword}}</h1>
 </div>
