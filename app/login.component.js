@@ -11,21 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var user_service_1 = require("./user.service");
 var LoginComponent = (function () {
+    //match: boolean;
     function LoginComponent(userService) {
         this.userService = userService;
     }
-    LoginComponent.prototype.getUser = function () {
-        var _this = this;
-        this.userService.getUser().then(function (user) { return _this.user = user; });
+    LoginComponent.prototype.clickLogin = function () {
+        this.user.username = this.pUsername;
+        this.user.password = this.pPassword;
+        this.userService.loginUser(this.user);
     };
     LoginComponent.prototype.ngOnInit = function () {
-        this.getUser();
-    };
-    //Check is enter account information match database
-    LoginComponent.prototype.userMatch = function () {
-        this.match = (this.user.username === this.pUsername &&
-            this.user.password === this.pPassword);
-        return this.match;
+        this.clickLogin();
     };
     return LoginComponent;
 }());
@@ -34,6 +30,7 @@ LoginComponent = __decorate([
         moduleId: module.id,
         selector: 'login',
         templateUrl: 'login.component.html',
+        providers: [user_service_1.UserService]
     }),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], LoginComponent);

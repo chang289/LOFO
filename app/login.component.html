@@ -3,15 +3,18 @@
 <div style="text-align: center;">
     <div>
         <label>username: </label>
-        <input value="pUsername" placeholder="your username">
+        <input value="{{pUsername}}" placeholder="your username">
     </div>
     <div>
         <label>password: </label>
-        <input value="pPassword" placeholder="your password">
+        <input value="{{pPassword}}" placeholder="your password">
     </div>
-    <nav>
-        <a routerLink="/login">Login</a>
-        <a routerLink="/register">Register</a>
-    </nav>
-    <router-outlet></router-outlet>
+    <div>
+        <nav>
+            <a onclick="clickLogin()">Login</a>
+            <a routerLink="/register">Register</a>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+    
 </div>

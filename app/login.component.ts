@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { protoUser } from '../model/protoUser';
+import { Users } from './users';
 import { UserService } from './user.service';
 
 import { RegisterComponent} from './register.component'
@@ -9,29 +9,32 @@ import { RegisterComponent} from './register.component'
   moduleId: module.id,
   selector: 'login',
   templateUrl: 'login.component.html',
+  providers:[UserService]
 })
 
 export class LoginComponent implements OnInit{
-    user: protoUser
-    pUsername: String;  //entered username
-    pPassword: String;  //entered password
-    match: boolean;
+    user: Users
+    pUsername: string;  //entered username
+    pPassword: string;  //entered password
+    //match: boolean;
 
     constructor(private userService: UserService) { }
-
-    getUser(): void {
-        this.userService.getUser().then(user => this.user = user);
+    
+    clickLogin(): void {
+        this.user.username = this.pUsername;
+        this.user.password = this.pPassword;
+        this.userService.loginUser(this.user)
     }
 
     ngOnInit(): void {
-        this.getUser();
+        this.clickLogin();
     }
 
     //Check is enter account information match database
-    userMatch(): boolean {
-        this.match = (this.user.username === this.pUsername &&
-                    this.user.password === this.pPassword)
-        return this.match;
-    }
+    //userMatch(): boolean {
+    //    this.match = (this.user.username === this.pUsername &&
+    //                this.user.password === this.pPassword)
+    //    return this.match;
+    //}
 
 }

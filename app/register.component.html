@@ -4,22 +4,19 @@
 <div style="text-align: center;">
     <div>
         <label>username: </label>
-        <input value="{{user.username}}" placeholder="set username">
+        <input value="{{pUsername}}" placeholder="set username">
     </div>
     <div>
         <label>password: </label>
-        <input value="{{user.password}}" placeholder="set password">
+        <input value="{{pPassword}}" placeholder="set password">
     </div>
     <div>
         <label>re-enter password: </label>
-        <input value="{{user.password}}" placeholder="re-enter password">
+        <input value="{{pPassword02}}" placeholder="re-enter password">
     </div>
     <div>  
         <label>purdue email </label>
-        <input value="{{user.email}}" placeholder="@purdue.edu">
+        <input value="{{pEmail}}" placeholder="@purdue.edu">
     </div>
-    <nav>
-        <a routerLink="/sumbit">Sumbit</a>
-    </nav>
-    <router-outlet></router-outlet>
+    <button onclick="clickSumbit()">Sumbit</button>
 </div>
