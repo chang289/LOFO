@@ -127,6 +127,7 @@ app.post('/user/signup', function(req, res) {
 //login
 app.post('/user/login', function(req, res) {
   User.findOne({'email': req.body.email}, function(err, user) {
+    console.log(req.body);
     if(err)
       return res.json({info: 'error', error: err});
     if (!user) {

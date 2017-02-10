@@ -19,7 +19,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.clickLogin = function () {
         var _this = this;
         this.user = new users_1.Users();
-        this.user.username = this.pUsername;
+        this.user.email = this.pEmail;
         this.user.password = this.pPassword;
         var promise = this.userService.loginUser(this.user);
         promise.then(function (user) {

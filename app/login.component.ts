@@ -14,7 +14,7 @@ import { RegisterComponent} from './register.component'
 
 export class LoginComponent {
     user: Users
-    pUsername: string;  //entered username
+    pEmail: string;  //entered email
     pPassword: string;  //entered password
     //match: boolean;
 
@@ -24,7 +24,7 @@ export class LoginComponent {
     clickLogin(): void {
         this.user = new Users();
         
-        this.user.username = this.pUsername;
+        this.user.email = this.pEmail;
         this.user.password = this.pPassword;
         var promise = this.userService.loginUser(this.user);
         promise.then(user => {
