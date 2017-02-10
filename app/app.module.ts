@@ -23,6 +23,8 @@ import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
 import { HistoryComponent } from './history.component';
 
+import { myDateRangePickerDirective } from './my-date-range-picker.directive'
+
 const APP_DECLARATION = [
     AppComponent
 ];
@@ -32,7 +34,6 @@ const APP_DECLARATION = [
   	BrowserModule,
   	CommonModule,
     FormsModule,
-    MyDatePickerModule,
     MyDateRangePickerModule,
     SidebarModule,
     HttpModule,
@@ -65,7 +66,7 @@ const APP_DECLARATION = [
   ],
   exports: [RouterModule],
   providers: [ CookieService ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, myDateRangePickerDirective, MyDateRangePickerModule ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

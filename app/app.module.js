@@ -17,8 +17,6 @@ var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var cookies_service_1 = require('angular2-cookie/services/cookies.service');
 var mydaterangepicker_1 = require('mydaterangepicker');
-//for datepicker
-var mydatepicker_1 = require('mydatepicker');
 //for sidebar
 var ng_sidebar_1 = require('ng-sidebar');
 //for map
@@ -27,6 +25,7 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var pipi_component_1 = require('./pipi.component');
 var map_component_1 = require('./map.component');
 var history_component_1 = require('./history.component');
+var my_date_range_picker_directive_1 = require('./my-date-range-picker.directive');
 var APP_DECLARATION = [
     app_component_1.AppComponent
 ];
@@ -39,7 +38,6 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
-                mydatepicker_1.MyDatePickerModule,
                 mydaterangepicker_1.MyDateRangePickerModule,
                 ng_sidebar_1.SidebarModule,
                 http_1.HttpModule,
@@ -71,7 +69,7 @@ var AppModule = (function () {
             ],
             exports: [router_1.RouterModule],
             providers: [cookies_service_1.CookieService],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, my_date_range_picker_directive_1.myDateRangePickerDirective, mydaterangepicker_1.MyDateRangePickerModule],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 

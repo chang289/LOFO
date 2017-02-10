@@ -6,8 +6,7 @@ import { CookieService } from 'angular2-cookie/core';
   template: '<h1>Pipi</h1>',
 })
 export class PipiComponent implements OnInit {
-	constructor(private cookieService: CookieService) {}
+	constructor() {}
 	ngOnInit(): void{
-		console.log(this.cookieService.get("username"));
 	}
 }

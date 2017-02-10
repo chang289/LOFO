@@ -1,7 +1,6 @@
 import { Component, ContentChild, ContentChildren, OnInit } from '@angular/core';
 import {IMyOptions, IMyDateRangeModel} from 'mydaterangepicker';
 import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
-import { CookieService } from 'angular2-cookie/core';
 import { PostService } from './post.service';
 import './markerclusterer.js';
 import { Posts } from './posts';
@@ -38,7 +37,7 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    constructor(private postService: PostService, private cookieService: CookieService) {
+    constructor(private postService: PostService) {
     }
 
     markers: marker[] = [];
@@ -84,8 +83,6 @@ export class MapComponent implements OnInit{
                 }
                 this.markers.push(newMarker);
             }
-
-
           }).catch((ex) => {
             console.log(ex);
           }
@@ -182,7 +179,6 @@ export class MapComponent implements OnInit{
     }
 
     mapClicked($event:any) {
-        console.log(this.cookieService.get("username"));
         console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
