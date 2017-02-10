@@ -1,0 +1,21 @@
+<h1 style="text-align: center;">LOFO</h1>
+<h5 style="text-align: center;">Purdue Lost & Found Online System</h5>
+<div style="text-align: center;">
+    <div>
+        <label>Email: </label>
+        <input [(ngModel)]="pEmail" placeholder="your username">
+    </div>
+    <div>
+        <label>password: </label>
+        <input [(ngModel)]="pPassword" placeholder="your password">
+    </div>
+    <div>
+        <button (click)="clickLogin()">Login</button>
+        <button routerLink="/register">Register</button>
+        <router-outlet></router-outlet>
+    </div>
+    
+
+    <h1>{{pUsername}}</h1>
+    <h1>{{pPassword}}</h1>
+</div>

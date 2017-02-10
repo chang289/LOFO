@@ -23,6 +23,8 @@ import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
 import { HistoryComponent } from './history.component';
 import { EditComponent } from './edit.component';
+import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login.component';
 
 const APP_DECLARATION = [
     AppComponent
@@ -56,6 +58,14 @@ const APP_DECLARATION = [
         {
           path: 'history',
           component: HistoryComponent
+        },
+        {
+          path: 'login',
+          component: LoginComponent
+        },
+        {
+          path: 'register',
+          component: RegisterComponent
         }
       ]),
 
@@ -66,7 +76,7 @@ const APP_DECLARATION = [
   ],
   exports: [RouterModule],
   providers: [ CookieService ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

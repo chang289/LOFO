@@ -50,7 +50,6 @@ export class MapComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.cookieService.put("lofoemail","zhou482@purdue.edu");
         this.cookieService.put("lofouser","pipixia");
         var promise = this.getPost();
         console.log(promise);
@@ -96,7 +95,6 @@ export class MapComponent implements OnInit{
     }
 
     onClick(): void{
-        console.log(this.cookieService.get("lofoemail"));
         this.post = new Posts();
         this.post.poster = this.cookieService.get("lofoemail");
         this.post.fullname = this.fullname;

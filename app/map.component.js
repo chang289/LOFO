@@ -65,7 +65,6 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.cookieService.put("lofoemail", "zhou482@purdue.edu");
         this.cookieService.put("lofouser", "pipixia");
         var promise = this.getPost();
         console.log(promise);
@@ -109,7 +108,6 @@ var MapComponent = (function () {
         console.log(this.posts);
     };
     MapComponent.prototype.onClick = function () {
-        console.log(this.cookieService.get("lofoemail"));
         this.post = new posts_1.Posts();
         this.post.poster = this.cookieService.get("lofoemail");
         this.post.fullname = this.fullname;

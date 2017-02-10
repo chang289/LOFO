@@ -1,0 +1,28 @@
+<h1 style="text-align: center;">LOFO</h1>
+<h5 style="text-align: center;">Purdue Lost & Found Online System</h5>
+<h3 style="text-align: center;">Registion</h3>
+<div style="text-align: center;">
+    <div>
+        <label>username: </label>
+        <input [(ngModel)]="pUsername" placeholder="set username">
+    </div>
+    <div>
+        <label>password: </label>
+        <input [(ngModel)]="pPassword" placeholder="set password">
+    </div>
+    <div>
+        <label>re-enter password: </label>
+        <input [(ngModel)]="pPassword02" placeholder="re-enter password">
+    </div>
+    <div>  
+        <label>purdue email </label>
+        <input [(ngModel)]="pEmail" placeholder="@purdue.edu">
+    </div>
+    <button (click)="clickSumbit()">Sumbit</button>
+
+
+    <h1>{{pUsername}}</h1>
+    <h1>{{pPassword}}</h1>
+    <h1>{{pUsername02}}</h1>
+    <h1>{{pEmail}}</h1>
+</div>

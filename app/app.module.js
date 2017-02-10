@@ -28,6 +28,8 @@ var pipi_component_1 = require('./pipi.component');
 var map_component_1 = require('./map.component');
 var history_component_1 = require('./history.component');
 var edit_component_1 = require('./edit.component');
+var register_component_1 = require('./register.component');
+var login_component_1 = require('./login.component');
 var APP_DECLARATION = [
     app_component_1.AppComponent
 ];
@@ -63,6 +65,14 @@ var AppModule = (function () {
                     {
                         path: 'history',
                         component: history_component_1.HistoryComponent
+                    },
+                    {
+                        path: 'login',
+                        component: login_component_1.LoginComponent
+                    },
+                    {
+                        path: 'register',
+                        component: register_component_1.RegisterComponent
                     }
                 ]),
                 core_2.AgmCoreModule.forRoot({
@@ -72,7 +82,7 @@ var AppModule = (function () {
             ],
             exports: [router_1.RouterModule],
             providers: [cookies_service_1.CookieService],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent, register_component_1.RegisterComponent, login_component_1.LoginComponent],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 
