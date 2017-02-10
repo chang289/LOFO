@@ -1,3 +1,4 @@
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -17,7 +18,6 @@ mongoose.connect(process.env.MONGO_URL, function(error){
       console.log('mongo connected');
   }
 });
-
 
 // routes(app);
 
@@ -65,19 +65,17 @@ app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
-    if (!post)
-      return res.json({info: 'No post found'});
+      if (!post)
+        return res.json({info: 'No post found');
     res.json({info: 'Post found', data: post});
   });
 });
 
 //get post by poster's email
-app.get('/post/get/email/:poster', function(req, res){
-  Post.find( {'poster': req.params.poster}, function (err, post) {
+app.post('/post/get/email', function(req, res){
+  Post.find( {'poster': req.body.poster}, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
-    if (post.length == 0)
-      return res.json({info: 'No post found'});
     res.json({info: 'Post found', data: post});
   });
 });
