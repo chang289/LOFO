@@ -65,15 +65,19 @@ app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
+    if (!post)
+      return res.json({info: 'No post found'});
     res.json({info: 'Post found', data: post});
   });
 });
 
 //get post by poster's email
-app.post('/post/get/email', function(req, res){
-  Post.find( {'poster': req.body.poster}, function (err, post) {
+app.get('/post/get/email/:poster', function(req, res){
+  Post.find( {'poster': req.params.poster}, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
+    if (post.length == 0)
+      return res.json({info: 'No post found'});
     res.json({info: 'Post found', data: post});
   });
 });
