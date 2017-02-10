@@ -9,22 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var core_2 = require('angular2-cookie/core');
-var PipiComponent = (function () {
-    function PipiComponent(cookieService) {
-        this.cookieService = cookieService;
+var GlobalService = (function () {
+    function GlobalService() {
     }
-    PipiComponent.prototype.ngOnInit = function () {
-        console.log(this.cookieService.get("username"));
+    GlobalService.prototype.setUser = function (newUser) {
+        this.user = newUser;
     };
-    PipiComponent = __decorate([
-        core_1.Component({
-            selector: 'pi-pi',
-            template: '<h1>Pipi</h1>',
-        }), 
-        __metadata('design:paramtypes', [core_2.CookieService])
-    ], PipiComponent);
-    return PipiComponent;
+    GlobalService.prototype.getUser = function () {
+        return this.user;
+    };
+    GlobalService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], GlobalService);
+    return GlobalService;
 }());
-exports.PipiComponent = PipiComponent;
-//# sourceMappingURL=pipi.component.js.map
+exports.GlobalService = GlobalService;
+//# sourceMappingURL=global.service.js.map

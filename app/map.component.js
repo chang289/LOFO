@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var core_2 = require('angular2-cookie/core');
 var post_service_1 = require('./post.service');
 require('./markerclusterer.js');
 var posts_1 = require('./posts');
 var MapComponent = (function () {
-    function MapComponent(postService) {
+    function MapComponent(postService, cookieService) {
         this.postService = postService;
+        this.cookieService = cookieService;
         // title: string = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
@@ -166,6 +168,7 @@ var MapComponent = (function () {
         }
     };
     MapComponent.prototype.mapClicked = function ($event) {
+        console.log(this.cookieService.get("username"));
         console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
@@ -209,7 +212,7 @@ var MapComponent = (function () {
             templateUrl: '/app/map.component.html',
             providers: [post_service_1.PostService]
         }), 
-        __metadata('design:paramtypes', [post_service_1.PostService])
+        __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService])
     ], MapComponent);
     return MapComponent;
 }());

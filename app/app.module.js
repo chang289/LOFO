@@ -15,6 +15,7 @@ var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
+var cookies_service_1 = require('angular2-cookie/services/cookies.service');
 var mydaterangepicker_1 = require('mydaterangepicker');
 //for datepicker
 var mydatepicker_1 = require('mydatepicker');
@@ -25,6 +26,7 @@ var core_2 = require('angular2-google-maps/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var pipi_component_1 = require('./pipi.component');
 var map_component_1 = require('./map.component');
+var history_component_1 = require('./history.component');
 var APP_DECLARATION = [
     app_component_1.AppComponent
 ];
@@ -56,6 +58,10 @@ var AppModule = (function () {
                     {
                         path: 'map',
                         component: map_component_1.MapComponent
+                    },
+                    {
+                        path: 'history',
+                        component: history_component_1.HistoryComponent
                     }
                 ]),
                 core_2.AgmCoreModule.forRoot({
@@ -64,8 +70,8 @@ var AppModule = (function () {
                 ng2_bootstrap_1.CollapseModule.forRoot()
             ],
             exports: [router_1.RouterModule],
-            providers: [],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION],
+            providers: [cookies_service_1.CookieService],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 

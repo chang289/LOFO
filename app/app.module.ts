@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 
@@ -20,6 +21,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
 import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
+import { HistoryComponent } from './history.component';
 
 const APP_DECLARATION = [
     AppComponent
@@ -49,6 +51,10 @@ const APP_DECLARATION = [
         {
           path: 'map',
           component: MapComponent
+        },
+        {
+          path: 'history',
+          component: HistoryComponent
         }
       ]),
 
@@ -58,8 +64,8 @@ const APP_DECLARATION = [
     CollapseModule.forRoot()
   ],
   exports: [RouterModule],
-  providers: [],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION ],
+  providers: [ CookieService ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
