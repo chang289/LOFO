@@ -13,10 +13,12 @@ var post_service_1 = require('./post.service');
 var core_2 = require('angular2-cookie/core');
 require('./markerclusterer.js');
 var posts_1 = require('./posts');
+var router_1 = require('@angular/router');
 var MapComponent = (function () {
-    function MapComponent(postService, cookieService) {
+    function MapComponent(postService, cookieService, router) {
         this.postService = postService;
         this.cookieService = cookieService;
+        this.router = router;
         // title: string = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
@@ -65,7 +67,7 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.cookieService.put("lofouser", "pipixia");
+        this.lofoemail = this.cookieService.get("lofoemail");
         var promise = this.getPost();
         console.log(promise);
         promise.then(function (posts) {
@@ -205,13 +207,17 @@ var MapComponent = (function () {
     MapComponent.prototype._toggleSidebar = function () {
         this._opened = !this._opened;
     };
+    MapComponent.prototype.signOut = function () {
+        this.cookieService.remove("lofoemail");
+        this.router.navigateByUrl("/login");
+    };
     MapComponent = __decorate([
         core_1.Component({
             selector: 'my-map',
             templateUrl: '/app/map.component.html',
             providers: [post_service_1.PostService]
         }), 
-        __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService])
+        __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService, router_1.Router])
     ], MapComponent);
     return MapComponent;
 }());

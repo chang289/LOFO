@@ -4,7 +4,7 @@
 <nav style="margin-bottom: 0" class="navbar navbar-inverse ">
   <div class="container-fluid">
    
-    <a class="navbar-brand" href="#">LOFO</a>
+    <a class="navbar-brand">LOFO</a>
 
     <div id="navbar" class="navbar-collapse collapse" >
       <ul class="nav navbar-nav navbar-left" >
@@ -58,8 +58,16 @@
             <button class="btn btn-primary" routerLink="/history">History</button>
           </div>
         </li>
+        <li style="margin-top: 9px; margin-left: 470">
+          <div id="updateBtn">
+            <a class="navbar-brand">{{lofoemail}}</a>
+            <button class="btn btn-primary"  (click)="signOut()">SignOut</button>
+          </div>
+        </li>
+
       </ul>
     </div>
+
   </div>
 </nav>
 
@@ -182,7 +190,7 @@
         </div>   
         <br>
         <div>
-          <button type="button" class="btn btn-primary" (click)="onClick()">Single Toggle</button>
+          <button type="button" class="btn btn-primary" (click)="onClick()" (click)="lgModal.hide()">Submit</button>
         </div>
       </div>
     </div>

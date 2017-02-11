@@ -5,6 +5,8 @@ import { PostService } from './post.service';
 import { CookieService } from 'angular2-cookie/core';
 import './markerclusterer.js';
 import { Posts } from './posts';
+import { Router } from '@angular/router';
+
 
 declare var google: any;
 
@@ -29,6 +31,7 @@ export class MapComponent implements OnInit{
     post: Posts;
     photoUrl: string;
     lost: string = 'true';
+    lofoemail: string;
 
     tags: string[] = [
         'Phone',
@@ -38,7 +41,7 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    constructor(private postService: PostService, private cookieService: CookieService) {
+    constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {
     }
 
     markers: marker[] = [];
@@ -50,7 +53,7 @@ export class MapComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.cookieService.put("lofouser","pipixia");
+        this.lofoemail = this.cookieService.get("lofoemail");
         var promise = this.getPost();
         console.log(promise);
         promise.then(posts => {
@@ -235,6 +238,11 @@ export class MapComponent implements OnInit{
 	private _toggleSidebar() {
 		this._opened = !this._opened;
 	}
+
+    private signOut() {
+        this.cookieService.remove("lofoemail");
+        this.router.navigateByUrl("/login");
+    }
 }
 
 
