@@ -10,6 +10,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 var port = process.env.PORT || 3000;
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URL, function(error){
   if (error)
       console.log(error);
@@ -88,17 +89,17 @@ app.delete('/post/delete/:id', function(req, res){
   Post.remove({ _id: req.params.id }, function(err){
     if(err)
       return res.json({info: 'error', error: err});
-    res.json({ message : 'Post delete'});
+    res.json({ info : 'Post delete'});
   });
 });
 
 //delete all post with title contains "test"
 app.delete('/post/deleteAll', function(req, res){
   //remove post by ID
-  Post.remove({ "title" : {$regex : ".*Test.*"} }, function(err){
+  Post.remove({ "title" : {$regex : ".*test.*"} }, function(err){
     if(err)
       return res.json({info: 'error', error: err});
-    res.json({ message : 'Post delete'});
+    res.json({ info : 'Post delete'});
   });
 });
 
@@ -108,7 +109,7 @@ app.post('/post/edit/:id', function(req, res){
     if(err)
       return res.json({info: 'error', error: err});
     if(!post){
-      return res.json({ message : 'No such post'});
+      return res.json({ info : 'No such post'});
     }
     post.fullname = req.body.fullname;
     post.title = req.body.title;
@@ -143,12 +144,22 @@ app.post('/user/login', function(req, res) {
     if(err)
       return res.json({info: 'error', error: err});
     if (!user) {
-      return res.json({ message : 'No such user'});
+      return res.json({ info : 'No such user'});
     }
     if (req.body.password == user.password) {
       res.json({info: 'Login successfully', data: user});
-    } else { res.json({ message : 'Password invalid'}); }
+    } else { res.json({ info : 'Password invalid'}); }
   })
+});
+
+//delete user by id
+app.delete('/user/delete/:id', function(req, res){
+  //remove user by ID
+  User.remove({ _id: req.params.id }, function(err){
+    if(err)
+      return res.json({info: 'error', error: err});
+    res.json({ info : 'User delete'});
+  });
 });
 
 const server = app.listen(port, function(err) {
@@ -158,3 +169,5 @@ const server = app.listen(port, function(err) {
   }
   console.log("Listening on port " + port);
 });
+
+module.exports = app;
