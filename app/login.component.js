@@ -42,6 +42,7 @@ var LoginComponent = (function () {
             moduleId: module.id,
             selector: 'login',
             templateUrl: 'login.component.html',
+            styleUrls: ['login.component.css'],
             providers: [user_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService, core_2.CookieService, router_1.Router])

@@ -1,21 +1,18 @@
-<h1 style="text-align: center;">LOFO</h1>
-<h5 style="text-align: center;">Purdue Lost & Found Online System</h5>
-<div style="text-align: center;">
-    <div>
-        <label>Email: </label>
-        <input [(ngModel)]="pEmail" placeholder="your username">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/Cosmo/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<div id="logo">
+    <img src="Logo.png" class="img-rounded" alt="Cinque Terre">
+    <div class="form-group">
+      <input type="text" class="form-control" id="usr" placeholder="Email">
     </div>
-    <div>
-        <label>password: </label>
-        <input [(ngModel)]="pPassword" placeholder="your password">
+    <div class="form-group">
+      <input type="password" class="form-control" id="pwd" placeholder="Password">
     </div>
-    <div>
-        <button (click)="clickLogin()">Login</button>
-        <button routerLink="/register">Register</button>
-        <router-outlet></router-outlet>
-    </div>
-    
-
-    <h1>{{pUsername}}</h1>
-    <h1>{{pPassword}}</h1>
 </div>

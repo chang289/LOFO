@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     moduleId: module.id,
     selector: 'login',
     templateUrl: 'login.component.html',
+    styleUrls: ['login.component.css'],
     providers:[UserService]
 })
 
