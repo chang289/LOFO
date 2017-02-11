@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
     providers:[UserService]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     user: Users
     pEmail: string;  //entered username
     pPassword: string;  //entered password
@@ -25,6 +25,12 @@ export class LoginComponent {
 
     constructor(private userService: UserService, private cookieService: CookieService, private router: Router) { }
     
+    ngOnInit() {
+        if (this.cookieService.get("lofoemail") != null) {
+            this.router.navigateByUrl("/map");
+        }
+    }
+
     clickLogin(): void {
         this.user = new Users();
         
@@ -41,5 +47,9 @@ export class LoginComponent {
                     this.router.navigateByUrl('/map');
                 }
         });
+    }
+
+    clickSignUp(): void {
+        this.router.navigateByUrl('/register');
     }
 }

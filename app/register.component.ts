@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
     moduleId: module.id,
     selector: 'register',
     templateUrl: 'register.component.html',
+    styleUrls: ['register.component.css'],
     providers:[UserService]
 })
 
@@ -23,7 +24,18 @@ export class RegisterComponent {
 
     constructor(private userService: UserService, private cookieService: CookieService, private router: Router) { }
     
-    clickSumbit(): void {
+    clickSubmit(): void {
+
+        if (this.pPassword != this.pPassword02) {
+            alert("Re-entered password should be the same with password");
+            return;
+        }
+
+        if (!this.pEmail.endsWith("@purdue.edu")) {
+            alert("Please enter a valid Purdue Email");
+            return;
+        }
+
         this.user = new Users();
 
         this.user.username = this.pUsername;

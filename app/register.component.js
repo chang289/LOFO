@@ -19,8 +19,16 @@ var RegisterComponent = (function () {
         this.cookieService = cookieService;
         this.router = router;
     }
-    RegisterComponent.prototype.clickSumbit = function () {
+    RegisterComponent.prototype.clickSubmit = function () {
         var _this = this;
+        if (this.pPassword != this.pPassword02) {
+            alert("Re-entered password should be the same with password");
+            return;
+        }
+        if (!this.pEmail.endsWith("@purdue.edu")) {
+            alert("Please enter a valid Purdue Email");
+            return;
+        }
         this.user = new users_1.Users();
         this.user.username = this.pUsername;
         this.user.password = this.pPassword;
@@ -43,6 +51,7 @@ var RegisterComponent = (function () {
             moduleId: module.id,
             selector: 'register',
             templateUrl: 'register.component.html',
+            styleUrls: ['register.component.css'],
             providers: [user_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService, core_2.CookieService, router_1.Router])

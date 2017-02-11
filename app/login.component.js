@@ -20,6 +20,11 @@ var LoginComponent = (function () {
         this.cookieService = cookieService;
         this.router = router;
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        if (this.cookieService.get("lofoemail") != null) {
+            this.router.navigateByUrl("/map");
+        }
+    };
     LoginComponent.prototype.clickLogin = function () {
         var _this = this;
         this.user = new users_1.Users();
@@ -36,6 +41,9 @@ var LoginComponent = (function () {
                 _this.router.navigateByUrl('/map');
             }
         });
+    };
+    LoginComponent.prototype.clickSignUp = function () {
+        this.router.navigateByUrl('/register');
     };
     LoginComponent = __decorate([
         core_1.Component({
