@@ -41,9 +41,5 @@ export class LoginComponent {
                     this.router.navigateByUrl('/map');
                 }
         });
-
-
     }
-
-
 }

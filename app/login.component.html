@@ -1,18 +1,14 @@
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/Cosmo/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+<link rel="stylesheet" type="text/css" href="https://bootswatch.com/readable/bootstrap.min.css">
 <div id="logo">
-    <img src="Logo.png" class="img-rounded" alt="Cinque Terre">
-    <div class="form-group">
-      <input type="text" class="form-control" id="usr" placeholder="Email">
+    <div style="width: 300px; height: 270px; margin: auto;">
+        <img src="Logo.png" style="width: 100%; height: 100%" class="img-rounded" alt="Cinque Terre" width="50%" height="50%">
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" id="pwd" placeholder="Password">
+      <input style="width: 60%; margin: auto;" [(ngModel)]="pEmail" type="text" class="form-control" id="usr" placeholder="Email">
     </div>
+    <div class="form-group">
+      <input style="width: 60%; margin: auto;" [(ngModel)]="pPassword" type="password" class="form-control" id="pwd" placeholder="Password">
+    </div>
+    <button style="width: 60%; margin: auto; margin-left: 20%" type="button" class="btn btn-primary" (click)="clickLogin()">LOGIN</button>
+    <button style="width: 60%; margin: auto; margin-left: 20%; margin-top: 10px" type="button" class="btn btn-primary" (click)="clickLogin()">SIGNUP</button>
 </div>
