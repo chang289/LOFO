@@ -28,6 +28,8 @@ import { LoginComponent } from './login.component';
 
 import { myDateRangePickerDirective } from './my-date-range-picker.directive'
 
+import {PathLocationStrategy, LocationStrategy,HashLocationStrategy} from '@angular/common';
+
 const APP_DECLARATION = [
     AppComponent
 ];
@@ -76,7 +78,7 @@ const APP_DECLARATION = [
     CollapseModule.forRoot()
   ],
   exports: [RouterModule],
-  providers: [ CookieService ],
+  providers: [ CookieService,{provide: LocationStrategy, useClass: HashLocationStrategy} ],
   declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -22,6 +22,16 @@ var EditComponent = (function () {
     EditComponent.prototype.Delete = function () {
         console.log(this.historyService.deletePostByID(this.edited_post));
     };
+    EditComponent.prototype.updateAlart = function () {
+        if (alert('You\' ve successfully updated this post!')) { }
+        else
+            window.location.reload();
+    };
+    EditComponent.prototype.deleteAlert = function () {
+        if (alert('You\' ve successfully deleted this post!')) { }
+        else
+            window.location.reload();
+    };
     return EditComponent;
 }());
 __decorate([

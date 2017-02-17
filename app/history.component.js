@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var history_service_1 = require("./history.service");
+var router_1 = require("@angular/router");
 var HistoryComponent = (function () {
-    function HistoryComponent(historyService) {
+    function HistoryComponent(historyService, router) {
         this.historyService = historyService;
+        this.router = router;
     }
     HistoryComponent.prototype.getPosts = function () {
         var _this = this;
@@ -32,7 +34,8 @@ HistoryComponent = __decorate([
         styleUrls: ['history.component.css'],
         providers: [history_service_1.HistoryService]
     }),
-    __metadata("design:paramtypes", [history_service_1.HistoryService])
+    __metadata("design:paramtypes", [history_service_1.HistoryService,
+        router_1.Router])
 ], HistoryComponent);
 exports.HistoryComponent = HistoryComponent;
 //# sourceMappingURL=history.component.js.map

@@ -64,7 +64,7 @@
         <br>
         <div>
           <button type="button" class="btn btn-primary" aria-label="Close"
-           (click)="lgModal.hide()" (click)="Edit()">
+           (click)="lgModal.hide()" (click)="Edit()" (click) = "updateAlart()">
           	Submit</button>
 
 	    <button type="button" class="btn btn-danger"
@@ -95,7 +95,7 @@
 
         <div id = "dialog_btns">
           <button type = "button" class="btn btn-danger"   style="margin-right:2em" 
-          aria-label="Close" (click)="smModal.hide()" (click) = Delete()>
+          aria-label="Close" (click)="smModal.hide()" (click) = Delete() (click) = "deleteAlert()">
             <span class="glyphicon glyphicon-trash" ></span> Delete
           </button>
 

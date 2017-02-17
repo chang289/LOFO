@@ -2,6 +2,7 @@ import { Component,OnInit} from '@angular/core';
 
 import {Post} from './post';
 import {HistoryService} from './history.service';
+import { Router } from '@angular/router';
 
 @Component({
 	moduleId: module.id,
@@ -15,7 +16,9 @@ export class HistoryComponent implements OnInit{
 	sample_posts:Post[];
 
 	constructor(
-		private historyService: HistoryService){}
+		private historyService: HistoryService,
+		private router: Router
+	){}
 
 
 	getPosts() : void {

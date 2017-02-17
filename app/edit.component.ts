@@ -1,4 +1,4 @@
-import { Component, OnInit,Input} from '@angular/core';
+import { Component, OnInit,Input,VERSION } from '@angular/core';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 import {Post} from './post';
@@ -26,6 +26,21 @@ export class EditComponent {
 	Delete(): void {
 		console.log(this.historyService.deletePostByID(this.edited_post));
 	}
+
+	updateAlart(): void {
+
+		if(alert('You\' ve successfully updated this post!')){}
+		else window.location.reload(); 
+		
+	}
+
+	deleteAlert(): void {
+
+		if(alert('You\' ve successfully deleted this post!')){}
+		else window.location.reload(); 
+		
+	}
+
 
 
 

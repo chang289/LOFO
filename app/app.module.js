@@ -25,6 +25,7 @@ var history_component_1 = require("./history.component");
 var edit_component_1 = require("./edit.component");
 var register_component_1 = require("./register.component");
 var login_component_1 = require("./login.component");
+var common_2 = require("@angular/common");
 var APP_DECLARATION = [
     app_component_1.AppComponent
 ];
@@ -77,7 +78,7 @@ AppModule = __decorate([
             ng2_bootstrap_1.CollapseModule.forRoot()
         ],
         exports: [router_1.RouterModule],
-        providers: [cookies_service_1.CookieService],
+        providers: [cookies_service_1.CookieService, { provide: common_2.LocationStrategy, useClass: common_2.HashLocationStrategy }],
         declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent, register_component_1.RegisterComponent, login_component_1.LoginComponent],
         bootstrap: [app_component_1.AppComponent],
         schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
