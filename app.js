@@ -9,7 +9,7 @@ var User = require("./model/mongoose/user");
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4200;
 mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", function(error){
   if (error)
       console.log(error);
@@ -21,7 +21,7 @@ mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", f
 
 // routes(app);
 
-app.use('/', express.static(__dirname + '/'));
+app.use('/', express.static(__dirname + '/dist'));
 
 //create new post
 app.post('/post/create', function (req, res){
