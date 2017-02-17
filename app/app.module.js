@@ -16,6 +16,7 @@ var app_component_1 = require('./app.component');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var cookies_service_1 = require('angular2-cookie/services/cookies.service');
+var marker_cluster_1 = require('./marker-cluster');
 var mydaterangepicker_1 = require('mydaterangepicker');
 //for sidebar
 var ng_sidebar_1 = require('ng-sidebar');
@@ -79,7 +80,7 @@ var AppModule = (function () {
             ],
             exports: [router_1.RouterModule],
             providers: [cookies_service_1.CookieService],
-            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent, register_component_1.RegisterComponent, login_component_1.LoginComponent],
+            declarations: [app_component_1.AppComponent, pipi_component_1.PipiComponent, map_component_1.MapComponent, APP_DECLARATION, history_component_1.HistoryComponent, edit_component_1.EditComponent, register_component_1.RegisterComponent, login_component_1.LoginComponent, marker_cluster_1.MarkerCluster],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 

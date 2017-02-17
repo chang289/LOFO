@@ -7,6 +7,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import { MarkerCluster } from './marker-cluster';
+
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 
 //for datepicker
@@ -77,7 +79,7 @@ const APP_DECLARATION = [
   ],
   exports: [RouterModule],
   providers: [ CookieService ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, MarkerCluster ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

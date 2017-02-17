@@ -47,7 +47,8 @@
         main: 'lib/index',
         defaultExtension: 'js'
       },
-      rxjs: {
+      'rxjs': {
+        main: 'Rx.js',
         defaultExtension: 'js'
       },
       'angular2-cookie': {

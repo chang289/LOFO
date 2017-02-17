@@ -7,6 +7,7 @@ import './markerclusterer.js';
 import { Posts } from './posts';
 import { Router } from '@angular/router';
 
+import {Http, HttpModule} from '@angular/http'
 
 declare var google: any;
 
@@ -20,6 +21,7 @@ export class MapComponent implements OnInit{
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
+    zoom: number = 5;
     str='abc';
     posts: Posts[]; 
     title: string;
@@ -41,11 +43,12 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {
+    constructor(private postService: PostService, private cookieService: CookieService, private router: Router, private http:Http) {
     }
 
     markers: marker[] = [];
     m: marker;
+    points: any[] = []; 
 
     getPost(): Promise<Posts[]> {
         console.log("pdd");
@@ -53,6 +56,9 @@ export class MapComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.http.get("assets/points.json").subscribe(data => {
+          this.points = data.json(); 
+        });
         this.lofoemail = this.cookieService.get("lofoemail");
         var promise = this.getPost();
         console.log(promise);
@@ -183,7 +189,6 @@ export class MapComponent implements OnInit{
     }
 
     mapClicked($event:any) {
-        console.log(this.posts);
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);
