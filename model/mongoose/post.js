@@ -2,12 +2,13 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var postSchema = new mongoose.Schema({
-    // poster      : { type: Schema.Types.ObjectId, ref: 'User'},
+    poster: String,
     fullname: String,
     title: String,
     description: String,
-    tag: [Number],
-    location: [Number],
+    tag: Number,
+    locationX: Number,
+    locationY: Number,
     contact: String,
     photo: String,
     lost: Boolean,
