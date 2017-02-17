@@ -9,12 +9,8 @@ var User = require("./model/mongoose/user");
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-var port = process.env.PORT || 3000;
-<<<<<<< HEAD
-mongoose.connect(process.env.MONGO_URL, function(error){
-=======
+var port = process.env.PORT || 4200;
 mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", function(error){
->>>>>>> master
   if (error)
       console.log(error);
   else {
@@ -25,7 +21,7 @@ mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", f
 
 // routes(app);
 
-app.use('/', express.static(__dirname + '/'));
+app.use('/', express.static(__dirname + '/dist'));
 
 //create new post
 app.post('/post/create', function (req, res){
@@ -69,8 +65,6 @@ app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
     if(err)
       return res.json({info: 'error', error: err});
-<<<<<<< HEAD
-=======
     if (!post)
       return res.json({info: 'No post found'});
     res.json({info: 'Post found', data: post});
@@ -84,7 +78,6 @@ app.get('/post/get/email/:poster', function(req, res){
       return res.json({info: 'error', error: err});
     if (post.length == 0)
       return res.json({info: 'No post found'});
->>>>>>> master
     res.json({info: 'Post found', data: post});
   });
 });
@@ -147,10 +140,6 @@ app.post('/user/signup', function(req, res) {
 //login
 app.post('/user/login', function(req, res) {
   User.findOne({'email': req.body.email}, function(err, user) {
-<<<<<<< HEAD
-    console.log(req.body);
-=======
->>>>>>> master
     if(err)
       return res.json({info: 'error', error: err});
     if (!user) {
