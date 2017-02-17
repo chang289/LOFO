@@ -7,7 +7,11 @@ export interface protoPost{
     locationX   : number,
     locationY   : number,
     contact     : string,
+<<<<<<< HEAD
     hoto        : string,
+=======
+    photo       : string,
+>>>>>>> master
     lost        : boolean,
     createTime  : Date,
     modifiedTime: Date,

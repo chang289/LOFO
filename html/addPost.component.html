@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +6,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+=======
+>>>>>>> master
 <button type="button" class="btn btn-primary" (click)="lgModal.show()">New Post</button>
  
 <div class="modal fade" bsModal #lgModal="bs-modal" [config]="{backdrop: 'static'}"
@@ -48,12 +51,21 @@
         <div>
         <div class="form-group" dropdown>
           <label for="sel1">Select list:</label>
+<<<<<<< HEAD
           <select [(ngModel)]="tag" class="form-control" id="sel1">  
             <option>Phone</option>
             <option>Key</option>
             <option>Wallet</option>
             <option>Bag</option>
             <option>Cloth</option>
+=======
+          <select [(ngModel.value)]="tag" class="form-control" id="sel1">  
+            <option value="0">Phone</option>
+            <option value="1">Key</option>
+            <option value="2">Wallet</option>
+            <option value="3">Bag</option>
+            <option value="4">Cloth</option>
+>>>>>>> master
           </select>
         </div>
 
@@ -66,5 +78,11 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 </body>
 </html>
+=======
+
+<!--Large modal-->
+ 
+>>>>>>> master

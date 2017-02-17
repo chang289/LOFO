@@ -1,5 +1,9 @@
 "use strict";
+<<<<<<< HEAD
 var protractor_1 = require("protractor");
+=======
+var protractor_1 = require('protractor');
+>>>>>>> master
 describe('QuickStart E2E Tests', function () {
     var expectedMsg = 'Hello Angular';
     beforeEach(function () {

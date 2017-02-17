@@ -22,19 +22,38 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'angular2-cookie':            'npm:angular2-cookie',
+
+      'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
+      
+      'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.js',
+      'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js',
+      'ng-sidebar': 'node_modules/ng-sidebar',
+      'ng2-bootstrap': 'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+
+      'ts':                         'https://npmcdn.com/plugin-typescript@4.0.10/lib/plugin.js',
+      'typescript':                 'https://npmcdn.com/typescript@1.8.10/lib/typescript.js',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
       app: {
         defaultExtension: 'js'
       },
+      'ng-sidebar': {
+        main: 'lib/index',
+        defaultExtension: 'js'
+      },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+      'angular2-cookie': {
+        main: './core.js',
+        defaultExtension: 'js'
+      },
     }
+    
   });
 })(this);
