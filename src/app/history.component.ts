@@ -15,9 +15,8 @@ export class HistoryComponent implements OnInit{
 
 	sample_posts:Posts[];
 
-	constructor(
-		private historyService: HistoryService){}
 
+	constructor(private historyService: HistoryService){}
 
 	getPosts() : void {
 		this.historyService.getPosts()
