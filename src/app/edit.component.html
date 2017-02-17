@@ -1,10 +1,9 @@
-
 <button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
-	<span class="glyphicon glyphicon-pencil" ></span>Edit Post
+  <span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
 
 <button type = "button" class="btn btn-success" (click)="smModal.show()" id = "dlt">
-	<span class="glyphicon glyphicon-remove-circle" ></span> Delete Post
+  <span class="glyphicon glyphicon-remove-circle" ></span> Delete Post
 
 </button>
 
@@ -22,12 +21,12 @@
       <div class="modal-body">
 
         <div class="form-group">
-        	<label for="title">Title</label>
-        	<input [(ngModel)]="edited_post.title" type="text" class="form-control" id="title">
+          <label for="title">Title</label>
+          <input [(ngModel)]="edited_post.title" type="text" class="form-control" id="title">
         </div>
         <div class="form-group">
-        	<label for="description">Description</label>
-        	<textarea [(ngModel)]="edited_post.description" class="form-control" rows="5" id="description" style="max-width:100%"></textarea>
+          <label for="description">Description</label>
+          <textarea [(ngModel)]="edited_post.description" class="form-control" rows="5" id="description" style="max-width:100%"></textarea>
         </div>
         <div class="form-group">
           <label for="photo">Photo URL</label>
@@ -37,12 +36,12 @@
           <img src={{edited_post.photo}} class="img-thumbnail" alt="If you cannot see photo here, double check url" width="304" height="236">
         </div>
         <div class="form-group">
-        	<label for="name">Full Name(Optional)</label>
-        	<input [(ngModel)]="edited_post.fullname" type="text" class="form-control" id="name">
+          <label for="name">Full Name(Optional)</label>
+          <input [(ngModel)]="edited_post.fullname" type="text" class="form-control" id="name">
         </div>
         <div class="form-group">
-        	<label for="phone">Phone Number(Optional)</label>
-        	<input [(ngModel)]="edited_post.contact" type="text" class="form-control" id="phone">
+          <label for="phone">Phone Number(Optional)</label>
+          <input [(ngModel)]="edited_post.contact" type="text" class="form-control" id="phone">
         </div>       
 
         <div>
@@ -61,10 +60,10 @@
         <br>
         <div>
 
-    	    <button type="button" class="btn btn-danger"
-    	    aria-label="Close" (click)="lgModal.hide()" >
-    	      Cancel
-    	    </button>
+          <button type="button" class="btn btn-danger"
+          aria-label="Close" (click)="lgModal.hide()" >
+            Cancel
+          </button>
 
           <button type="button" class="btn btn-info" aria-label="Close"
            (click)="lgModal.hide()" (click)="Edit()" style="float:right"> 
