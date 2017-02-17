@@ -54,6 +54,9 @@ export class MapComponent implements OnInit{
 
     ngOnInit(): void {
         this.lofoemail = this.cookieService.get("lofoemail");
+        if(this.lofoemail == null) {
+            this.router.navigateByUrl("/login");
+        }
         var promise = this.getPost();
         console.log(promise);
         promise.then(posts => {

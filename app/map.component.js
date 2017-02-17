@@ -68,6 +68,9 @@ var MapComponent = (function () {
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.lofoemail = this.cookieService.get("lofoemail");
+        if (this.lofoemail == null) {
+            this.router.navigateByUrl("/login");
+        }
         var promise = this.getPost();
         console.log(promise);
         promise.then(function (posts) {

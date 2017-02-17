@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var history_service_1 = require("./history.service");
 var router_1 = require("@angular/router");
+var core_2 = require("angular2-cookie/core");
+var history_service_1 = require("./history.service");
 var HistoryComponent = (function () {
-    function HistoryComponent(historyService, router) {
+    function HistoryComponent(historyService, router, cookieService) {
         this.historyService = historyService;
         this.router = router;
+        this.cookieService = cookieService;
     }
     HistoryComponent.prototype.getPosts = function () {
         var _this = this;
@@ -23,6 +25,9 @@ var HistoryComponent = (function () {
     };
     HistoryComponent.prototype.ngOnInit = function () {
         this.getPosts();
+        if (this.cookieService.get("lofoemail") == null) {
+            this.router.navigateByUrl("/login");
+        }
     };
     return HistoryComponent;
 }());
@@ -35,7 +40,8 @@ HistoryComponent = __decorate([
         providers: [history_service_1.HistoryService]
     }),
     __metadata("design:paramtypes", [history_service_1.HistoryService,
-        router_1.Router])
+        router_1.Router,
+        core_2.CookieService])
 ], HistoryComponent);
 exports.HistoryComponent = HistoryComponent;
 //# sourceMappingURL=history.component.js.map

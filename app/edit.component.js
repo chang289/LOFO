@@ -9,11 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var core_2 = require("angular2-cookie/core");
 var post_1 = require("./post");
 var history_service_1 = require("./history.service");
 var EditComponent = (function () {
-    function EditComponent(historyService) {
+    function EditComponent(historyService, cookieService, router) {
         this.historyService = historyService;
+        this.cookieService = cookieService;
+        this.router = router;
+        this.tag = 0;
+        this.types = [
+            'Phone',
+            'Key',
+            'Wallet',
+            'Bag',
+            'Cloth'
+        ];
     }
     EditComponent.prototype.Edit = function () {
         console.log(this.edited_post);
@@ -46,7 +58,9 @@ EditComponent = __decorate([
         styleUrls: ['./edit.component.css'],
         providers: [history_service_1.HistoryService]
     }),
-    __metadata("design:paramtypes", [history_service_1.HistoryService])
+    __metadata("design:paramtypes", [history_service_1.HistoryService,
+        core_2.CookieService,
+        router_1.Router])
 ], EditComponent);
 exports.EditComponent = EditComponent;
 //# sourceMappingURL=edit.component.js.map
