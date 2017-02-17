@@ -9,6 +9,7 @@ export class UserService {
 	private URL = window.location.origin;
 	private signupURL = this.URL + '/user/signup';
 	private loginURL = this.URL + '/user/login';
+
 	constructor(private http: Http) { }
 
     signupUser(user: Users): Promise<Users> {

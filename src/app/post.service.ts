@@ -8,6 +8,7 @@ export class PostService {
 	private URL = window.location.origin;
 	private createURL = this.URL + '/post/create';  // URL to web api
 	private getOngoingURL = this.URL + '/post/get/ongoing';
+
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -27,7 +28,7 @@ export class PostService {
 	}
 
 	getOngoingPosts(): Promise<Posts[]> {
-		console.log(window.location.protocol + "//" + window.location.hostname);
+
 		return this.http.get(this.getOngoingURL)
 			.toPromise()
 			.then(response => response.json().data as Posts[])

@@ -20,6 +20,8 @@ export class MapComponent implements OnInit{
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
+
+    zoom: number = 5;
     str='abc';
     posts: Posts[]; 
     title: string;
@@ -41,11 +43,12 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {
-    }
+    constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {}
 
     markers: marker[] = [];
     m: marker;
+
+    points: any[] = []; 
 
     getPost(): Promise<Posts[]> {
         console.log("pdd");
@@ -124,6 +127,7 @@ export class MapComponent implements OnInit{
         });
 
 
+
         var newPostIcon: string;
 
         if (this.post.tag == 0) {
@@ -181,9 +185,10 @@ export class MapComponent implements OnInit{
 
     newMarker: marker;
 
-    clickedMarker(marker:marker, index:number) {
+
+    clickedMarker(marker:marker) {
     
-        console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
+        console.log("clicked marker: " + marker.name + " length is " + this.markers.length);
         var sidebar = document.getElementById('sidebar');
         if (sidebar.style.display != 'none') {
             sidebar.style.display = 'none';
@@ -193,7 +198,7 @@ export class MapComponent implements OnInit{
     }
 
     mapClicked($event:any) {
-        console.log(this.posts);
+
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);

@@ -14,6 +14,7 @@ var core_2 = require('angular2-cookie/core');
 require('./markerclusterer.js');
 var posts_1 = require('./posts');
 var router_1 = require('@angular/router');
+<<<<<<< HEAD
 var MapComponent = (function () {
     function MapComponent(postService, cookieService, router) {
         this.postService = postService;
@@ -22,6 +23,19 @@ var MapComponent = (function () {
         // title: string = 'LOFO';
         this.lat = 40.424660;
         this.lng = -86.911482;
+=======
+var http_1 = require('@angular/http');
+var MapComponent = (function () {
+    function MapComponent(postService, cookieService, router, http) {
+        this.postService = postService;
+        this.cookieService = cookieService;
+        this.router = router;
+        this.http = http;
+        // title: string = 'LOFO';
+        this.lat = 40.424660;
+        this.lng = -86.911482;
+        this.zoom = 5;
+>>>>>>> Ketao
         this.str = 'abc';
         this.lost = 'true';
         this.tags = [
@@ -32,6 +46,10 @@ var MapComponent = (function () {
             'Cloth'
         ];
         this.markers = [];
+<<<<<<< HEAD
+=======
+        this.points = [];
+>>>>>>> Ketao
         this.backpackUrl = 'app/backpack_icon.png';
         this.walletUrl = 'app/wallet_icon.png';
         this.keyUrl = 'app/key_icon.png';
@@ -67,6 +85,12 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
+<<<<<<< HEAD
+=======
+        this.http.get("assets/points.json").subscribe(function (data) {
+            _this.points = data.json();
+        });
+>>>>>>> Ketao
         this.lofoemail = this.cookieService.get("lofoemail");
         var promise = this.getPost();
         console.log(promise);
@@ -159,8 +183,13 @@ var MapComponent = (function () {
         this.tag = -1;
         //console.log(this.postService.createPost(post));
     };
+<<<<<<< HEAD
     MapComponent.prototype.clickedMarker = function (marker, index) {
         console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
+=======
+    MapComponent.prototype.clickedMarker = function (marker) {
+        console.log("clicked marker: " + marker.name + " length is " + this.markers.length);
+>>>>>>> Ketao
         var sidebar = document.getElementById('sidebar');
         if (sidebar.style.display != 'none') {
             sidebar.style.display = 'none';
@@ -170,7 +199,10 @@ var MapComponent = (function () {
         }
     };
     MapComponent.prototype.mapClicked = function ($event) {
+<<<<<<< HEAD
         console.log(this.posts);
+=======
+>>>>>>> Ketao
         console.log('Map clicked');
         console.log($event.coords.lat);
         console.log($event.coords.lng);
@@ -217,7 +249,11 @@ var MapComponent = (function () {
             templateUrl: '/app/map.component.html',
             providers: [post_service_1.PostService]
         }), 
+<<<<<<< HEAD
         __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService, router_1.Router])
+=======
+        __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService, router_1.Router, http_1.Http])
+>>>>>>> Ketao
     ], MapComponent);
     return MapComponent;
 }());

@@ -1,6 +1,7 @@
 import { Component,OnInit} from '@angular/core';
 
 import {Posts} from './posts';
+
 import {HistoryService} from './history.service';
 
 @Component({

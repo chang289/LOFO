@@ -6,6 +6,7 @@ import { CookieService } from 'angular2-cookie/core';
 
 
 import {Posts} from './posts'
+
 import 'rxjs/add/operator/toPromise';
 
 
@@ -21,10 +22,6 @@ export class HistoryService {
 	private updatePostUrl = this.URL + '/post/edit/';
 	private deletePostByIdUrl = this.URL + '/post/delete/';
 
-
-
-
-
 	getPosts(): Promise<Posts[]> {
 		console.log(this.getUserPostsUrl);
 		return this.http.get(this.getUserPostsUrl + this.lofoEmail)
@@ -34,6 +31,7 @@ export class HistoryService {
 	}
 
 	updatePosts(post: Posts):Promise<Posts> {
+
 		console.log(post._id);
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
@@ -48,6 +46,7 @@ export class HistoryService {
 		return this.http.delete(this.deletePostByIdUrl + post._id)
 		.toPromise()
 		.then(response=>response.json().data as string)
+
 		.catch(this.handleError);
 	}
 

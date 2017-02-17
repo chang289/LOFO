@@ -7,7 +7,12 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import { MarkerCluster } from './marker-cluster';
+
 import { MyDateRangePickerModule } from 'mydaterangepicker';
+
+//for datepicker
+
 
 
 //for map
@@ -21,6 +26,7 @@ import { EditComponent } from './edit.component';
 import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
 import {PathLocationStrategy, LocationStrategy,HashLocationStrategy} from '@angular/common';
+import { myDateRangePickerDirective } from './my-date-range-picker.directive'
 
 const APP_DECLARATION = [
     AppComponent
@@ -60,10 +66,7 @@ const APP_DECLARATION = [
         {
           path: 'register',
           component: RegisterComponent
-        },
-        {
-          path: 'pipi',
-          component: PipiComponent
+
         }
       ]),
 
@@ -73,8 +76,9 @@ const APP_DECLARATION = [
     CollapseModule.forRoot()
   ],
   exports: [RouterModule],
-  providers: [ CookieService,{provide: LocationStrategy, useClass: HashLocationStrategy} ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent ],
+
+  providers: [ CookieService ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, MarkerCluster ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

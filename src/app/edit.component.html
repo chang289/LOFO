@@ -1,9 +1,5 @@
 
-
-
-
-
-<button type="button" class="btn btn-success" (click)="lgModal.show()" id = "edt">
+<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
 	<span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
 
@@ -52,12 +48,13 @@
         <div>
         <div class="form-group" dropdown>
           <label for="sel1">Select list:</label>
-          <select [(ngModel)]="tag" class="form-control" id="sel1">  
-            <option>Phone</option>
-            <option>Key</option>
-            <option>Wallet</option>
-            <option>Bag</option>
-            <option>Cloth</option>
+
+          <select [(ngModel)]="edited_post.tag" class="form-control" id="sel1">  
+            <option value="0">Phone</option>
+            <option value="1">Key</option>
+            <option value="2">Wallet</option>
+            <option value="3">Bag</option>
+            <option value="4">Cloth</option>
           </select>
         </div>
         </div>   
