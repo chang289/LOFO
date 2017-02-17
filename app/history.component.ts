@@ -1,8 +1,10 @@
 import { Component,OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'angular2-cookie/core';
 
 import {Post} from './post';
 import {HistoryService} from './history.service';
-import { Router } from '@angular/router';
+
 
 @Component({
 	moduleId: module.id,
@@ -17,7 +19,8 @@ export class HistoryComponent implements OnInit{
 
 	constructor(
 		private historyService: HistoryService,
-		private router: Router
+		private router: Router,
+		private cookieService: CookieService
 	){}
 
 
@@ -28,5 +31,8 @@ export class HistoryComponent implements OnInit{
 
 	ngOnInit(): void {
 		this.getPosts();
+        if (this.cookieService.get("lofoemail") == null) {
+            this.router.navigateByUrl("/login");
+        }
 	}
 }

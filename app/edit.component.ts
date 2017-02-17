@@ -1,8 +1,11 @@
 import { Component, OnInit,Input,VERSION } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalModule } from 'ng2-bootstrap/modal';
+import { CookieService } from 'angular2-cookie/core';
 
 import {Post} from './post';
 import {HistoryService} from './history.service';
+
 
 @Component ({
 	moduleId: module.id,
@@ -12,9 +15,23 @@ import {HistoryService} from './history.service';
 	providers:[HistoryService]
 })
 export class EditComponent {
-	constructor(private historyService:HistoryService){}
+	constructor(
+		private historyService:HistoryService,
+		private cookieService: CookieService,
+		private router: Router
+	){}
 
 	sample_posts:Post[];
+	public selected:string;
+	public tag:number = 0;
+	public types:string[] =[
+		'Phone',
+		'Key',
+		'Wallet',
+		'Bag',
+		'Cloth'
+	]
+
 
 	@Input() edited_post: Post;
 
