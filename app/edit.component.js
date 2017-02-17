@@ -14,8 +14,14 @@ var history_service_1 = require('./history.service');
 var EditComponent = (function () {
     function EditComponent(historyService) {
         this.historyService = historyService;
+        this.tag = 0;
     }
+    EditComponent.prototype.editClicked = function () {
+        console.log(this.edited_post.tag);
+        this.tag = this.edited_post.tag;
+    };
     EditComponent.prototype.Edit = function () {
+        this.tag = this.edited_post.tag;
         console.log(this.edited_post);
         console.log(this.historyService.updatePosts(this.edited_post));
     };

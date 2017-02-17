@@ -177,9 +177,9 @@ export class MapComponent implements OnInit{
 
     newMarker: marker;
 
-    clickedMarker(marker:marker, index:number) {
+    clickedMarker(marker:marker) {
     
-        console.log("clicked marker: " + marker.name + " at index " + index + " length is " + this.markers.length);
+        console.log("clicked marker: " + marker.name + " length is " + this.markers.length);
         var sidebar = document.getElementById('sidebar');
         if (sidebar.style.display != 'none') {
             sidebar.style.display = 'none';

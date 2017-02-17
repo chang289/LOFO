@@ -20,9 +20,15 @@ export class MarkerCluster implements OnInit {
   ngOnInit() {
     console.log("inside cluster");
     this.gmapsApi.getNativeMap().then(map => {
+
+    var backpackUrl: string = 'app/icon_backpack.png';
+    var walletUrl: string = 'app/icon_wallet.png';
+    var keyUrl: string = 'app/icon_key.png';
+    var cellphoneUrl: string = 'app/icon_phone.png';
+    var clothUrl: string = 'app/icon_cloth.png';
 		
 		let markerIcon = {
-			//url: "assets/marker.png", // url
+			url: "assets/marker.png", // url
 			scaledSize: new google.maps.Size(35, 35)
 		  }
 		
@@ -53,8 +59,19 @@ export class MarkerCluster implements OnInit {
           for (let point of this.points) {
 			let marker = new google.maps.Marker({
 			  position: new google.maps.LatLng(point.lat, point.lng),
-			  icon:markerIcon
+			  icon:point.iconUrl,
+        
 			});
+      marker.addListener('click', function() {
+        console.log("clicked marker: " + marker.name);
+        var sidebar = document.getElementById('sidebar');
+        if (sidebar.style.display != 'none') {
+            sidebar.style.display = 'none';
+        } else {
+            sidebar.style.display = 'block';
+        }
+      }),
+
 			markers.push(marker);
 		  }
 

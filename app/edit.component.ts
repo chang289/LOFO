@@ -13,12 +13,18 @@ import {HistoryService} from './history.service';
 })
 export class EditComponent {
 	constructor(private historyService:HistoryService){}
-
 	sample_posts:Post[];
 
 	@Input() edited_post: Post;
+	tag: number = 0;
+	
+	editClicked() : void {
+		console.log(this.edited_post.tag);
+		this.tag = this.edited_post.tag;
+	}
 
 	Edit(): void {
+		this.tag = this.edited_post.tag;
 		console.log(this.edited_post);
 		console.log(this.historyService.updatePosts(this.edited_post));
 

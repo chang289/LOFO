@@ -19,8 +19,13 @@ var MarkerCluster = (function () {
         var _this = this;
         console.log("inside cluster");
         this.gmapsApi.getNativeMap().then(function (map) {
+            var backpackUrl = 'app/icon_backpack.png';
+            var walletUrl = 'app/icon_wallet.png';
+            var keyUrl = 'app/icon_key.png';
+            var cellphoneUrl = 'app/icon_phone.png';
+            var clothUrl = 'app/icon_cloth.png';
             var markerIcon = {
-                //url: "assets/marker.png", // url
+                url: "assets/marker.png",
                 scaledSize: new google.maps.Size(35, 35)
             };
             var style = {
@@ -42,13 +47,26 @@ var MarkerCluster = (function () {
                 .skipWhile(function (s) { return _this.points == null || _this.points.length <= 0; })
                 .take(1)
                 .subscribe(function () {
-                for (var _i = 0, _a = _this.points; _i < _a.length; _i++) {
-                    var point = _a[_i];
+                var _loop_1 = function(point) {
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(point.lat, point.lng),
-                        icon: markerIcon
+                        icon: point.iconUrl,
                     });
-                    markers.push(marker);
+                    marker.addListener('click', function () {
+                        console.log("clicked marker: " + marker.name);
+                        var sidebar = document.getElementById('sidebar');
+                        if (sidebar.style.display != 'none') {
+                            sidebar.style.display = 'none';
+                        }
+                        else {
+                            sidebar.style.display = 'block';
+                        }
+                    }),
+                        markers.push(marker);
+                };
+                for (var _i = 0, _a = _this.points; _i < _a.length; _i++) {
+                    var point = _a[_i];
+                    _loop_1(point);
                 }
                 var markerCluster = new MarkerClusterer(map, markers, options);
             });
