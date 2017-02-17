@@ -8,20 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var PipiComponent = (function () {
     function PipiComponent() {
     }
     PipiComponent.prototype.ngOnInit = function () {
     };
-    PipiComponent = __decorate([
-        core_1.Component({
-            selector: 'pi-pi',
-            template: '<h1>Pipi</h1>',
-        }), 
-        __metadata('design:paramtypes', [])
-    ], PipiComponent);
     return PipiComponent;
 }());
+PipiComponent = __decorate([
+    core_1.Component({
+        selector: 'pi-pi',
+        template: '<h1>Pipi</h1>',
+    }),
+    __metadata("design:paramtypes", [])
+], PipiComponent);
 exports.PipiComponent = PipiComponent;
 //# sourceMappingURL=pipi.component.js.map

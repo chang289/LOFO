@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var users_1 = require('./users');
-var user_service_1 = require('./user.service');
-var core_2 = require('angular2-cookie/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var users_1 = require("./users");
+var user_service_1 = require("./user.service");
+var core_2 = require("angular2-cookie/core");
+var router_1 = require("@angular/router");
 var RegisterComponent = (function () {
     function RegisterComponent(userService, cookieService, router) {
         this.userService = userService;
@@ -46,17 +46,17 @@ var RegisterComponent = (function () {
             }
         });
     };
-    RegisterComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'register',
-            templateUrl: 'register.component.html',
-            styleUrls: ['register.component.css'],
-            providers: [user_service_1.UserService]
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, core_2.CookieService, router_1.Router])
-    ], RegisterComponent);
     return RegisterComponent;
 }());
+RegisterComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'register',
+        templateUrl: 'register.component.html',
+        styleUrls: ['register.component.css'],
+        providers: [user_service_1.UserService]
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService, core_2.CookieService, router_1.Router])
+], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

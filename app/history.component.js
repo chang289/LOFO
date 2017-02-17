@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var history_service_1 = require('./history.service');
+var core_1 = require("@angular/core");
+var history_service_1 = require("./history.service");
 var HistoryComponent = (function () {
     function HistoryComponent(historyService) {
         this.historyService = historyService;
@@ -22,17 +22,17 @@ var HistoryComponent = (function () {
     HistoryComponent.prototype.ngOnInit = function () {
         this.getPosts();
     };
-    HistoryComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-history',
-            templateUrl: './history.component.html',
-            styleUrls: ['history.component.css'],
-            providers: [history_service_1.HistoryService]
-        }), 
-        __metadata('design:paramtypes', [history_service_1.HistoryService])
-    ], HistoryComponent);
     return HistoryComponent;
 }());
+HistoryComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'my-history',
+        templateUrl: './history.component.html',
+        styleUrls: ['history.component.css'],
+        providers: [history_service_1.HistoryService]
+    }),
+    __metadata("design:paramtypes", [history_service_1.HistoryService])
+], HistoryComponent);
 exports.HistoryComponent = HistoryComponent;
 //# sourceMappingURL=history.component.js.map

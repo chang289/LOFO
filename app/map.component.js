@@ -8,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var post_service_1 = require('./post.service');
-var core_2 = require('angular2-cookie/core');
-require('./markerclusterer.js');
-var posts_1 = require('./posts');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var post_service_1 = require("./post.service");
+var core_2 = require("angular2-cookie/core");
+require("./markerclusterer.js");
+var posts_1 = require("./posts");
+var router_1 = require("@angular/router");
 var MapComponent = (function () {
     function MapComponent(postService, cookieService, router) {
         this.postService = postService;
@@ -211,15 +211,15 @@ var MapComponent = (function () {
         this.cookieService.remove("lofoemail");
         this.router.navigateByUrl("/login");
     };
-    MapComponent = __decorate([
-        core_1.Component({
-            selector: 'my-map',
-            templateUrl: '/app/map.component.html',
-            providers: [post_service_1.PostService]
-        }), 
-        __metadata('design:paramtypes', [post_service_1.PostService, core_2.CookieService, router_1.Router])
-    ], MapComponent);
     return MapComponent;
 }());
+MapComponent = __decorate([
+    core_1.Component({
+        selector: 'my-map',
+        templateUrl: '/app/map.component.html',
+        providers: [post_service_1.PostService]
+    }),
+    __metadata("design:paramtypes", [post_service_1.PostService, core_2.CookieService, router_1.Router])
+], MapComponent);
 exports.MapComponent = MapComponent;
 //# sourceMappingURL=map.component.js.map

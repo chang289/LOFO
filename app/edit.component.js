@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var post_1 = require('./post');
-var history_service_1 = require('./history.service');
+var core_1 = require("@angular/core");
+var post_1 = require("./post");
+var history_service_1 = require("./history.service");
 var EditComponent = (function () {
     function EditComponent(historyService) {
         this.historyService = historyService;
@@ -22,21 +22,21 @@ var EditComponent = (function () {
     EditComponent.prototype.Delete = function () {
         console.log(this.historyService.deletePostByID(this.edited_post));
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', post_1.Post)
-    ], EditComponent.prototype, "edited_post", void 0);
-    EditComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-edit',
-            templateUrl: './edit.component.html',
-            styleUrls: ['./edit.component.css'],
-            providers: [history_service_1.HistoryService]
-        }), 
-        __metadata('design:paramtypes', [history_service_1.HistoryService])
-    ], EditComponent);
     return EditComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", post_1.Post)
+], EditComponent.prototype, "edited_post", void 0);
+EditComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'my-edit',
+        templateUrl: './edit.component.html',
+        styleUrls: ['./edit.component.css'],
+        providers: [history_service_1.HistoryService]
+    }),
+    __metadata("design:paramtypes", [history_service_1.HistoryService])
+], EditComponent);
 exports.EditComponent = EditComponent;
 //# sourceMappingURL=edit.component.js.map

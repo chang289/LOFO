@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var users_1 = require('./users');
-var user_service_1 = require('./user.service');
-var core_2 = require('angular2-cookie/core');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var users_1 = require("./users");
+var user_service_1 = require("./user.service");
+var core_2 = require("angular2-cookie/core");
+var router_1 = require("@angular/router");
 var LoginComponent = (function () {
     //match: boolean;
     function LoginComponent(userService, cookieService, router) {
@@ -45,17 +45,17 @@ var LoginComponent = (function () {
     LoginComponent.prototype.clickSignUp = function () {
         this.router.navigateByUrl('/register');
     };
-    LoginComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'login',
-            templateUrl: 'login.component.html',
-            styleUrls: ['login.component.css'],
-            providers: [user_service_1.UserService]
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, core_2.CookieService, router_1.Router])
-    ], LoginComponent);
     return LoginComponent;
 }());
+LoginComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'login',
+        templateUrl: 'login.component.html',
+        styleUrls: ['login.component.css'],
+        providers: [user_service_1.UserService]
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService, core_2.CookieService, router_1.Router])
+], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

@@ -1,8 +1,8 @@
 "use strict";
-var map_component_1 = require('./map.component');
-var testing_1 = require('@angular/core/testing');
-var platform_browser_1 = require('@angular/platform-browser');
-var testing_2 = require('@angular/router/testing');
+var map_component_1 = require("./map.component");
+var testing_1 = require("@angular/core/testing");
+var platform_browser_1 = require("@angular/platform-browser");
+var testing_2 = require("@angular/router/testing");
 describe('MapComponetn', function () {
     var de;
     var map;

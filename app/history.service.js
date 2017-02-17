@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var core_2 = require('angular2-cookie/core');
-require('rxjs/add/operator/toPromise');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var core_2 = require("angular2-cookie/core");
+require("rxjs/add/operator/toPromise");
 var HistoryService = (function () {
     function HistoryService(http, cookieService) {
         this.http = http;
@@ -48,11 +48,11 @@ var HistoryService = (function () {
         console.error('An error occurred', error); //demo
         return Promise.reject(error.message || error);
     };
-    HistoryService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, core_2.CookieService])
-    ], HistoryService);
     return HistoryService;
 }());
+HistoryService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, core_2.CookieService])
+], HistoryService);
 exports.HistoryService = HistoryService;
 //# sourceMappingURL=history.service.js.map
