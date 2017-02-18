@@ -6,7 +6,7 @@ import { CookieService } from 'angular2-cookie/core';
 import './markerclusterer.js';
 import { Posts } from './posts';
 import { Router } from '@angular/router';
-
+import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 declare var google: any;
 
@@ -17,7 +17,6 @@ declare var google: any;
 })
 export class MapComponent implements OnInit{ 
 
-    newFlag: number = 1;
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
@@ -44,6 +43,22 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
+    src: string = "";
+    resizeOptions: ResizeOptions = {
+        resizeMaxHeight: 128,
+        resizeMaxWidth: 128
+    };
+ 
+    selected(imageResult: ImageResult) {
+        this.src = imageResult.resized
+            && imageResult.resized.dataURL
+            || imageResult.dataURL;
+        console.log(imageResult.file);
+        console.log(imageResult.url);
+        console.log(imageResult.dataURL);
+        console.log(this.src);
+    }
+
     constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {}
 
     markers: marker[] = [];
@@ -58,6 +73,9 @@ export class MapComponent implements OnInit{
 
     ngOnInit(): void {
         this.lofoemail = this.cookieService.get("lofoemail");
+        if(this.lofoemail == null) {
+            this.router.navigateByUrl("/login");
+        }
         var promise = this.getPost();
         console.log(promise);
         promise.then(posts => {
@@ -113,9 +131,12 @@ export class MapComponent implements OnInit{
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
-
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
+        if (this.tag == null) {
+            alert("Please choose a Genre");
+            return;
+        }
         var promise = this.postService.createPost(this.post)
             .then((post: Posts) => {
                 this.post = post;

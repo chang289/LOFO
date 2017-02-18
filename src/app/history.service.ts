@@ -5,14 +5,11 @@ import { CookieService } from 'angular2-cookie/core';
 
 
 
-import {Posts} from './posts'
-
+import {Posts} from './posts';
 import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-
-
 export class HistoryService {
 
 	constructor(private http: Http, private cookieService: CookieService) {}
@@ -45,7 +42,7 @@ export class HistoryService {
 	deletePostByID(post:Posts):Promise<string> {
 		return this.http.delete(this.deletePostByIdUrl + post._id)
 		.toPromise()
-		.then(response=>response.json().data as string)
+		.then(response=>response.json().info as string)
 
 		.catch(this.handleError);
 	}
