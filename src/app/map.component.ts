@@ -208,6 +208,9 @@ export class MapComponent implements OnInit{
 
     newMarker: marker;
 
+    updateFilter() {
+        alert("To be implemented");
+    }
 
     clickedMarker(marker:marker) {
     
