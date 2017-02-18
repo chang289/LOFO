@@ -129,11 +129,11 @@ export class MapComponent implements OnInit{
         this.post.locationY = this.newMarker.lng;
         this.post.createTime = new Date();
         this.post.modifiedTime = new Date();
-
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
-        if (this.tag < 0) {
+        if (this.tag == null) {
             alert("Please choose a Genre");
+            return;
         }
         var promise = this.postService.createPost(this.post)
             .then((post: Posts) => {
