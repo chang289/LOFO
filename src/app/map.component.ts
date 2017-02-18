@@ -16,6 +16,7 @@ declare var google: any;
   providers: [PostService]
 })
 export class MapComponent implements OnInit{ 
+
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
@@ -207,6 +208,9 @@ export class MapComponent implements OnInit{
 
     newMarker: marker;
 
+    updateFilter() {
+        alert("To be implemented");
+    }
 
     clickedMarker(marker:marker) {
     
@@ -225,6 +229,7 @@ export class MapComponent implements OnInit{
         console.log($event.coords.lat);
         console.log($event.coords.lng);
         console.log(this.markers);
+
         var newMarker = {
             name: 'New Post',
             lat: $event.coords.lat,
@@ -234,6 +239,7 @@ export class MapComponent implements OnInit{
         }
         this.newMarker = newMarker;
     }
+
 
     markerDragEnd(marker:any, $event:any) {
         console.log('dragEnd', marker, $event);

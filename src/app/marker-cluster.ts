@@ -85,8 +85,14 @@ export class MarkerCluster implements OnInit {
 		      markers.push(marker);
 		    }
 
-      var markerCluster = new MarkerClusterer(map, markers, options);
-          
+        var markerCluster = new MarkerClusterer(map, markers, options);
+        markerCluster.addListener('clusterclick', function() {
+          console.log("BOOMBOOM");
+
+         //document.getElementById('newMarker').style.display = 'none';
+        });
+
+
       })
     });
   }
