@@ -104,6 +104,7 @@ export class MapComponent implements OnInit{
                     name: singlePost.fullname,
                     lat: singlePost.locationX,
                     lng: singlePost.locationY,
+                    description: singlePost.description,
                     iconUrl: newPostIcon,
                     draggable: false,
                 }

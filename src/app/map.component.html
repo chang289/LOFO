@@ -4,11 +4,11 @@
 <nav style="margin-bottom: 0" class="navbar navbar-inverse ">
   <div class="container-fluid">
    
-    <a class="navbar-brand">LOFO</a>
+    <a class="navbar-brand" style="margin-top: 17px">LOFO</a>
 
     <div id="navbar" class="navbar-collapse collapse" >
       <ul class="nav navbar-nav navbar-left" >
-        <li style="margin-top: 10px;">
+        <li style="margin-top: 24.5px;">
         <my-date-range-picker placeholder="Select the date range"
 			  [attr.options]="myDateRangePickerOptions"
 		    (dateRangeChanged)="onDateRangeChanged($event)">
@@ -48,24 +48,21 @@
           </div>
         </li>
 
-        <li style="margin-top: 9px; margin-left: 10px">
+        <li style="margin-top: 24.5px; margin-left: 10px">
           <div id="updateBtn">
             <button class="btn btn-primary">Update</button>
           </div>
         </li>
-        <li style="margin-top: 9px; margin-left: 10px">
+        <li style="margin-top: 24.5px; margin-left: 10px">
           <div id="updateBtn">
             <button class="btn btn-primary" routerLink="/history">History</button>
           </div>
         </li>
-        <li style="margin-top: 9px; margin-left: 470">
-          <div id="updateBtn">
-            <a class="navbar-brand">{{lofoemail}}</a>
+      </ul>
+      <div id="updateBtn" style="float: right; margin-top: 24.5px">
+            <a>{{lofoemail}}</a>
             <button class="btn btn-primary"  (click)="signOut()">SignOut</button>
           </div>
-        </li>
-
-      </ul>
     </div>
 
   </div>
@@ -123,7 +120,7 @@
   		  > -->
 
 <!--   		  </sebm-google-map-marker>-->
-         <sebm-google-map-marker id='newMarker'
+        <sebm-google-map-marker id='newMarker'
           *ngIf="newMarker"
           [latitude]="newMarker.lat"
           [longitude]="newMarker.lng"

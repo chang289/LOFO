@@ -22,6 +22,8 @@ export class HistoryComponent implements OnInit{
 		private historyService: HistoryService, private cookieService: CookieService, private router: Router){}
 
 
+	constructor(private historyService: HistoryService){}
+
 	getPosts() : void {
 		this.historyService.getPosts()
 		.then(sample_posts=>this.sample_posts=sample_posts);
