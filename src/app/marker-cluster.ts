@@ -21,16 +21,16 @@ export class MarkerCluster implements OnInit {
     console.log("inside cluster");
     this.gmapsApi.getNativeMap().then(map => {
 
-    var backpackUrl: string = 'app/icon_backpack.png';
-    var walletUrl: string = 'app/icon_wallet.png';
-    var keyUrl: string = 'app/icon_key.png';
-    var cellphoneUrl: string = 'app/icon_phone.png';
-    var clothUrl: string = 'app/icon_cloth.png';
-		
-		let markerIcon = {
-			url: "assets/marker.png", // url
-			scaledSize: new google.maps.Size(35, 35)
-		  }
+      var backpackUrl: string = 'app/icon_backpack.png';
+      var walletUrl: string = 'app/icon_wallet.png';
+      var keyUrl: string = 'app/icon_key.png';
+      var cellphoneUrl: string = 'app/icon_phone.png';
+      var clothUrl: string = 'app/icon_cloth.png';
+  		
+  		let markerIcon = {
+  			url: "assets/marker.png", // url
+  			scaledSize: new google.maps.Size(35, 35)
+  		};
 		
 		
       let style = {
@@ -42,13 +42,13 @@ export class MarkerCluster implements OnInit {
         backgroundPosition: "center center"
       }; 
 
-		let options = {
-		  imagePath: "/assets/cluster",
-		  gridSize: 70,
-		  styles: [style, style, style]
-		};
+  		let options = {
+  		  imagePath: "/assets/cluster",
+  		  gridSize: 70,
+  		  styles: [style, style, style]
+  		};
 		
-		let markers = [];
+		  let markers = [];
 
 
       Observable
@@ -56,28 +56,38 @@ export class MarkerCluster implements OnInit {
         .skipWhile((s) => this.points == null || this.points.length <= 0)
         .take(1)
         .subscribe(() => {
-          for (let point of this.points) {
-			let marker = new google.maps.Marker({
-			  position: new google.maps.LatLng(point.lat, point.lng),
-			  icon:point.iconUrl,
-        
-			});
-      marker.addListener('click', function() {
-        console.log("clicked marker: " + marker.name);
-        var sidebar = document.getElementById('sidebar');
-        if (sidebar.style.display != 'none') {
-            sidebar.style.display = 'none';
-        } else {
-            sidebar.style.display = 'block';
-        }
-      }),
+        for (let point of this.points) {
+    		  let marker = new google.maps.Marker({
+    		    position: new google.maps.LatLng(point.lat, point.lng),
+    		    icon:point.iconUrl,
+    		  });
 
-			markers.push(marker);
-		  }
+          console.log(point.name);
+          console.log(point.description);
 
-          var markerCluster = new MarkerClusterer(map, markers, options);
+          var contentStr = '<strong>' + point.name + '</strong>' + '<br>' + '<strong>' + point.description + '</strong>';
+
+          let infowindow = new google.maps.InfoWindow({
+            content: contentStr
+          });
+
+          marker.addListener('click', function() {
+            console.log("clicked marker: " + marker.name);
+            infowindow.open(map, marker);
+            var sidebar = document.getElementById('sidebar');
+            if (sidebar.style.display != 'none') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+          }),
+
+		      markers.push(marker);
+		    }
+
+      var markerCluster = new MarkerClusterer(map, markers, options);
           
-        })
+      })
     });
   }
 
