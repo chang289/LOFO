@@ -27,7 +27,7 @@ import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
 import {PathLocationStrategy, LocationStrategy,HashLocationStrategy} from '@angular/common';
 import { myDateRangePickerDirective } from './my-date-range-picker.directive'
-
+import { ImageUploadModule } from 'ng2-imageupload';
 const APP_DECLARATION = [
     AppComponent
 ];
@@ -41,6 +41,7 @@ const APP_DECLARATION = [
     HttpModule,
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
+    ImageUploadModule,
     RouterModule.forRoot([
         {
           path: '',
@@ -77,7 +78,7 @@ const APP_DECLARATION = [
   ],
   exports: [RouterModule],
 
-  providers: [ CookieService ],
+  providers: [ CookieService, {provide: LocationStrategy, useClass: HashLocationStrategy} ],
   declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, MarkerCluster ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
