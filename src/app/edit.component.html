@@ -60,14 +60,16 @@
         </div>   
         <br>
         <div>
-          <button type="button" class="btn btn-primary" aria-label="Close"
-           (click)="lgModal.hide()" (click)="Edit()">
-          	Submit</button>
 
-	    <button type="button" class="btn btn-danger"
-	    aria-label="Close" (click)="lgModal.hide()" style="float:right">
-	      Cancel
-	    </button>
+    	    <button type="button" class="btn btn-danger"
+    	    aria-label="Close" (click)="lgModal.hide()" >
+    	      Cancel
+    	    </button>
+
+          <button type="button" class="btn btn-info" aria-label="Close"
+           (click)="lgModal.hide()" (click)="Edit()" style="float:right"> 
+            Update
+          </button>
 
         </div>
       </div>
@@ -91,14 +93,16 @@
         <br>
 
         <div id = "dialog_btns">
-          <button type = "button" class="btn btn-danger"   style="margin-right:2em" 
-          aria-label="Close" (click)="smModal.hide()" (click) = Delete()>
-            <span class="glyphicon glyphicon-trash" ></span> Delete
-          </button>
 
-          <button type="button" class="btn btn-secondary"  style="margin-left:2em"
+
+          <button type="button" class="btn btn-secondary"  style="margin-right:2em"
           aria-label="Close" (click)="smModal.hide()">
             <span class="glyphicon glyphicon-remove" ></span>Cancel
+          </button>
+
+          <button type = "button" class="btn btn-danger"   style="margin-left:2em" 
+          aria-label="Close" (click)="smModal.hide()" (click) = Delete()>
+            <span class="glyphicon glyphicon-trash" ></span> Delete
           </button>
 
         </div>
