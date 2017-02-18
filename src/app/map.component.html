@@ -97,7 +97,6 @@
       [zoom]="13"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      [disableDoubleClickZoom]="true"
       (mapRightClick)="mapClicked($event)"
       (idle)="cluster($event)"
       style="height: 100vh">
@@ -117,7 +116,6 @@
 
         </sebm-google-map-marker>
       <marker-cluster [points]="markers"
-          (clusterclick)="clusterClicked($event)"
       >
         <!-- <sebm-google-map-info-window id='oldInfo'>
           <strong>{{m.name}}</strong><br>

@@ -227,24 +227,16 @@ export class MapComponent implements OnInit{
         console.log($event.coords.lng);
         console.log(this.markers);
 
-        if (this.newFlag == 1) {
-            var newMarker = {
-                name: 'New Post',
-                lat: $event.coords.lat,
-                lng: $event.coords.lng,
-                item: 'none',
-                draggable: false,
-            }
-            this.newMarker = newMarker;
-        } else {
-            this.newFlag = 1;
+        var newMarker = {
+            name: 'New Post',
+            lat: $event.coords.lat,
+            lng: $event.coords.lng,
+            item: 'none',
+            draggable: false,
         }
+        this.newMarker = newMarker;
     }
 
-    clusterClicked($event:any) {
-        console.log("hellllllo");
-        this.newFlag = 0;
-    }
 
     markerDragEnd(marker:any, $event:any) {
         console.log('dragEnd', marker, $event);
