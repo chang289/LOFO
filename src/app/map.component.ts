@@ -17,6 +17,7 @@ declare var google: any;
 })
 export class MapComponent implements OnInit{ 
 
+    newFlag: number = 1;
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
@@ -204,14 +205,24 @@ export class MapComponent implements OnInit{
         console.log($event.coords.lat);
         console.log($event.coords.lng);
         console.log(this.markers);
-        var newMarker = {
-            name: 'New Post',
-            lat: $event.coords.lat,
-            lng: $event.coords.lng,
-            item: 'none',
-            draggable: false,
+
+        if (this.newFlag == 1) {
+            var newMarker = {
+                name: 'New Post',
+                lat: $event.coords.lat,
+                lng: $event.coords.lng,
+                item: 'none',
+                draggable: false,
+            }
+            this.newMarker = newMarker;
+        } else {
+            this.newFlag = 1;
         }
-        this.newMarker = newMarker;
+    }
+
+    clusterClicked($event:any) {
+        console.log("hellllllo");
+        this.newFlag = 0;
     }
 
     markerDragEnd(marker:any, $event:any) {

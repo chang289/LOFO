@@ -97,11 +97,27 @@
       [zoom]="13"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      (mapClick)="mapClicked($event)"
+      [disableDoubleClickZoom]="true"
+      (mapRightClick)="mapClicked($event)"
       (idle)="cluster($event)"
       style="height: 100vh">
+      <sebm-google-map-marker id='newMarker'
+          *ngIf="newMarker"
+          [latitude]="newMarker.lat"
+          [longitude]="newMarker.lng"
+          [markerDraggable]="newMarker.draggable"
+        >
+        <sebm-google-map-info-window id='newInfo'
+        [isOpen]=true
+        (infoWindowClose)="cancelPost($event)">
+          <div *ngIf="newMarker">
+            <button class="btn btn-primary" (click)="lgModal.show()">New Post</button>
+          </div>
+        </sebm-google-map-info-window>
+
+        </sebm-google-map-marker>
       <marker-cluster [points]="markers"
-          
+          (clusterclick)="clusterClicked($event)"
       >
         <!-- <sebm-google-map-info-window id='oldInfo'>
           <strong>{{m.name}}</strong><br>
@@ -120,21 +136,7 @@
   		  > -->
 
 <!--   		  </sebm-google-map-marker>-->
-        <sebm-google-map-marker id='newMarker'
-          *ngIf="newMarker"
-          [latitude]="newMarker.lat"
-          [longitude]="newMarker.lng"
-          [markerDraggable]="newMarker.draggable"
-        >
-        <sebm-google-map-info-window id='newInfo'
-        [isOpen]=true
-        (infoWindowClose)="cancelPost($event)">
-          <div *ngIf="newMarker">
-            <button class="btn btn-primary" (click)="lgModal.show()">New Post</button>
-          </div>
-        </sebm-google-map-info-window>
-
-        </sebm-google-map-marker>
+        
   		</sebm-google-map>
       <!-- <sebm-google-map
       [latitude]="lat"
