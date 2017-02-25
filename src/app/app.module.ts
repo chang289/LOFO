@@ -27,7 +27,13 @@ import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
 import {PathLocationStrategy, LocationStrategy,HashLocationStrategy} from '@angular/common';
 import { myDateRangePickerDirective } from './my-date-range-picker.directive'
+<<<<<<< HEAD:src/app/app.module.ts
 import { ImageUploadModule } from 'ng2-imageupload';
+=======
+
+import {PathLocationStrategy, LocationStrategy,HashLocationStrategy} from '@angular/common';
+
+>>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/app.module.ts
 const APP_DECLARATION = [
     AppComponent
 ];
@@ -77,9 +83,14 @@ const APP_DECLARATION = [
     CollapseModule.forRoot()
   ],
   exports: [RouterModule],
+<<<<<<< HEAD:src/app/app.module.ts
 
   providers: [ CookieService, {provide: LocationStrategy, useClass: HashLocationStrategy} ],
   declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, MarkerCluster ],
+=======
+  providers: [ CookieService,{provide: LocationStrategy, useClass: HashLocationStrategy} ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent ],
+>>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/app.module.ts
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
