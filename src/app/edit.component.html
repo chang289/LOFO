@@ -1,3 +1,4 @@
+
 <button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
   <span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
@@ -47,7 +48,6 @@
         <div>
         <div class="form-group" dropdown>
           <label for="sel1">Select list:</label>
-<<<<<<< HEAD:src/app/edit.component.html
 
           <select [(ngModel)]="edited_post.tag" class="form-control" id="sel1">  
             <option value="0">Phone</option>
@@ -55,21 +55,11 @@
             <option value="2">Wallet</option>
             <option value="3">Bag</option>
             <option value="4">Cloth</option>
-=======
-          <select [(ngModel)]="types[edited_post.tag]" class="form-control" id="sel1">  
-            <option *ngFor = "let type of types">{{type}}</option>
->>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/edit.component.html
           </select>
         </div>
         </div>   
         <br>
         <div>
-<<<<<<< HEAD:src/app/edit.component.html
-=======
-          <button type="button" class="btn btn-primary" aria-label="Close"
-           (click)="lgModal.hide()" (click)="Edit()" (click) = "updateAlart()">
-          	Submit</button>
->>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/edit.component.html
 
           <button type="button" class="btn btn-danger"
           aria-label="Close" (click)="lgModal.hide()" >
@@ -103,13 +93,6 @@
         <br>
 
         <div id = "dialog_btns">
-<<<<<<< HEAD:src/app/edit.component.html
-=======
-          <button type = "button" class="btn btn-danger"   style="margin-right:2em" 
-          aria-label="Close" (click)="smModal.hide()" (click) = Delete() (click) = "deleteAlert()">
-            <span class="glyphicon glyphicon-trash" ></span> Delete
-          </button>
->>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/edit.component.html
 
 
           <button type="button" class="btn btn-secondary"  style="margin-right:2em"
