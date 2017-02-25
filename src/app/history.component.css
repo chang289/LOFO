@@ -1,7 +1,22 @@
-
-#upper {
-	background-color: black;
+#upper{
+	background-color: white;
+	height: auto;
 }
+#img_container{
+    position:relative;
+    margin:0 auto;
+    height:auto;
+    text-align:center;
+	width:30%;
+}
+
+#home_container{
+	float: left;
+	display: inline-block;
+	width: 15%;
+}
+
+
 #upper h2 {
 	color: white;
 	text-align: center;
