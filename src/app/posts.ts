@@ -9,7 +9,7 @@ export class Posts {
     locationX   : number;
     locationY   : number;
     contact     : string;
-    photo        : string;
+    photo       : string;
     lost        : boolean;
     createTime  : Date;
     modifiedTime: Date;

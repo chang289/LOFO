@@ -18,7 +18,7 @@ var postSchema = new mongoose.Schema({
   createTime  : { type: Date, default: new Date() },
   modifiedTime: { type: Date, default: new Date() },
   complete    : { type: Boolean, default: 0 },
-  // confirmer   : { type: Schema.Types.ObjectId, ref: 'User', default: null},
+  confirmer   : String
 });
 
 var Post = mongoose.model<protoPostModel>("Post", postSchema);

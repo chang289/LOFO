@@ -14,22 +14,6 @@
 	float: left;
 	display: inline-block;
 	width: 15%;
-<<<<<<< HEAD:src/app/history.component.css
-=======
-}
-
-#MapBtn {
-	width:5em;
-	color:white;
-	background-color: black;
-	border: none;
-}
-#MapBtn:hover {
-	background-color: white;
-	color:black;
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 8px 20px 0 rgba(0,0,0,0.19);
-    transition: box-shadow 1s, background-color 0.5s, color 1s;
->>>>>>> 07104fea990a177fb3f41a9cadf245242d808a0c:app/history.component.css
 }
 
 
@@ -50,7 +34,7 @@
 }
 .info{
 	font-size: 0.6em;
-	margin-right: 8%;
+	margin-right: 6%;
 	position:relative;
     text-decoration: none;
     vertical-align: middle;
@@ -89,7 +73,6 @@
 
 #btn_container{
 	float: right;
-	width: 20%;
 }
 
 .modal_div{
