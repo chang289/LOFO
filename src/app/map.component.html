@@ -11,6 +11,7 @@
         <li style="margin-top: 24.5px;">
         <my-date-range-picker placeholder="Select the date range"
 			  [attr.options]="myDateRangePickerOptions"
+        [ngModel]="selectedDate"
 		    (dateRangeChanged)="onDateRangeChanged($event)">
 		    </my-date-range-picker>
 		    </li>
@@ -60,8 +61,8 @@
         </li>
       </ul>
       <div id="updateBtn" style="float: right; margin-top: 24.5px">
-            <a>{{lofoemail}}</a>
-            <button class="btn btn-primary"  (click)="signOut()">SignOut</button>
+            <a style="font-family:Alegreya Sans;">{{lofoemail}}</a>
+            <button class="btn btn-primary" style="font-family:Alegreya Sans;" (click)="signOut()">SignOut</button>
           </div>
     </div>
 
@@ -90,7 +91,14 @@
         <li><a href="">Another nav item</a></li>
       </ul>
     </div>
-    <div id="map">
+    <!-- <div id="floating-panel" style="margin-top: 17px">
+      <p class="navbar-brand">LOFO</p>
+      <button type="button" class="asText" (click)="isCollapsed = !isCollapsed">Username</button>
+      <div [collapse]="isCollapsed" class="card card-block card-header">
+        <div id="userCollapse">Some content</div>
+      </div>
+    </div>
+    <div id="map"> -->
   		<sebm-google-map 
   		[latitude]="lat"
       [longitude]="lng"
@@ -100,6 +108,7 @@
       (mapRightClick)="mapClicked($event)"
       (idle)="cluster($event)"
       style="height: 100vh">
+
       <sebm-google-map-marker id='newMarker'
           *ngIf="newMarker"
           [latitude]="newMarker.lat"

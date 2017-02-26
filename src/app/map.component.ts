@@ -13,6 +13,7 @@ declare var google: any;
 @Component({
   selector: 'my-map',
   templateUrl: 'map.component.html',
+  styleUrls: ['map.component.css'],
   providers: [PostService]
 })
 export class MapComponent implements OnInit{ 
@@ -20,6 +21,7 @@ export class MapComponent implements OnInit{
 	// title: string = 'LOFO';
 	lat: number = 40.424660;
 	lng: number = -86.911482;
+    public isCollapsed:boolean = true;
 
     zoom: number = 5;
     str='abc';
@@ -34,6 +36,8 @@ export class MapComponent implements OnInit{
     photoUrl: string;
     lost: string = 'true';
     lofoemail: string;
+    startDate: Date;
+    endDate: Date;
 
     tags: string[] = [
         'Phone',
@@ -202,13 +206,18 @@ export class MapComponent implements OnInit{
     //     },
     // ];
 
-    mapItem: String = 'All';
-    mapLostOrFound: String = 'All';
-    mapExpired: String = 'All';
+    mapItem: string = 'All';
+    mapLostOrFound: string = 'All';
+    mapExpired: string = 'All';
 
     newMarker: marker;
 
     updateFilter() {
+        var i = this.tags.indexOf(this.mapItem);
+        console.log(i);
+        console.log(this.mapLostOrFound);
+        console.log(this.startDate);
+        console.log(this.endDate);
         alert("To be implemented");
     }
 
@@ -273,6 +282,8 @@ export class MapComponent implements OnInit{
     onDateRangeChanged(event: IMyDateRangeModel) {
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
+        this.startDate = event.beginJsDate;
+        this.endDate = event.endJsDate;
     }
     
 	//-------------for datepicler-----------------
@@ -286,6 +297,7 @@ export class MapComponent implements OnInit{
         this.cookieService.remove("lofoemail");
         this.router.navigateByUrl("/login");
     }
+
 }
 
 
