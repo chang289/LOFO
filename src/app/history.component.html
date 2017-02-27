@@ -5,7 +5,7 @@
 
 	<div id = "upper">
 		<div id = "home_container">
-				<button type="button" class="btn btn-info" id = "MapBtn" routerLink="/map" style ="background-color:black">
+				<button type="button" class="btn btn-info" id = "MapBtn" routerLink="/map">
 					<span class="glyphicon glyphicon-arrow-left"></span>Map
 				</button>
 		</div>
@@ -25,14 +25,14 @@
 
 				<span class="info">{{post.createTime | date:'short'}}</span> 
 
-				<span class="info" id = "title"
-				(click)=lgModal.show() style="display:inline-block; margin-right:0">{{post.title}}</span>
-
-
+				<span class="info" id = "title" (click)=lgModal.show() style="display:inline-block; margin-right:0; max-width:40%">
+					{{post.title}}
+				</span>
 
 					<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 					    <div class="modal-content">
+
 					      <div class="modal-header">
 					        <h4 class="modal-title pull-left" style="font-size:1em">{{post.title}}</h4>
 					        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
@@ -81,7 +81,7 @@
 					    </div>
 					  </div>
 					</div>
-					
+				
 				<div id="btn_container">
 					<my-edit 
 					[edited_post]=post >

@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { Posts } from './posts';
 import { Users } from './users';
 
-import {HistoryService} from './history.service';
+import { HistoryService } from './history.service';
 import { UserService } from './user.service';
+import { CookieService } from 'angular2-cookie/core';
+
 
 
 @Component ({
@@ -19,7 +21,8 @@ export class EditComponent {
 
 	constructor(
 		private historyService:HistoryService,
-		private userService:UserService
+		private userService:UserService,
+		private cookieService: CookieService
 		){}
 
 
@@ -28,6 +31,7 @@ export class EditComponent {
     user: Users;
 	confirm_email:string;
 	confirm_password:string;
+	lofoemail:string;
 
 	@Input() edited_post: Posts;
 
@@ -39,28 +43,41 @@ export class EditComponent {
 		this.tag = this.edited_post.tag;
 	}
 
+	//BUG1 :title or description must be entered
+	//REG BUG2 : must reload the page otherwise title or description could not be displayed.
 	Edit(): void {
 		this.tag = this.edited_post.tag;
-		this.historyService.updatePosts(this.edited_post)
+		if(this.edited_post.title.length == 0) {
+			alert("Edit Failed:Please enter title!");
+			window.location.reload();
+		}else if(this.edited_post.description.length == 0) {
+			alert("Edit Failed:Please enter description!");
+			window.location.reload();
+		}
+		else{
+			this.historyService.updatePosts(this.edited_post)
 			.then((info) => {
 				if (info == null) {
-					alert("Edit failed");
+					alert("Edit Failed");
+					window.location.reload();
 				}
 				else {
-					alert("Edit success");
+					alert("Edit Success");
 					window.location.reload();
 				}
 			});
+		}
 
 	}
 	Delete(): void {
 		var promise = this.historyService.deletePostByID(this.edited_post)
             .then((info) => {
             	if (info == null) {
-            		alert("Delete failed");
+            		alert("Delete Failed");
+					window.location.reload();
             	}
             	else {
-            		alert("Delete success");
+            		alert("Delete Success");
             		window.location.reload();
             	}
         });
@@ -68,30 +85,33 @@ export class EditComponent {
 		console.log(promise);
 
 	}
-	//should not be able to confirm self. Could be a BUG
+	//BUG1: should not be able to confirm self.
 	Confirm(): void {
 		this.user = new Users();
         this.user.email = this.confirm_email;
         this.user.password = this.confirm_password;
+        this.lofoemail = this.cookieService.get("lofoemail") 
 
         var promise = this.userService.loginUser(this.user)
             .then((user: Users) => {
                 this.user = user;
                 if (this.user == null) {
-                    alert("confirm Failed");
-                }
-                else {
+                    alert("Confirm Failed:Incorrect Email or Password!");
+                }else if (this.lofoemail == user.email){
+                    alert("Confirm Failed:Confirmer Must Be Another User!");
+                }else {
                 	this.edited_post.complete = true;
                 	this.edited_post.confirmer = this.confirm_email;
                 	
 					this.historyService.updatePosts(this.edited_post)
 						.then((info) => {
 							if (info == null) {
-								alert("confirm failed");
+								alert("Confirm Failed:Failed to Update!");
+								window.location.reload();
 							}
 							else {
 								console.log(this.edited_post.confirmer);
-								alert("confirm success");
+								alert("Confirm Successed:You've Confirmed Yours Post!");
 								window.location.reload();
 							}
 						});

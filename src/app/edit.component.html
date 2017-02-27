@@ -5,10 +5,10 @@
 </button>
 
 <button *ngIf="!edited_post.lost && edited_post.complete" type="button" class="btn btn-warning"  id = "cfm2" [disabled] = "true">
-  <span class="glyphicon glyphicon-check" ></span>Comfirmed
+  <span class="glyphicon glyphicon-check" ></span>Completed
 </button>
 
-<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
+<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt" [disabled] = "edited_post.complete">
   <span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
 
@@ -76,7 +76,7 @@
           </button>
 
           <button type="button" class="btn btn-info" aria-label="Close"
-           (click)="lgModal.hide()" (click)="Edit()" style="float:right"> 
+           (click)="lgModal.hide()" (click)="Edit()" style="float:right;background-color: #388E3C;border: none;"> 
             Update
           </button>
 
@@ -163,7 +163,7 @@
       <div class="modal-body" >
 
         <div class="form-group">
-          <label for="title" class = "confirm_title">Email:</label>
+          <label for="title" class = "confirm_title" >Email:</label>
           <input [(ngModel)]="confirm_email"  type="text" class="form-control" class="confirm_input">
         </div>
 

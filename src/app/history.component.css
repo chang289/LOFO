@@ -17,6 +17,18 @@
 }
 
 
+#MapBtn {
+	background-color: black;
+	border:none;
+}
+
+#MapBtn:hover {
+	background-color: white;
+	color:black;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 8px 20px 0 rgba(0,0,0,0.19);
+    transition: box-shadow 1s, background-color 0.5s, color 1s;
+}
+
 #upper h2 {
 	color: white;
 	text-align: center;

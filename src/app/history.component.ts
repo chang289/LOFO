@@ -19,7 +19,10 @@ export class HistoryComponent implements OnInit{
 	sample_posts:Posts[];
 
 	constructor(
-		private historyService: HistoryService, private cookieService: CookieService, private router: Router){}
+		private historyService: HistoryService, 
+		private cookieService: CookieService, 
+		private router: Router
+		){}
 
 
 

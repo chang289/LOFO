@@ -24,7 +24,7 @@
 	border: none;
 
 }
-#edt:hover {
+#edt:hover:enabled {
 	background-color: white;
 	color:#388E3C;
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 8px 20px 0 rgba(0,0,0,0.19);
@@ -44,8 +44,10 @@
 
 .confirm_title{
 	display: block;
+	font-size: medium;
 }
 .confirm_input {
+	font-size: large;
 	max-width: 100%;
 	border-radius: 5px;
 	border-style: groove;
