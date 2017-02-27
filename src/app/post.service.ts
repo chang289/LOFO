@@ -8,7 +8,8 @@ export class PostService {
 	private URL = window.location.origin;
 	private createURL = this.URL + '/post/create';  // URL to web api
 	private getOngoingURL = this.URL + '/post/get/ongoing';
-	private getCompleteURL = this.URL + '/post/get/complete'
+	private getCompleteURL = this.URL + '/post/get/complete';
+	private getScreenedURL = this.URL + '/post/sort/';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -40,6 +41,15 @@ export class PostService {
 	getCompletePosts(): Promise<Posts[]> {
 
 		return this.http.get(this.getCompleteURL)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPosts(tag: number, start: Date, end: Date, lost: String): Promise<Posts[]> {
+		var url = this.getScreenedURL + tag + "/" + start + "/" + end + "/" + lost + "/asc";
+		console.log(url); 
+		return this.http.get(url)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);

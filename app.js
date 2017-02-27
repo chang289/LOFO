@@ -36,7 +36,7 @@ app.post('/post/create', function (req, res){
 //display all ongoing post
 app.get('/post/get/ongoing', function(req, res) {
   Post.find({ "complete": 0 })
-    .sort({ createTime: -1 , modifiedTime: -1 })
+    .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
           return res.json({info: 'error', error: err});
@@ -46,10 +46,10 @@ app.get('/post/get/ongoing', function(req, res) {
     });
 });
 
-//display all ongoing post
+//display all complete post
 app.get('/post/get/complete', function(req, res) {
   Post.find({ "complete": 1 })
-    .sort({ createTime: -1 , modifiedTime: -1 })
+    .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
           return res.json({info: 'error', error: err});
@@ -116,6 +116,8 @@ app.post('/post/edit/:id', function(req, res){
     post.contact = req.body.contact;
     post.photo = req.body.photo;
     post.modifiedTime = new Date();
+    post.complete = req.body.complete;
+    post.confirmer = req.body.confirmer;
 
     post.save(function(err, po){
       if(err)
@@ -157,6 +159,56 @@ app.delete('/user/delete/:id', function(req, res){
     if(err)
       return res.json({info: 'error', error: err});
     res.json({ info : 'User delete'});
+  });
+});
+
+// app.post('/image/upload', function(req, res) {
+//   // console.log(req.files);
+//   var file = req.files.file;
+//   var stream = fs.createReadStream(file.path);
+//   var uid = uuidV1() + "." + req.body.format;
+//   console.log(uid);
+//   s3fsImpl.writeFile(uid, stream).then(function(){
+//     // fs.unlink(req.body.path, function(err){
+//     //   if (err)
+//     //     console.log("Sending failed");
+//       return res.send('https://s3.amazonaws.com/lofo-purdue/' + uid);
+//     // });
+//   });
+// });
+
+//ascending
+app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
+  Post.find({
+    "tag": {"$eq": req.params.tag},
+    "lost": {"$eq": req.params.lost},
+    "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
+    "complete": 0 
+  })
+  .sort({ modifiedTime: 1 })
+  .exec(function(err, posts){
+    if (err){
+        return res.json({info: 'error', error: err});
+    }
+    if (posts.length == 0) {res.json({info: 'No posts found'});}
+    else {res.json({info: 'Posts found', data: posts}); }
+  });
+});
+//descending
+app.get('/post/sort/:tag/:starterDate/:endDate/:lost/des', function(req, res){
+  Post.find({
+    "tag": {"$eq": req.params.tag},
+    "lost": {"$eq": req.params.lost},
+    "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
+    "complete": 0
+  })
+  .sort({ modifiedTime: -1 })
+  .exec(function(err, posts){
+    if (err){
+        return res.json({info: 'error', error: err});
+    }
+    if (posts.length == 0) {res.json({info: 'No posts found'});}
+    else {res.json({info: 'Posts found', data: posts}); }
   });
 });
 

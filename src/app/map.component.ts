@@ -218,7 +218,7 @@ export class MapComponent implements OnInit{
         console.log(this.mapLostOrFound);
         console.log(this.startDate);
         console.log(this.endDate);
-        alert("To be implemented");
+        console.log(this.postService.getScreenedPosts(i, this.startDate, this.endDate, this.mapLostOrFound));
     }
 
     clickedMarker(marker:marker) {
@@ -284,6 +284,7 @@ export class MapComponent implements OnInit{
         // event.beginEpoc and event.endEpoc
         this.startDate = event.beginJsDate;
         this.endDate = event.endJsDate;
+        this.updateFilter();
     }
     
 	//-------------for datepicler-----------------

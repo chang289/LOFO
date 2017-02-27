@@ -1,12 +1,12 @@
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<nav style="margin-bottom: 0" class="navbar navbar-inverse ">
-  <div class="container-fluid">
+<nav id="navbar" style="margin-bottom: 0" class="navbar navbar-inverse ">
+  <div class="container-fluid" id="navbar">
    
     <a class="navbar-brand" style="margin-top: 17px">LOFO</a>
 
-    <div id="navbar" class="navbar-collapse collapse" >
+    <div class="navbar-collapse collapse" >
       <ul class="nav navbar-nav navbar-left" >
         <li style="margin-top: 24.5px;">
         <my-date-range-picker placeholder="Select the date range"
@@ -18,7 +18,7 @@
         <li style="margin-top: 4px; margin-left: 10px">
           <div class="form-group" dropdown>
             <label for="sel1"></label>
-            <select [(ngModel)]="mapItem" class="form-control" id="itemFilter">
+            <select [(ngModel)]="mapItem" (change)="updateFilter()" class="form-control" id="itemFilter">
               <option selected="selected">All</option>
               <option>Phone</option>
               <option>Key</option>
@@ -31,14 +31,14 @@
         <li style="margin-top: 4px; margin-left: 10px">
           <div class="form-group" dropdown>
             <label for="sel1"></label>
-            <select [(ngModel)]="mapLostOrFound" class="form-control" id="LostOrFoundFilter">
+            <select [(ngModel)]="mapLostOrFound" (change)="updateFilter()" class="form-control" id="LostOrFoundFilter">
               <option selected="selected">All</option>
               <option>Lost</option>
               <option>Found</option>
             </select>
           </div>
         </li>
-        <li style="margin-top: 4px; margin-left: 10px">
+        <!-- <li style="margin-top: 4px; margin-left: 10px">
           <div class="form-group" dropdown>
             <label for="sel1"></label>
             <select [(ngModel)]="mapExpired" class="form-control" id="expiredFilter">
@@ -47,9 +47,9 @@
               <option>Expired</option>
             </select>
           </div>
-        </li>
+        </li> -->
 
-        <li style="margin-top: 24.5px; margin-left: 10px">
+        <!-- <li style="margin-top: 24.5px; margin-left: 10px">
           <div id="updateBtn">
             <button class="btn btn-primary" (click)="updateFilter()">Update</button>
           </div>
@@ -58,16 +58,29 @@
           <div id="updateBtn">
             <button class="btn btn-primary" routerLink="/history">History</button>
           </div>
-        </li>
+        </li> -->
       </ul>
-      <div id="updateBtn" style="float: right; margin-top: 24.5px">
-            <a style="font-family:Alegreya Sans;">{{lofoemail}}</a>
-            <button class="btn btn-primary" style="font-family:Alegreya Sans;" (click)="signOut()">SignOut</button>
-          </div>
     </div>
-
   </div>
 </nav>
+<div id="user">
+  <button type="button" class="asText" (click)="isCollapsed = !isCollapsed">{{lofoemail}}</button>
+  <div [collapse]="isCollapsed" id="userCollapse">
+    <ul class="list-group" style="margin-bottom: none">
+      <li class="list-group-item" style="background: black; border: none;">
+        <button routerLink="/history" class="asTextButton">My History</button>
+      </li>
+      <li class="list-group-item" style="background: black; border: none;">
+        <button routerLink="/expired" class="asTextButton">View Past</button>
+      </li> 
+      <li class="list-group-item" id="signout">
+        <button (click)="signOut()" class="asTextButton">SignOut</button>
+      </li>
+    </ul>
+  </div> 
+
+
+ </div>           
 
 <div class="container-fluid">
   <div class="row">
@@ -91,14 +104,14 @@
         <li><a href="">Another nav item</a></li>
       </ul>
     </div>
-    <!-- <div id="floating-panel" style="margin-top: 17px">
+<!--     <div id="floating-panel" style="margin-top: 17px">
       <p class="navbar-brand">LOFO</p>
       <button type="button" class="asText" (click)="isCollapsed = !isCollapsed">Username</button>
       <div [collapse]="isCollapsed" class="card card-block card-header">
         <div id="userCollapse">Some content</div>
       </div>
-    </div>
-    <div id="map"> -->
+    </div> -->
+    <div id="map">
   		<sebm-google-map 
   		[latitude]="lat"
       [longitude]="lng"
