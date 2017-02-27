@@ -15,7 +15,7 @@
 				<span *ngIf="!post.lost"class ="info" >Found</span>
 				<span *ngIf="post.lost"class ="info" style="margin-right:9.2%">Lost</span>
 
-				<span class="info">{{post.createTime}}</span> 
+				<span class="info">{{post.createTime | date:'short'}}</span> 
 				<span class="info" id = "title"
 				(click)=lgModal.show() style="display:inline-block">{{post.title}}</span>
 

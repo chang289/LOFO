@@ -64,7 +64,9 @@
   </div>
 </nav>
 <div id="user">
-  <button type="button" class="asText" (click)="isCollapsed = !isCollapsed">{{lofoemail}}</button>
+  <button type="button" class="asText" (click)="isCollapsed = !isCollapsed">
+    {{lofoemail}}
+  </button>
   <div [collapse]="isCollapsed" id="userCollapse">
     <ul class="list-group" style="margin-bottom: none">
       <li class="list-group-item" style="background: black; border: none;">
