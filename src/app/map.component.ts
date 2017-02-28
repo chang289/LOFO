@@ -22,36 +22,37 @@ export class MapComponent implements OnInit{
 
 
     ngAfterViewInit() {
-    // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
-    // but wait a tick first to avoid one-time devMode
-    // unidirectional-data-flow-violation error
-    console.log("ngchild");
+        console.log("ngchild");
         this.selectedTitle = this.marker_cluster.selectedTitle;
         this.selectedDesc = this.marker_cluster.selectedDesc;
         this.selectedUser = this.marker_cluster.selectedUser;
-        // console.log(this.selectedTitle);
-        // console.log(this.selectedUser);
-        // console.log(this.selectedDesc);
     }
 
     handleNotify(data:string[]) {
-    // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
-    // but wait a tick first to avoid one-time devMode
-    // unidirectional-data-flow-violation error
         console.log("emit received");
         var tmp = data;
-        this.selectedUser = data[0];
-        this.selectedDesc = data[2];
-        this.selectedTitle = data[1];
-        this.selectedUrl = data[3];
+        this.selectedTitle = data[0];
+        this.selectedUser = data[1];
+        this.selectedEmail = data[2];
+        this.selectedPhone = data[3];
+        if (data[4] == "true")
+            this.selectedLost = "Lost";
+        else 
+            this.selectedLost = "Found";
+        this.selectedDate = data[5];
+        this.selectedDesc = data[6];
+        this.selectedUrl = data[7];
+
     }
 
     selectedTitle: string = "title";
     selectedUser:string = "name";
-    selectedPhone:string = "765-476-6939";
-    selectedEmail:string = "lofo@purdue.edu"
+    selectedPhone:string = "phone";
+    selectedEmail:string = "email"
     selectedDesc:string = "description";
     selectedUrl:string = "Url";
+    selectedLost:string = "lost?";
+    selectedDate:string;
 
     // title: string = 'LOFO';
     lat: number = 40.424660;
@@ -134,6 +135,10 @@ export class MapComponent implements OnInit{
                 var newMarker = {
                     title: singlePost.title,
                     name: singlePost.fullname,
+                    poster: singlePost.poster,
+                    contact: singlePost.contact,
+                    lost: singlePost.lost,
+                    createTime: singlePost.createTime,
                     lat: singlePost.locationX,
                     lng: singlePost.locationY,
                     description: singlePost.description,
@@ -143,8 +148,7 @@ export class MapComponent implements OnInit{
                 }
                 this.markers.push(newMarker);
             }
-          }).catch((ex) => {}
-          );
+          }).catch((ex) => {});
           setInterval(() => this.ngAfterViewInit, 1000);
     }
 
