@@ -70,8 +70,24 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div id="sidebar" style="display: none;" class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
+    <div id="sidebar" style="display: block;" class="col-sm-3 col-md-2 sidebar">
+    <ul class="list-group">
+      <li class="list-group-item active">{{selectedTitle}}</li>
+      <li class="list-group-item">{{selectedUser}}</li>
+      <li class="list-group-item">{{selectedPhone}}</li>
+      <li class="list-group-item">{{selectedEmail}}</li>
+      <li class="list-group-item">{{selectedDesc}}</li>
+      <li class="list-group-item">
+        <img src="{{selectedUrl}}" width="100%" height="auto">
+      </li>
+  </ul>
+      <!-- <my-infobox
+        [selectedUser]="selectedUser"
+        [selectedTitle]="selectedTitle"
+        [selectedDesc]="selectedDesc">
+        
+      </my-infobox> -->
+      <!-- <ul class="nav nav-sidebar">
         <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Reports</a></li>
         <li><a href="#">Analytics</a></li>
@@ -88,7 +104,7 @@
         <li><a href="">Nav item again</a></li>
         <li><a href="">One more nav</a></li>
         <li><a href="">Another nav item</a></li>
-      </ul>
+      </ul> -->
     </div>
     <div id="map">
   		<sebm-google-map 
@@ -116,6 +132,7 @@
 
         </sebm-google-map-marker>
       <marker-cluster [points]="markers"
+        (notify)="handleNotify($event)"
       >
         <!-- <sebm-google-map-info-window id='oldInfo'>
           <strong>{{m.name}}</strong><br>
