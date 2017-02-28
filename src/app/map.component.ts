@@ -7,8 +7,8 @@ import './markerclusterer.js';
 import { Posts } from './posts';
 import { Router } from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
-
 declare var google: any;
+import * as _ from 'lodash';
 
 @Component({
   selector: 'my-map',
@@ -87,39 +87,46 @@ export class MapComponent implements OnInit{
             // this.myVariable = data;
             this.posts = posts;
             console.log(posts);
-            var newPostIcon: string;
 
-            for (var i in posts) {
-                console.log(i);
-                var singlePost = posts[i];
-                var tag = posts[i].tag;
-                if (tag == 0) {
-                    newPostIcon = 'assets/icon_phone.png';
-                } else if (tag == 1) {
-                    newPostIcon = 'assets/icon_key.png';
-                } else if (tag == 2) {
-                    newPostIcon = 'assets/icon_wallet.png';
-                } else if (tag == 3) {
-                    newPostIcon = 'assets/icon_backpack.png';
-                } else if (tag == 4) {
-                    newPostIcon = 'assets/icon_cloth.png';
-                }
-
-                var newMarker = {
-                    name: singlePost.fullname,
-                    lat: singlePost.locationX,
-                    lng: singlePost.locationY,
-                    description: singlePost.description,
-                    iconUrl: newPostIcon,
-                    draggable: false,
-                }
-                this.markers.push(newMarker);
-            }
+            this.postsToMarkers(this.posts);
           }).catch((ex) => {
             console.log(ex);
           }
         );
         console.log(this.posts);
+    }
+
+    postsToMarkers(posts: Posts[]): void{
+        var newPostIcon: string;
+
+        this.markers = [];
+        for (var i in posts) {
+            console.log(i);
+            var singlePost = posts[i];
+            var tag = posts[i].tag;
+            if (tag == 0) {
+                newPostIcon = 'assets/icon_phone.png';
+            } else if (tag == 1) {
+                newPostIcon = 'assets/icon_key.png';
+            } else if (tag == 2) {
+                newPostIcon = 'assets/icon_wallet.png';
+            } else if (tag == 3) {
+                newPostIcon = 'assets/icon_backpack.png';
+            } else if (tag == 4) {
+                newPostIcon = 'assets/icon_cloth.png';
+            }
+
+            var newMarker = {
+                name: singlePost.fullname,
+                lat: singlePost.locationX,
+                lng: singlePost.locationY,
+                description: singlePost.description,
+                iconUrl: newPostIcon,
+                draggable: false,
+            }
+            this.markers.push(newMarker);
+        }
+        console.log(this.markers);
     }
 
     onClick(): void{
@@ -139,6 +146,18 @@ export class MapComponent implements OnInit{
         else if (this.lost == 'false') this.post.lost = false;
         if (this.tag == null) {
             alert("Please choose a Genre");
+            return;
+        }
+        if (this.title == null) {
+            alert("Title can not be empty");
+            return;
+        }
+        if (this.description == null) {
+            alert("Description can not be empty");
+            return;
+        }
+        if (this.photoUrl == null) {
+            alert("Please include a photo in your");
             return;
         }
         var promise = this.postService.createPost(this.post)
@@ -212,13 +231,45 @@ export class MapComponent implements OnInit{
 
     newMarker: marker;
 
+ 
+
     updateFilter() {
+        var byTag;
+        var byDate;
+        var byLost;
+        var lost;
+        function isEqual(post1, post2) {
+            if (post1._id == post2._id) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
         var i = this.tags.indexOf(this.mapItem);
-        console.log(i);
+        this.postService.getScreenedPostsByTag(i).then(posts => {
+            byTag = posts;
+            this.postService.getScreenedPostsByDate(this.startDate, this.endDate).then(posts => {
+                byDate = posts;
+                if (this.mapLostOrFound == "lost") {
+                    lost = "true";
+                }
+                else {
+                    lost = "false";
+                }
+                this.postService.getScreenedPostsByLost(this.lost).then(posts => {
+                    byLost = posts;
+                    console.log(byTag);
+                    console.log(byDate);
+                    console.log(byLost);
+                    this.postsToMarkers(_.intersectionWith(byTag, byDate, isEqual));
+
+                })
+            });
+        });
         console.log(this.mapLostOrFound);
         console.log(this.startDate);
         console.log(this.endDate);
-        console.log(this.postService.getScreenedPosts(i, this.startDate, this.endDate, this.mapLostOrFound));
     }
 
     clickedMarker(marker:marker) {

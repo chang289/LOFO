@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
+var underscore = require("underscore");
 // var routes = require('./model/api/posts');
 
 var app = express();
@@ -177,8 +178,10 @@ app.delete('/user/delete/:id', function(req, res){
 //   });
 // });
 
+
 //ascending
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
+
   Post.find({
     "tag": {"$eq": req.params.tag},
     "lost": {"$eq": req.params.lost},
@@ -195,21 +198,110 @@ app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
   });
 });
 //descending
+
+
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/des', function(req, res){
-  Post.find({
-    "tag": {"$eq": req.params.tag},
-    "lost": {"$eq": req.params.lost},
-    "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
-    "complete": 0
-  })
-  .sort({ modifiedTime: -1 })
-  .exec(function(err, posts){
-    if (err){
-        return res.json({info: 'error', error: err});
+
+    Post.find({
+      "tag": {"$eq": req.params.tag},
+      "lost": {"$eq": req.params.lost},
+      "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+});
+
+app.get('/post/sort/tag/:tag', function(req, res){
+    if (req.params.tag == -1) {
+      Post.find({ "complete": 0 })
+      .sort({ modifiedTime: -1 })
+      .exec(function(err, post){
+        if (err){
+            return res.json({info: 'error', error: err});
+        }
+        if (post.length == 0) {res.json({info: 'No posts found'});}
+        else {res.json({info: 'Posts found', data: post}); }
+      });
+    } 
+    else {
+      Post.find({
+        "tag": {"$eq": req.params.tag},
+        "complete": 0
+      })
+      .sort({ modifiedTime: -1 })
+      .exec(function(err, posts){
+        if (err){
+            return res.json({info: 'error', error: err});
+        }
+        if (posts.length == 0) {res.json({info: 'No posts found'});}
+        else {res.json({info: 'Posts found', data: posts}); }
+      });
     }
-    if (posts.length == 0) {res.json({info: 'No posts found'});}
-    else {res.json({info: 'Posts found', data: posts}); }
-  });
+});
+
+app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
+  if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
+    Post.find({ "complete": 0 })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+  }
+  else {
+    Post.find({
+      "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+  }
+});
+
+app.get('/post/sort/lost/:lost', function(req, res){
+  console.log(req.params.lost);
+  if (req.params.lost == "All") {
+    Post.find({ "complete": 0 })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+  }
+  else {
+    console.log("entered");
+    Post.find({
+      "lost": {"$eq": req.params.lost},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+  }
 });
 
 const server = app.listen(port, function(err) {

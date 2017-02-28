@@ -46,10 +46,22 @@ export class PostService {
 			.catch(this.handleError);
 	}
 
-	getScreenedPosts(tag: number, start: Date, end: Date, lost: String): Promise<Posts[]> {
-		var url = this.getScreenedURL + tag + "/" + start + "/" + end + "/" + lost + "/asc";
-		console.log(url); 
-		return this.http.get(url)
+	getScreenedPostsByTag(tag: number): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "tag" + "/" + tag)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPostsByDate(start: Date, end: Date): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "date" + "/" + start + "/" + end)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPostsByLost(lost: String): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "lost" + "/" + lost)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);
