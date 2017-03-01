@@ -46,12 +46,12 @@ export class MapComponent implements OnInit{
     }
 
     selectedTitle: string = "title";
-    selectedUser:string = "name";
-    selectedPhone:string = "phone";
-    selectedEmail:string = "email"
-    selectedDesc:string = "description";
-    selectedUrl:string = "Url";
-    selectedLost:string = "lost?";
+    selectedUser:string;
+    selectedPhone:string;
+    selectedEmail:string;
+    selectedDesc:string;
+    selectedUrl:string;
+    selectedLost:string;
     selectedDate:Date;
 
     // title: string = 'LOFO';

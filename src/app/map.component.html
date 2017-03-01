@@ -72,13 +72,13 @@
   <div class="row">
     <div id="sidebar" style="display: none; width: 18%" class="col-sm-3 col-md-2 sidebar">
     <ul class="list-group">
-      <li class="list-group-item active">{{selectedTitle}}</li>
-      <li class="list-group-item">{{selectedDate | date:'fullDate'}}</li>
-      <li class="list-group-item">{{selectedUser}}</li>
-      <li class="list-group-item">{{selectedPhone}}</li>
-      <li class="list-group-item">{{selectedEmail}}</li>
-      <li class="list-group-item">{{selectedDesc}}</li>
-      <li class="list-group-item">
+      <li *ngIf="selectedTitle" class="list-group-item active">{{selectedTitle}}</li>
+      <li *ngIf="selectedDate" class="list-group-item">{{selectedDate | date:'fullDate'}}</li>
+      <li *ngIf="selectedUser" class="list-group-item">{{selectedUser}}</li>
+      <li *ngIf="selectedPhone" class="list-group-item">{{selectedPhone}}</li>
+      <li *ngIf="selectedEmail" class="list-group-item">{{selectedEmail}}</li>
+      <li *ngIf="selectedDesc" class="list-group-item">{{selectedDesc}}</li>
+      <li *ngIf="selectedUrl" class="list-group-item">
         <img src="{{selectedUrl}}" width="100%" height="auto">
       </li>
   </ul>
