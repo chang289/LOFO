@@ -44,6 +44,8 @@ export class MarkerCluster implements OnInit {
   }
 
   handleMap() {
+    console.log("handlemap");
+    console.log(this.points);
     let tpThis = this;
     this.gmapsApi.getNativeMap().then(map => {
 
@@ -78,12 +80,14 @@ export class MarkerCluster implements OnInit {
 
       let infows = [];
 
+
       Observable
         .interval(500)
         .skipWhile((s) => this.points == null || this.points.length <= 0)
         .take(1)
         .subscribe(() => {
         for (let point of this.points) {
+
           let marker = new google.maps.Marker({
             position: new google.maps.LatLng(point.lat, point.lng),
             icon:point.iconUrl,

@@ -39,7 +39,7 @@ export class MapComponent implements OnInit{
             this.selectedLost = "Lost";
         else 
             this.selectedLost = "Found";
-        this.selectedDate = data[5];
+        this.selectedDate = new Date(data[5]);
         this.selectedDesc = data[6];
         this.selectedUrl = data[7];
 
@@ -52,7 +52,7 @@ export class MapComponent implements OnInit{
     selectedDesc:string = "description";
     selectedUrl:string = "Url";
     selectedLost:string = "lost?";
-    selectedDate:string;
+    selectedDate:Date;
 
     // title: string = 'LOFO';
     lat: number = 40.424660;
@@ -110,6 +110,11 @@ export class MapComponent implements OnInit{
         if(this.lofoemail == null) {
             this.router.navigateByUrl("/login");
         }
+        this.addNewMarker();
+    }
+
+    addNewMarker(): void {
+        console.log("addnewmarker");
         var promise = this.getPost();
         promise.then(posts => {
             // Here you can use the data because it's ready
@@ -148,11 +153,14 @@ export class MapComponent implements OnInit{
                 }
                 this.markers.push(newMarker);
             }
+            console.log(this.markers);
+            this.marker_cluster.handleMap();
+
           }).catch((ex) => {});
           setInterval(() => this.ngAfterViewInit, 1000);
     }
 
-    onClick(): void{
+    onClick(): void {
         this.post = new Posts();
         this.post.poster = this.cookieService.get("lofoemail");
         this.post.fullname = this.fullname;
@@ -179,7 +187,7 @@ export class MapComponent implements OnInit{
                 }
                 else {
                     alert("Create Successfully");
-                    window.location.reload();
+                    //window.location.reload();
                 }
         });
 
@@ -213,6 +221,8 @@ export class MapComponent implements OnInit{
         this.description = null;
         this.phone = null;
         this.tag = -1;
+        this.markers = [];
+        this.addNewMarker();
         //console.log(this.postService.createPost(post));
     }
 
