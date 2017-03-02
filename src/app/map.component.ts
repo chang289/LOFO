@@ -280,6 +280,7 @@ export class MapComponent implements OnInit{
         this.fullname = null;
         this.title = null;
         this.description = null;
+        this.photoUrl = null;
         this.phone = null;
         this.tag = -1;
         this.markers = [];
@@ -412,7 +413,7 @@ export class MapComponent implements OnInit{
         // event.beginEpoc and event.endEpoc
         this.startDate = event.beginJsDate;
         this.endDate = event.endJsDate;
-        this.updateFilter();
+        //this.updateFilter();
     }
     
     //-------------for datepicler-----------------
