@@ -8,7 +8,8 @@ export class PostService {
 	private URL = window.location.origin;
 	private createURL = this.URL + '/post/create';  // URL to web api
 	private getOngoingURL = this.URL + '/post/get/ongoing';
-
+	private getCompleteURL = this.URL + '/post/get/complete';
+	private getScreenedURL = this.URL + '/post/sort/';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -17,6 +18,8 @@ export class PostService {
 	// 		.then(response => response.json().data as Posts)
 	// 		.catch(this.handleError);
 	// }
+
+
 
 	createPost(post: Posts): Promise<Posts> {
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -30,6 +33,35 @@ export class PostService {
 	getOngoingPosts(): Promise<Posts[]> {
 
 		return this.http.get(this.getOngoingURL)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getCompletePosts(): Promise<Posts[]> {
+
+		return this.http.get(this.getCompleteURL)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPostsByTag(tag: number): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "tag" + "/" + tag)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPostsByDate(start: Date, end: Date): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "date" + "/" + start + "/" + end)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getScreenedPostsByLost(lost: String): Promise<Posts[]> {
+		return this.http.get(this.getScreenedURL + "lost" + "/" + lost)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);

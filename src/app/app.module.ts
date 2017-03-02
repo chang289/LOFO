@@ -18,10 +18,11 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
 //for map
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { CollapseModule, ModalModule, ButtonsModule } from 'ng2-bootstrap';
+import { CollapseModule, ModalModule, ButtonsModule, TabsModule, DropdownModule } from 'ng2-bootstrap';
 import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
 import { HistoryComponent } from './history.component';
+import { ExpiredComponent } from './expired.component';
 import { EditComponent } from './edit.component';
 import { RegisterComponent } from './register.component';
 import { LoginComponent } from './login.component';
@@ -41,6 +42,8 @@ const APP_DECLARATION = [
     HttpModule,
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
+    TabsModule.forRoot(),
+    DropdownModule.forRoot(),
     ImageUploadModule,
     RouterModule.forRoot([
         {
@@ -68,6 +71,10 @@ const APP_DECLARATION = [
           path: 'register',
           component: RegisterComponent
 
+        },
+        {
+          path: 'expired',
+          component: ExpiredComponent
         }
       ]),
 
@@ -79,7 +86,7 @@ const APP_DECLARATION = [
   exports: [RouterModule],
 
   providers: [ CookieService, {provide: LocationStrategy, useClass: HashLocationStrategy} ],
-  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, MarkerCluster ],
+  declarations: [ AppComponent, PipiComponent, MapComponent, APP_DECLARATION, HistoryComponent, EditComponent, RegisterComponent, LoginComponent, ExpiredComponent, MarkerCluster ],
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
