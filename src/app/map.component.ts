@@ -74,8 +74,8 @@ export class MapComponent implements OnInit{
     photoUrl: string;
     lost: string = "true";
     lofoemail: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: any;
+    endDate: any;
 
     tags: string[] = [
         'Phone',
@@ -354,7 +354,6 @@ export class MapComponent implements OnInit{
                 }
                 this.postService.getScreenedPostsByLost(lost).then(posts => {
                     byLost = posts;
-
                     this.postsToMarkers(_.intersectionWith(byTag, byDate,byLost, isEqual));
 
                 })
@@ -409,10 +408,8 @@ export class MapComponent implements OnInit{
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
         var dateFormat = require('dateformat');
-        this.startDate = new Date(event.beginJsDate);
-        dateFormat(this.startDate, "isoDateTime");
-        this.startDate = dateFormat(this.startDate, "isoDateTime");
-        this.endDate = dateFormat(this.endDate, "isoDateTime");
+        this.startDate = event.beginJsDate;
+        this.endDate = event.endJsDate;
         this.updateFilter();
     }
     

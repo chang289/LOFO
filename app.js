@@ -225,7 +225,8 @@ app.get('/post/sort/tag/:tag', function(req, res){
 });
 
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
-  console.log(req.params.starterDate);
+  var min = new Date(req.params.starterDate).toISOString();
+  var max = new Date(req.params.endDate).toISOString();
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
     Post.find({ "complete": 0 })
     .sort({ modifiedTime: -1 })
