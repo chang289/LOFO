@@ -53,7 +53,7 @@ export class PostService {
 			.catch(this.handleError);
 	}
 
-	getScreenedPostsByDate(start: Date, end: Date): Promise<Posts[]> {
+	getScreenedPostsByDate(start: any, end: any): Promise<Posts[]> {
 		return this.http.get(this.getScreenedURL + "date" + "/" + start + "/" + end)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
