@@ -16,16 +16,29 @@ import {HistoryService} from './history.service';
 export class HistoryComponent implements OnInit{
 
 	lofoemail: string;
-	sample_posts:Posts[];
+	sample_posts:Posts[] = [];
+	len:number;
 
 	constructor(
-		private historyService: HistoryService, private cookieService: CookieService, private router: Router){}
+		private historyService: HistoryService, 
+		private cookieService: CookieService, 
+		private router: Router
+		){}
 
 
 
 	getPosts() : void {
 		this.historyService.getPosts()
-		.then(sample_posts=>this.sample_posts=sample_posts);
+		.then(sample_posts=>{
+			this.sample_posts=sample_posts;
+			if(this.sample_posts != null){ 
+				this.len = this.sample_posts.length;
+			}else{
+				this.len = 0;
+			}
+		});
+
+		
 	}
 
 	ngOnInit(): void {

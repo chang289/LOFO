@@ -32,7 +32,6 @@ export class HistoryService {
 		console.log(post._id);
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
-    	console.log("hhhh");
     	return this.http.post(this.updatePostUrl + post._id,post,options)
     	.toPromise()
     	.then(response => response.json().data as Posts)

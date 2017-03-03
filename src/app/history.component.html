@@ -1,12 +1,9 @@
 
 <body>
-<!-- 	<div style="width: 300px; height: 270px; margin: auto;">
-        <img src="assets/Logo.png" style="width: 100%; height: 100%" class="img-rounded" alt="Cinque Terre" width="50%" height="50%">
 
-    </div> -->
 	<div id = "upper">
 		<div id = "home_container">
-				<button type="button" class="btn btn-info" id = "MapBtn" routerLink="/map" >
+				<button type="button" class="btn btn-info" id = "MapBtn" routerLink="/map">
 					<span class="glyphicon glyphicon-arrow-left"></span>Map
 				</button>
 		</div>
@@ -18,21 +15,27 @@
 
 
 	<div id = "mid">
+		<div *ngIf="len == 0" id = "no_post">
+			SORRY, THERE IS NO POST FOUND.YOU DON'T HAVE POSTS NOW.
+		</div>
+
+
 		<ul class="sample_posts">
 			<li *ngFor = "let post of sample_posts">
 
 				<span *ngIf="!post.lost"class ="info" >Found</span>
-				<span *ngIf="post.lost"class ="info" style="margin-right:9.2%">Lost</span>
+				<span *ngIf="post.lost"class ="info" style="margin-right:7%">Lost</span>
 
-				<span class="info">{{post.createTime}}</span> 
-				<span class="info" id = "title"
-				(click)=lgModal.show() style="display:inline-block">{{post.title}}</span>
+				<span class="info">{{post.createTime | date:'short'}}</span> 
 
-
+				<span class="info" id = "title" (click)=lgModal.show() style="display:inline-block; margin-right:0; max-width:40%">
+					{{post.title}}
+				</span>
 
 					<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 					    <div class="modal-content">
+
 					      <div class="modal-header">
 					        <h4 class="modal-title pull-left" style="font-size:1em">{{post.title}}</h4>
 					        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
@@ -40,36 +43,48 @@
 					        </button>
 					      </div>
 					    <div class="modal-body">
+
 					        <div id = "description" class = "modal_div" style="border-top:0">
 					        	<h2>Description:</h2>
 					        	<div class="info_text" >
 					        		{{post.description}}
 					        	</div>
 					        </div>
+
 					        <div *ngIf="post.photo" id = "photo" class = "modal_div">
 					        	<h2>Photo:</h2>
 					        	<div class="info_text">
 					        		 <img src={{post.photo}} class="img-thumbnail" alt="If you cannot see photo here, double check url" width="304" height="236">
 					        		 <br>
 						        </div>
-					        </div>		
+					        </div>
+
 					        <div id = "name" class = "modal_div">
 					        	<h2>Name:</h2>
 					        	<div class="info_text">
 					        		{{post.fullname}}
 					        	</div>
 					        </div>
-					        <div id = "phone" class = "modal_div">
+
+   					        <div id = "phone" class = "modal_div">
 					        	<h2>Phone Number:</h2>
 					        	<div class="info_text">
 					        		{{post.contact}}
 					        	</div>
-					        </div>   			        					       
+					        </div>
+
+					        <div *ngIf = "post.complete" id = "confirmer" class = "modal_div">
+					        	<h2>Confirmer:</h2>
+					        	<div class="info_text">
+					        		{{post.confirmer}}
+					        	</div>
+					        </div>
+
 					      </div>
 					    </div>
 					  </div>
 					</div>
-					
+				
 				<div id="btn_container">
 					<my-edit 
 					[edited_post]=post >
@@ -83,5 +98,3 @@
 
 </body>
 	
-
-
