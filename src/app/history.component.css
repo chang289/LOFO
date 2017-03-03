@@ -103,6 +103,7 @@
 }
 
 .modal_div{
+	word-wrap:break-word;
 	border-top: solid 1px #ddd;
 }
 .info_text{
