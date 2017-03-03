@@ -34,7 +34,8 @@
 }
 
 #no_post {
-	margin:10% auto;
+	margin:0 auto;
+	white-space: pre-line;
 	text-align: center;
 	font-family: "Courier New", Courier, Monaco;
 
