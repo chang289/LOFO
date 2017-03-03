@@ -9,7 +9,9 @@ declare const MarkerClusterer;
 @Directive({
   selector: 'marker-cluster'
 })
-export class MarkerCluster implements OnInit {
+export class MarkerCluster {
+
+  markerCluster: any;
 
   @Input() points: any[]; 
 
@@ -38,9 +40,11 @@ export class MarkerCluster implements OnInit {
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {
   }
 
-  ngOnInit() {
-    console.log("inside cluster");
-    this.handleMap();
+
+
+  clearMap() {
+    this.markerCluster.clearMarkers();
+    console.log(this.markerCluster);
   }
 
   handleMap() {
@@ -140,10 +144,10 @@ export class MarkerCluster implements OnInit {
           sidebar.style.display = 'none';
         });
 
-        var markerCluster = new MarkerClusterer(map, markers, options);
-        markerCluster.addListener('clusterclick', function() {
-          console.log("BOOMBOOM");
+        tpThis.markerCluster = new MarkerClusterer(map, markers, options);
+        tpThis.markerCluster.addListener('clusterclick', function() {
         });
+        console.log(tpThis.markerCluster);
       })
     });
   }

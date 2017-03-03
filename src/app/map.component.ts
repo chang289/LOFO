@@ -315,8 +315,9 @@ export class MapComponent implements OnInit{
     newMarker: marker;
 
  
-    /**
+    
     updateFilter() {
+        this.marker_cluster.clearMap();
         var byTag;
         var byDate;
         var byLost;
@@ -353,8 +354,9 @@ export class MapComponent implements OnInit{
         console.log(this.mapLostOrFound);
         console.log(this.startDate);
         console.log(this.endDate);
+        this.marker_cluster.handleMap();
     }
-    */
+    
 
     clickedMarker(marker:marker) {
         console.log(this.selectedTitle);
@@ -376,6 +378,7 @@ export class MapComponent implements OnInit{
             draggable: false,
         }
         this.newMarker = newMarker;
+
     }
 
 
