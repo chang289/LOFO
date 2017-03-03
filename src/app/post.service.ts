@@ -60,7 +60,7 @@ export class PostService {
 			.catch(this.handleError);
 	}
 
-	getScreenedPostsByLost(lost: String): Promise<Posts[]> {
+	getScreenedPostsByLost(lost: boolean): Promise<Posts[]> {
 		return this.http.get(this.getScreenedURL + "lost" + "/" + lost)
 			.toPromise()
 			.then(response => response.json().data as Posts[])

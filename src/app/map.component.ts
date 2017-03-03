@@ -74,7 +74,7 @@ export class MapComponent implements OnInit{
     tag: number;
     post: Posts;
     photoUrl: string;
-    lost: string = 'true';
+    lost: string = "true";
     lofoemail: string;
     startDate: Date;
     endDate: Date;
@@ -340,18 +340,21 @@ export class MapComponent implements OnInit{
             byTag = posts;
             this.postService.getScreenedPostsByDate(this.startDate, this.endDate).then(posts => {
                 byDate = posts;
-                if (this.mapLostOrFound == "lost") {
-                    lost = "true";
+                if (this.mapLostOrFound == "Lost") {
+                    lost = true;
+                }
+                else if (this.mapLostOrFound == "Found") {
+                    lost = false;
                 }
                 else {
-                    lost = "false";
+                    lost = undefined;
                 }
-                this.postService.getScreenedPostsByLost(this.lost).then(posts => {
+                this.postService.getScreenedPostsByLost(lost).then(posts => {
                     byLost = posts;
                     console.log(byTag);
                     console.log(byDate);
                     console.log(byLost);
-                    this.postsToMarkers(_.intersectionWith(byTag, byDate, isEqual));
+                    this.postsToMarkers(_.intersectionWith(byTag, byDate,byLost, isEqual));
 
                 })
             });
@@ -423,10 +426,11 @@ export class MapComponent implements OnInit{
         this.startDate = new Date(event.beginJsDate);
         dateFormat(this.startDate, "isoDateTime");
         this.startDate = dateFormat(this.startDate, "isoDateTime");
-        this.endDate = event.endJsDate;
+
+        this.endDate = dateFormat(this.endDate, "isoDateTime");
         console.log(this.startDate);
         console.log(this.endDate);
-        //this.updateFilter();
+        this.updateFilter();
     }
     
     //-------------for datepicler-----------------
