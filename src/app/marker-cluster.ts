@@ -34,7 +34,6 @@ export class MarkerCluster {
     data.push(desc);
     data.push(url);
     this.notify.emit(data);
-    console.log(data);
   }
 
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {
@@ -42,12 +41,9 @@ export class MarkerCluster {
 
   clearMap() {
     this.markerCluster.clearMarkers();
-    console.log(this.markerCluster);
   }
 
   handleMap() {
-    console.log("handlemap");
-    console.log(this.points);
     let tpThis = this;
     this.gmapsApi.getNativeMap().then(map => {
 
@@ -112,13 +108,8 @@ export class MarkerCluster {
 
           marker.addListener('click', function() {
 
-
-            console.log(tpThis.selectedTitle);
-            console.log(point);
             tpThis.notifyComplete(point.title, point.name, point.poster, point.contact, point.lost, point.createTime, point.description, point.imgUrl);
-            console.log("emiting");
             tpThis.setValue(point.name, point.title, point.description);
-            console.log("clicked marker: " + point.name);
             for (var i=0;i<infows.length;i++) {
                infows[i].close();
             }
@@ -127,7 +118,6 @@ export class MarkerCluster {
             sidebar.style.display = 'block';
 
             google.maps.event.addListener(infowindow,'closeclick',function(){
-              console.log("close infowindow");
               sidebar.style.display = 'none';
             });
           }),
@@ -146,7 +136,6 @@ export class MarkerCluster {
         tpThis.markerCluster = new MarkerClusterer(map, markers, options);
         tpThis.markerCluster.addListener('clusterclick', function() {
         });
-        console.log(tpThis.markerCluster);
       })
     });
   }
@@ -155,6 +144,5 @@ export class MarkerCluster {
     this.selectedTitle = title;
     this.selectedDesc = desc;
     this.selectedUser = name;
-    console.log(this.selectedTitle);
   }
 }
