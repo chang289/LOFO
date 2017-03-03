@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ContentChild, ContentChildren, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import {IMyOptions, IMyDateRangeModel} from 'mydaterangepicker';
 import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 import { PostService } from './post.service';
@@ -21,7 +21,9 @@ import * as _ from 'lodash';
 export class MapComponent implements OnInit{ 
 
     @ViewChild(MarkerCluster) marker_cluster: MarkerCluster;
+    @ViewChild('lgModal') modal: any;
 
+    isCollapsed:boolean = true;
 
     ngAfterViewInit() {
         console.log("ngchild");
@@ -44,8 +46,9 @@ export class MapComponent implements OnInit{
         this.selectedDate = new Date(data[5]);
         this.selectedDesc = data[6];
         this.selectedUrl = data[7];
-
     }
+
+    success:boolean = false;
 
     selectedTitle: string = "title";
     selectedUser:string;
@@ -244,10 +247,12 @@ export class MapComponent implements OnInit{
             .then((post: Posts) => {
                 this.post = post;
                 if (this.post == null) {
+                    this.success = true;
                     alert("Fail to create a new post");
                 }
                 else {
                     alert("Create Successfully");
+                    this.modal.hide();
                     //window.location.reload();
                 }
         });
@@ -414,8 +419,13 @@ export class MapComponent implements OnInit{
     onDateRangeChanged(event: IMyDateRangeModel) {
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
-        this.startDate = event.beginJsDate;
+        var dateFormat = require('dateformat');
+        this.startDate = new Date(event.beginJsDate);
+        dateFormat(this.startDate, "isoDateTime");
+        this.startDate = dateFormat(this.startDate, "isoDateTime");
         this.endDate = event.endJsDate;
+        console.log(this.startDate);
+        console.log(this.endDate);
         //this.updateFilter();
     }
     
