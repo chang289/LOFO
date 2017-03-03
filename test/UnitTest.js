@@ -3,9 +3,10 @@ var sinon = require('sinon');
 var route = require('../app');
 var Post = require("../model/mongoose/post");
 var User = require("../model/mongoose/user");
-var assert = require('assert');
+// var assert = require('assert');
 
 var chai = require('chai');
+var assert = chai.assert;
 var chaiHttp = require('chai-http');
 var should = chai.should();
 
@@ -18,14 +19,21 @@ describe('API for Posts and Users', () => {
   var newUserID;
 
   describe('API for Post: create, edit, delete, get by email', () => {
-      it('it should GET all the completed posts which are empty now', (done) => {
+      it('it should GET all the completed posts', (done) => {
         chai.request(route)
             .get('/post/get/complete')
             .end((err, res) => {
                 // res.should.have.status(200);
                 // res.body.should.be.a('array');
                 // res.body.length.should.be.eql(0);
-              assert.equal(res.body.info, 'No posts found');
+                var posts = res.body.data;
+                if (res.body.info != 'No posts found') {
+                  for (var i = 0; i < posts.length; i++) {
+                    // console.log("Loop: %d, tag: %d\n",i,posts[i].tag);
+                    assert.equal(posts[i].complete, 1);
+                  }
+                }
+
               done();
             });
       });
@@ -116,6 +124,102 @@ describe('API for Posts and Users', () => {
             .end((err, res) => {
 
               assert.equal(res.body.info, 'error');
+              done();
+            });
+      });
+
+      it('it should Get the posts which have tag: 1', (done) => {
+        var url = '/post/sort/tag/1';
+        chai.request(route)
+            .get(url)
+            .end((err, res) => {
+              var posts = res.body.data;
+              for (var i = 0; i < posts.length; i++) {
+                // console.log("Loop: %d, tag: %d\n",i,posts[i].tag);
+                assert.equal(posts[i].tag, 1);
+              }
+              done();
+            });
+      });
+
+      it('it should Get the posts which have all kinds of tag', (done) => {
+        var url = '/post/sort/tag/-1';
+        chai.request(route)
+            .get(url)
+            .end((err, res) => {
+              var posts = res.body.data;
+              var tag_1 = 0;
+              var tag_2 = 0;
+              var tag_3 = 0;
+              for (var i = 0; i < posts.length; i++) {
+                // console.log("Loop: %d, tag: %d\n",i,posts[i].tag);
+                if (!tag_1 && posts[i].tag == 1) {tag_1 = 1;}
+                else if (!tag_2 && posts[i].tag == 2) {tag_2 = 1;}
+                else if (!tag_3 && posts[i].tag == 3) {tag_3 = 1;}
+                if (tag_1 && tag_2 && tag_3) {break;}
+              }
+              assert.equal(tag_1, 1);
+              assert.equal(tag_2, 1);
+              assert.equal(tag_3, 1);
+              done();
+            });
+      });
+
+      it('it should Get the posts which are lost', (done) => {
+        var url = '/post/sort/lost/0';
+        chai.request(route)
+            .get(url)
+            .end((err, res) => {
+              var posts = res.body.data;
+              for (var i = 0; i < posts.length; i++) {
+                // console.log("Loop: %d, tag: %d\n",i,posts[i].tag);
+                assert.equal(posts[i].lost, 0);
+              }
+              done();
+            });
+      });
+
+      it('it should Get the posts which are both lost and found', (done) => {
+        var url = '/post/sort/lost/All';
+        chai.request(route)
+            .get(url)
+            .end((err, res) => {
+              var posts = res.body.data;
+              var tag_lost = 0;
+              var tag_found = 0;
+              for (var i = 0; i < posts.length; i++) {
+                // console.log("Loop: %d, tag: %d\n",i,posts[i].tag);
+                if (!tag_lost && posts[i].lost == 0) {tag_lost = 1;}
+                else if (!tag_found && posts[i].lost == 1) {tag_found = 1;}
+                if (tag_lost && tag_found) {break;}
+              }
+              assert.equal(tag_lost, 1);
+              assert.equal(tag_found, 1);
+              done();
+            });
+      });
+
+      it('it should Get the posts within specific time intervals', (done) => {
+        var now = new Date();
+        var min = new Date(Date.now() - 180000).toISOString();
+        var max = new Date(Date.now() + 180000).toISOString();
+
+        var url = '/post/sort/date/'+ min +'/'+ max;
+        chai.request(route)
+            .get(url)
+            .end((err, res) => {
+              // console.log(res.body);
+              var posts = res.body.data;
+              var tag_lost = 0;
+              var tag_found = 0;
+              // console.log("Length: %d\n", posts.length);
+              // console.log(posts[0]);
+              for (var i = 0; i < posts.length; i++) {
+                // console.log(posts[i]);
+                // console.log("Loop: %d\n",i);
+                  assert.isAtLeast(posts[i].modifiedTime, min);
+                  assert.isAtMost(posts[i].modifiedTime, max);
+              }
               done();
             });
       });

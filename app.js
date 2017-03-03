@@ -86,7 +86,9 @@ app.get('/post/get/:id', function(req, res){
 
 //get post by poster's email
 app.get('/post/get/email/:poster', function(req, res){
-  Post.find( {'poster': req.params.poster}, function (err, post) {
+  Post.find( {'poster': req.params.poster})
+  .sort({ modifiedTime: -1 })
+  .exec(function(err, post){
     if(err)
       return res.json({info: 'error', error: err});
     if (post.length == 0)
@@ -193,11 +195,12 @@ app.delete('/user/delete/:id', function(req, res){
 
 //ascending
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
+
   Post.find({
     "tag": {"$eq": req.params.tag},
     "lost": {"$eq": req.params.lost},
     "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
-    "complete": 0 
+    "complete": 0
   })
   .sort({ modifiedTime: 1 })
   .exec(function(err, posts){
@@ -208,22 +211,112 @@ app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
     else {res.json({info: 'Posts found', data: posts}); }
   });
 });
+
 //descending
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/des', function(req, res){
-  Post.find({
-    "tag": {"$eq": req.params.tag},
-    "lost": {"$eq": req.params.lost},
-    "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
-    "complete": 0
-  })
-  .sort({ modifiedTime: -1 })
-  .exec(function(err, posts){
-    if (err){
-        return res.json({info: 'error', error: err});
+
+    Post.find({
+      "tag": {"$eq": req.params.tag},
+      "lost": {"$eq": req.params.lost},
+      "modifiedTime": {$gte: req.params.starterDate, $lte: req.params.endDate},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+});
+
+app.get('/post/sort/tag/:tag', function(req, res){
+    if (req.params.tag == -1) {
+      Post.find({ "complete": 0 })
+      .sort({ modifiedTime: -1 })
+      .exec(function(err, post){
+        if (err){
+            return res.json({info: 'error', error: err});
+        }
+        if (post.length == 0) {res.json({info: 'No posts found'});}
+        else {res.json({info: 'Posts found', data: post}); }
+      });
     }
-    if (posts.length == 0) {res.json({info: 'No posts found'});}
-    else {res.json({info: 'Posts found', data: posts}); }
-  });
+    else {
+      Post.find({
+        "tag": {"$eq": req.params.tag},
+        "complete": 0
+      })
+      .sort({ modifiedTime: -1 })
+      .exec(function(err, posts){
+        if (err){
+            return res.json({info: 'error', error: err});
+        }
+        if (posts.length == 0) {res.json({info: 'No posts found'});}
+        else {res.json({info: 'Posts found', data: posts}); }
+      });
+    }
+});
+
+app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
+  var start = new Date(req.params.starterDate).toISOString();
+  var end = new Date(req.params.endDate).toISOString();
+
+  if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
+    Post.find({ "complete": 0 })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+  }
+  else {
+    Post.find({
+      "modifiedTime": {$gte: start, $lte: end},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+  }
+});
+
+app.get('/post/sort/lost/:lost', function(req, res){
+  if (req.params.lost == "All") {
+    Post.find({ "complete": 0 })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+  }
+  else {
+    Post.find({
+      "lost": {"$eq": req.params.lost},
+      "complete": 0
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, posts){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (posts.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: posts}); }
+    });
+  }
 });
 
 const server = app.listen(port, function(err) {
