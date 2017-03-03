@@ -414,9 +414,14 @@ export class MapComponent implements OnInit{
     onDateRangeChanged(event: IMyDateRangeModel) {
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
-        this.startDate = event.beginJsDate;
-        this.endDate = event.endJsDate;
-        //this.updateFilter();
+        var dateFormat = require('dateformat');
+        this.startDate = new Date(event.beginJsDate);
+        dateFormat(this.startDate, "isoDateTime");
+        this.startDate = dateFormat(this.startDate, "isoDateTime");
+        this.endDate = dateFormat(this.endDate, "isoDateTime");
+        console.log(this.startDate);
+        console.log(this.endDate);
+        this.updateFilter();
     }
     
     //-------------for datepicler-----------------
