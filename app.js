@@ -250,8 +250,9 @@ app.get('/post/sort/tag/:tag', function(req, res){
 });
 
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
-  var start = new Date(req.params.starterDate).toISOString();
-  var end = new Date(req.params.endDate).toISOString();
+  var start = new Date(req.params.starterDate);
+  var end = new Date(req.params.endDate);
+  end.setDate(end.getDate() + 1);
 
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
     Post.find({ "complete": 0 })
