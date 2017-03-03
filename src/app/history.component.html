@@ -17,6 +17,11 @@
 
 
 	<div id = "mid">
+		<div *ngIf="len == 0" id = "no_post">
+			SORRY, THERE IS NO POST FOUND.YOU DON'T HAVE POSTS YET.
+		</div>
+
+
 		<ul class="sample_posts">
 			<li *ngFor = "let post of sample_posts">
 

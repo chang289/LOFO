@@ -7,7 +7,7 @@
     margin:0 auto;
     height:auto;
     text-align:center;
-	width:30%;
+	width:50%;
 }
 
 #home_container{
@@ -32,6 +32,13 @@
 #upper h2 {
 	color: white;
 	text-align: center;
+}
+
+#no_post {
+	margin:10% auto;
+	text-align: center;
+	font-family: "Courier New", Courier, Monaco;
+
 }
 #mid {
 	position: relative;
