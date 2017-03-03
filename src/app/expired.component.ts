@@ -9,13 +9,14 @@ import {PostService} from './post.service';
 @Component({
 	selector: 'expired',
 	templateUrl:'./expired.component.html',
-	styleUrls: ['expired.component.css'],
+	styleUrls: ['history.component.css'],
 	providers:[PostService]
 })
 export class ExpiredComponent implements OnInit{
 
 	lofoemail: string;
 	sample_posts:Posts[];
+	len: number;
 
 	constructor(
 		private postService: PostService, private router: Router, private cookieService: CookieService){}
@@ -24,7 +25,15 @@ export class ExpiredComponent implements OnInit{
 
 	getPosts() : void {
 		this.postService.getCompletePosts()
-		.then(sample_posts=>this.sample_posts=sample_posts);
+		.then(sample_posts=>{
+			this.sample_posts=sample_posts;
+			if(this.sample_posts != null){ 
+				this.len = this.sample_posts.length;
+			}else{
+				this.len = 0;
+			}
+		});
+
 	}
 
 	ngOnInit(): void {

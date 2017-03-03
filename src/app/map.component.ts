@@ -26,14 +26,12 @@ export class MapComponent implements OnInit{
     isCollapsed:boolean = true;
 
     ngAfterViewInit() {
-        console.log("ngchild");
         this.selectedTitle = this.marker_cluster.selectedTitle;
         this.selectedDesc = this.marker_cluster.selectedDesc;
         this.selectedUser = this.marker_cluster.selectedUser;
     }
 
     handleNotify(data:string[]) {
-        console.log("emit received");
         var tmp = data;
         this.selectedTitle = data[0];
         this.selectedUser = data[1];
@@ -121,7 +119,6 @@ export class MapComponent implements OnInit{
     }
 
     addNewMarker(): void {
-        console.log("addnewmarker");
         var promise = this.getPost();
         promise.then(posts => {
             // Here you can use the data because it's ready
@@ -160,7 +157,6 @@ export class MapComponent implements OnInit{
                 }
                 this.markers.push(newMarker);
             }
-            console.log(this.markers);
             this.marker_cluster.handleMap();
 
           }).catch((ex) => {});
@@ -184,7 +180,6 @@ export class MapComponent implements OnInit{
 
         this.markers = [];
         for (var i in posts) {
-            console.log(i);
             var singlePost = posts[i];
             var tag = posts[i].tag;
             if (tag == 0) {
@@ -215,7 +210,6 @@ export class MapComponent implements OnInit{
             }
             this.markers.push(newMarker);
         }
-        console.log(this.markers);
     }
 
     onClick(): void{
@@ -360,34 +354,21 @@ export class MapComponent implements OnInit{
                 }
                 this.postService.getScreenedPostsByLost(lost).then(posts => {
                     byLost = posts;
-                    console.log(byTag);
-                    console.log(byDate);
-                    console.log(byLost);
+
                     this.postsToMarkers(_.intersectionWith(byTag, byDate,byLost, isEqual));
 
                 })
             });
         });
-        console.log(this.selectedDate);
-        console.log(this.mapLostOrFound);
-        console.log(this.startDate);
-        console.log(this.endDate);
         this.marker_cluster.handleMap();
     }
     
-
-    clickedMarker(marker:marker) {
-        console.log(this.selectedTitle);
-    }
-
     onNotify(message:string):void {
         alert(message);
       }
 
-    mapClicked($event:any) {
-        this.ngAfterViewInit();
-        console.log(this.selectedTitle);
-        
+    mapRightClicked($event:any) {
+        this.ngAfterViewInit();        
         var newMarker = {
             name: 'New Post',
             lat: $event.coords.lat,
@@ -396,7 +377,10 @@ export class MapComponent implements OnInit{
             draggable: false,
         }
         this.newMarker = newMarker;
+    }
 
+    mapClicked($event:any) {
+        this.newMarker = null;
     }
 
 
@@ -407,16 +391,12 @@ export class MapComponent implements OnInit{
     newPostOnMap() {
         console.log('hello');
         var newMarker = this.markers[this.markers.length-1];
-        console.log(newMarker.lat);
-        console.log(newMarker.lng);
     }
 
     cluster($maker:any, $event:any) {
-        console.log('zoomed');
     }
 
     cancelPost($event:any) {
-        console.log("cancel");
         this.newMarker = null;
     }
 
@@ -436,10 +416,7 @@ export class MapComponent implements OnInit{
         this.startDate = new Date(event.beginJsDate);
         dateFormat(this.startDate, "isoDateTime");
         this.startDate = dateFormat(this.startDate, "isoDateTime");
-
         this.endDate = dateFormat(this.endDate, "isoDateTime");
-        console.log(this.startDate);
-        console.log(this.endDate);
         this.updateFilter();
     }
     
@@ -456,8 +433,6 @@ export class MapComponent implements OnInit{
     }
 
 }
-
-
 
 interface marker {
     name?: string;

@@ -137,7 +137,8 @@
       [zoom]="13"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      (mapRightClick)="mapClicked($event)"
+      (mapRightClick)="mapRightClicked($event)"
+      (mapClick)="mapClicked($event)"
       (idle)="cluster($event)"
       style="height: 90vh">
 
