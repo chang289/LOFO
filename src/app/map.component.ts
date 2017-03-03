@@ -366,7 +366,7 @@ export class MapComponent implements OnInit{
         alert(message);
       }
 
-    mapClicked($event:any) {
+    mapRightClicked($event:any) {
         this.ngAfterViewInit();        
         var newMarker = {
             name: 'New Post',
@@ -376,6 +376,10 @@ export class MapComponent implements OnInit{
             draggable: false,
         }
         this.newMarker = newMarker;
+    }
+
+    mapClicked($event:any) {
+        this.newMarker = null;
     }
 
 
@@ -426,8 +430,6 @@ export class MapComponent implements OnInit{
     }
 
 }
-
-
 
 interface marker {
     name?: string;

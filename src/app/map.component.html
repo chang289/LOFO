@@ -4,7 +4,7 @@
 <nav id="navbar" style="margin-bottom: 0; border-radius:0px " class="navbar navbar-inverse ">
   <div class="container-fluid" id="navbar">
    
-    <a class="navbar-brand" style="margin-top: 17px">LOFO</a>
+    <a class="navbar-brand" style="margin-top: 17px; cursor:default">LOFO</a>
 
     <div class="navbar-collapse collapse" >
       <ul class="nav navbar-nav navbar-left">
@@ -86,8 +86,8 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div id="sidebar" style="display: none; width: 20%; height: 90vh;" class="col-sm-3 col-md-2 sidebar">
-    <ul class="list-group" style="margin-top: 10px; word-wrap: break-word; height: 90vh; overflow: scroll;">
+    <div id="sidebar" style="display: none; width: 20%; height: 86vh;" class="col-sm-3 col-md-2 sidebar">
+    <ul class="list-group" style="margin-top: 10px; word-wrap: break-word; height: 86vh; overflow: scroll;">
       <li *ngIf="selectedTitle" class="list-group-item active">{{selectedTitle}}</li>
       <li *ngIf="selectedDate" class="list-group-item">{{selectedDate | date:'fullDate'}}</li>
       <li *ngIf="selectedUser" class="list-group-item">{{selectedUser}}</li>
@@ -137,7 +137,8 @@
       [zoom]="13"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      (mapRightClick)="mapClicked($event)"
+      (mapRightClick)="mapRightClicked($event)"
+      (mapClick)="mapClicked($event)"
       (idle)="cluster($event)"
       style="height: 92vh">
 
