@@ -16,28 +16,42 @@
 
 	<div id = "mid">
 		<div *ngIf="len == 0" id = "no_post">
-			SORRY, THERE IS NO POST FOUND.YOU DON'T HAVE POSTS NOW.
+			SORRY, YOU DON'T HAVE ANY POSTS NOW.
+			create posts on the map to see the records.
 		</div>
 
 
+
 		<ul class="sample_posts">
-			<li *ngFor = "let post of sample_posts">
+			<li *ngFor = "let post of sample_posts" style="position:relative">
 
-				<span *ngIf="!post.lost"class ="info" >Found</span>
-				<span *ngIf="post.lost"class ="info" style="margin-right:7%">Lost</span>
+					<div *ngIf="!post.lost" class = "info_block_left" style="margin-right:6%;">
+						<span class ="info" >Found</span>
+					</div>
 
-				<span class="info">{{post.createTime | date:'short'}}</span> 
+					<div *ngIf="post.lost"class = "info_block_left" style="margin-right:7.1%;">
+						<span *ngIf="post.lost"class ="info">Lost</span>
+					</div>
 
-				<span class="info" id = "title" (click)=lgModal.show() style="display:inline-block; margin-right:0; max-width:40%">
-					{{post.title}}
-				</span>
+					<div style="margin-right:4%;display:inline-block; width:15%">
+						<span class="info">{{post.createTime | date:'short'}}</span> 
+					</div>
+
+	<!-- position:absolute;bottom:0.5em; left:28%; margin-right:0;
+	 -->
+					<span class="info" id = "title" (click)=lgModal.show() style="max-width:35%">
+						{{post.title}}
+					</span>
+
+
+
 
 					<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 					    <div class="modal-content">
 
 					      <div class="modal-header">
-					        <h4 class="modal-title pull-left" style="font-size:1em">{{post.title}}</h4>
+					        <h4 class="modal-title pull-left" style="font-size:1em; word-wrap:break-word;max-width:100%">{{post.title}}</h4>
 					        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
 					          <span aria-hidden="true">&times;</span>
 					        </button>

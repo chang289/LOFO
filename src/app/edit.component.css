@@ -52,3 +52,10 @@
 	border-radius: 5px;
 	border-style: groove;
 }
+#update{
+	position:absolute;
+	right: 0;
+	bottom: 0;
+	height: 34px;
+	border: none;
+}

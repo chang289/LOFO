@@ -24,7 +24,7 @@ export class EditComponent {
 		private userService:UserService,
 		private cookieService: CookieService
 		){}
-
+console
 
 	sample_posts:Posts[];
 
@@ -39,7 +39,6 @@ export class EditComponent {
 	tag: number = 0;
 	
 	editClicked() : void {
-		console.log(this.edited_post.tag);
 		this.tag = this.edited_post.tag;
 	}
 
@@ -85,7 +84,6 @@ export class EditComponent {
             	}
         });
 			
-		console.log(promise);
 
 	}
 	//BUG1: should not be able to confirm user self.
@@ -113,7 +111,6 @@ export class EditComponent {
 								window.location.reload();
 							}
 							else {
-								console.log(this.edited_post.confirmer);
 								alert("Confirm Successed:You've Confirmed Yours Post!");
 								window.location.reload();
 							}
