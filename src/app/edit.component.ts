@@ -46,6 +46,8 @@ export class EditComponent {
 	//BUG1 :title or description must be entered
 	//REG BUG1 : must reload the page otherwise title or description could not be displayed.
 	//BUG2 : A post must have title and description. So users cannot remove the title and description.
+	//BUG3 : If a user does not have any post, there should be a warning when they go to the history page.
+	//REG BUG2 : The warning div should not appear with the records. ERROR
 	Edit(): void {
 		this.tag = this.edited_post.tag;
 		if(this.edited_post.title.length == 0) {
