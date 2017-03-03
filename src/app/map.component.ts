@@ -200,10 +200,16 @@ export class MapComponent implements OnInit{
             }
 
             var newMarker = {
+                title: singlePost.title,
                 name: singlePost.fullname,
+                poster: singlePost.poster,
+                contact: singlePost.contact,
+                lost: singlePost.lost,
+                createTime: singlePost.createTime,
                 lat: singlePost.locationX,
                 lng: singlePost.locationY,
                 description: singlePost.description,
+                imgUrl: singlePost.photo,
                 iconUrl: newPostIcon,
                 draggable: false,
             }
@@ -322,7 +328,10 @@ export class MapComponent implements OnInit{
  
     
     updateFilter() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.style.display = 'none';
         this.marker_cluster.clearMap();
+
         var byTag;
         var byDate;
         var byLost;
@@ -359,6 +368,7 @@ export class MapComponent implements OnInit{
                 })
             });
         });
+        console.log(this.selectedDate);
         console.log(this.mapLostOrFound);
         console.log(this.startDate);
         console.log(this.endDate);

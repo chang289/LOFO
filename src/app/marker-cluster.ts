@@ -34,13 +34,11 @@ export class MarkerCluster {
     data.push(desc);
     data.push(url);
     this.notify.emit(data);
-    console.log(this.selectedTitle);
+    console.log(data);
   }
 
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {
   }
-
-
 
   clearMap() {
     this.markerCluster.clearMarkers();
@@ -87,7 +85,7 @@ export class MarkerCluster {
 
       Observable
         .interval(500)
-        .skipWhile((s) => this.points == null || this.points.length <= 0)
+        //.skipWhile((s) => this.points == null || this.points.length <= 0)
         .take(1)
         .subscribe(() => {
         for (let point of this.points) {
@@ -116,6 +114,7 @@ export class MarkerCluster {
 
 
             console.log(tpThis.selectedTitle);
+            console.log(point);
             tpThis.notifyComplete(point.title, point.name, point.poster, point.contact, point.lost, point.createTime, point.description, point.imgUrl);
             console.log("emiting");
             tpThis.setValue(point.name, point.title, point.description);
