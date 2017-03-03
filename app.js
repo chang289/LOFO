@@ -260,8 +260,16 @@ app.get('/post/sort/tag/:tag', function(req, res){
 });
 
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
-  var start = new Date(req.params.starterDate).toISOString();
-  var end = new Date(req.params.endDate).toISOString();
+  // console.log(req.params.starterDate);
+  // console.log(req.params.endDate);
+  var start = new Date(req.params.starterDate);
+  var end = new Date(req.params.endDate) + 86399999;
+  // console.log(start);
+  // console.log(end);
+  // start = start.toISOString();
+  // end = end.toISOString();
+  // console.log(start);
+  // console.log(end);
 
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
     Post.find({ "complete": 0 })
