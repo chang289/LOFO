@@ -36,8 +36,7 @@
 						<span class="info">{{post.createTime | date:'short'}}</span> 
 					</div>
 
-	<!-- position:absolute;bottom:0.5em; left:28%; margin-right:0;
-	 -->
+
 					<span class="info" id = "title" (click)=lgModal.show() style="max-width:35%">
 						{{post.title}}
 					</span>
@@ -102,6 +101,7 @@
 		</ul>
 	</div>
 	</tab>
+
 	<tab heading="Completed">
 		<div id = "mid">
 		<div *ngIf="len == 0" id = "no_post">
@@ -125,8 +125,7 @@
 						<span class="info">{{post.createTime | date:'short'}}</span> 
 					</div>
 
-	<!-- position:absolute;bottom:0.5em; left:28%; margin-right:0;
-	 -->
+
 					<span class="info" id = "title" (click)=lgModal.show() style="max-width:35%">
 						{{post.title}}
 					</span>
@@ -135,52 +134,98 @@
 
 
 					<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
+					  	<div class="modal-dialog modal-lg">
+					    	<div class="modal-content">
 
-					      <div class="modal-header">
-					        <h4 class="modal-title pull-left" style="font-size:1em; word-wrap:break-word;max-width:100%">{{post.title}}</h4>
-					        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					    <div class="modal-body">
+					      		<div class="modal-header">
+					        	<h4 class="modal-title pull-left" style="font-size:1em; word-wrap:break-word;max-width:100%">{{post.title}}</h4>
+						        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+					      	</div>
 
-					        <div id = "description" class = "modal_div" style="border-top:0">
-					        	<h2>Description:</h2>
-					        	<div class="info_text" >
-					        		{{post.description}}
-					        	</div>
-					        </div>
+					    	<div class="modal-body">
 
-					        <div *ngIf="post.photo" id = "photo" class = "modal_div">
-					        	<h2>Photo:</h2>
-					        	<div class="info_text">
-					        		 <img src={{post.photo}} class="img-thumbnail" alt="If you cannot see photo here, double check url" width="304" height="236">
-					        		 <br>
+						        <div id = "description" class = "modal_div" style="border-top:0">
+						        	<h2>Description:</h2>
+						        	<div class="info_text" >
+						        		{{post.description}}
+						        	</div>
 						        </div>
-					        </div>
 
-					        <div id = "name" class = "modal_div">
-					        	<h2>Name:</h2>
-					        	<div class="info_text">
-					        		{{post.fullname}}
-					        	</div>
-					        </div>
+						        <div *ngIf="post.photo" id = "photo" class = "modal_div">
+						        	<h2>Photo:</h2>
+						        	<div class="info_text">
+						        		 <img src={{post.photo}} class="img-thumbnail" alt="If you cannot see photo here, double check url" width="304" height="236">
+						        		 <br>
+							        </div>
+						        </div>
 
-   					        <div id = "phone" class = "modal_div">
-					        	<h2>Phone Number:</h2>
-					        	<div class="info_text">
-					        		{{post.contact}}
-					        	</div>
-					        </div>
+						        <div id = "name" class = "modal_div">
+						        	<h2>Name:</h2>
+						        	<div class="info_text">
+						        		{{post.fullname}}
+						        	</div>
+						        </div>
 
-					      </div>
+	   					        <div id = "phone" class = "modal_div">
+						        	<h2>Phone Number:</h2>
+						        	<div class="info_text">
+						        		{{post.contact}}
+						        	</div>
+						        </div>
+
+					      	</div>
 					    </div>
-					  </div>
 					</div>
+				</div>
+
+				<div id = "btn_container" style = "right: 5%;">
+					<button type = "button" class="btn btn-danger" (click)="smModal.show()" id = "reportBtn">
+					  <span class="glyphicon glyphicon-exclamation-sign" ></span>Report
+					</button>				
+				</div>
 			</li>
 		</ul>
+
+		<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+
+			     <div class="modal-header">
+			        <h4 class="modal-title pull-left">Please describe the problem</h4>
+			        <button type="button" class="close pull-right" (click)="smModal.hide()" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+
+		     	 <div class="modal-body" style="padding-top:0">
+
+
+		          	<label for="description"></label>
+
+		          	<textarea class="form-control" rows="5" id="description" style="margin-bottom:0;max-width:100%">
+		          	</textarea>
+
+				    <div class="form-group">
+				      <label for="contact" class = "confirm_title" style="font-size:medium">Contact:</label>
+				      <input  type="text" class="form-control" >
+				    </div>
+
+			        <button type="button" class="btn btn-secondary"  style="margin-right:3em"
+			        aria-label="Close" (click)="smModal.hide()">
+			          <span class="glyphicon glyphicon-remove" ></span>Cancel
+			        </button>
+
+			        <button type = "button" class="btn btn-danger"   style="margin-left:3.5em" 
+			        aria-label="Close" (click)="smModal.hide()" (click) = "Confirm()">
+			          <span class="glyphicon glyphicon-exclamation-sign" ></span>Report
+			        </button>
+		    	</div>
+
+		    </div>
+		  </div>
+		</div>
 	</div>
 	</tab>
 	</tabset>
