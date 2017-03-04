@@ -35,6 +35,9 @@ export class ExpiredComponent implements OnInit{
 		});
 
 	}
+	Report():void{
+		alert("to be completed");
+	}
 
 	ngOnInit(): void {
 	    this.lofoemail = this.cookieService.get("lofoemail");
