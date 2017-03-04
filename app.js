@@ -39,6 +39,9 @@ app.use('/', express.static(__dirname + '/'));
 //create new post
 app.post('/post/create', function (req, res){
   var newPost = new Post(req.body);
+  var nw = new Date();
+  nw.setMonth(nw.getMonth() - 2);
+  newPost.createTime = nw;
   newPost.save((err)=>{
       if (err){
           return res.json({info: 'error', error: err});
@@ -75,6 +78,25 @@ app.get('/post/get/complete', function(req, res) {
   Post.find({
       "complete": 1,
       "createTime": {$gte: nw}
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+});
+
+//display all expired post
+app.get('/post/get/expired', function(req, res) {
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+  console.log(nw);
+
+  Post.find({
+      "createTime": {$lte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
