@@ -49,7 +49,14 @@ app.post('/post/create', function (req, res){
 
 //display all ongoing post
 app.get('/post/get/ongoing', function(req, res) {
-  Post.find({ "complete": 0 })
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+  console.log(nw);
+
+  Post.find({
+      "complete": 0,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -62,7 +69,13 @@ app.get('/post/get/ongoing', function(req, res) {
 
 //display all complete post
 app.get('/post/get/complete', function(req, res) {
-  Post.find({ "complete": 1 })
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  Post.find({
+      "complete": 1,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -76,17 +89,24 @@ app.get('/post/get/complete', function(req, res) {
 //get post by id
 app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
-    if(err)
-      return res.json({info: 'error', error: err});
-    if (!post)
-      return res.json({info: 'No post found'});
+    if(err) {return res.json({info: 'error', error: err});}
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
+    if (!post) {return res.json({info: 'No post found'});}
+    if (post.createTime < nw) {return res.json({info: 'Post expired'});}
     res.json({info: 'Post found', data: post});
   });
 });
 
 //get post by poster's email
 app.get('/post/get/email/:poster', function(req, res){
-  Post.find( {'poster': req.params.poster})
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  Post.find( {
+    'poster': req.params.poster,
+    "createTime": {$gte: nw}
+  })
   .sort({ modifiedTime: -1 })
   .exec(function(err, post){
     if(err)
@@ -125,6 +145,10 @@ app.post('/post/edit/:id', function(req, res){
     if(!post){
       return res.json({ info : 'No such post'});
     }
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
+    if (post.createTime < nw) {return res.json({ info : 'Post expired'});}
+
     post.fullname = req.body.fullname;
     post.title = req.body.title;
     post.description = req.body.description;
@@ -232,8 +256,13 @@ app.get('/post/sort/:tag/:starterDate/:endDate/:lost/des', function(req, res){
 });
 
 app.get('/post/sort/tag/:tag', function(req, res){
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
     if (req.params.tag == -1) {
-      Post.find({ "complete": 0 })
+      Post.find({
+        "complete": 0,
+        "createTime": {$gte: nw}
+      })
       .sort({ modifiedTime: -1 })
       .exec(function(err, post){
         if (err){
@@ -246,7 +275,8 @@ app.get('/post/sort/tag/:tag', function(req, res){
     else {
       Post.find({
         "tag": {"$eq": req.params.tag},
-        "complete": 0
+        "complete": 0,
+        "createTime": {$gte: nw}
       })
       .sort({ modifiedTime: -1 })
       .exec(function(err, posts){
@@ -262,8 +292,9 @@ app.get('/post/sort/tag/:tag', function(req, res){
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
   // console.log(req.params.starterDate);
   // console.log(req.params.endDate);
-  var start = new Date(req.params.starterDate);
-  var end = new Date(req.params.endDate) + 86399999;
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
   // console.log(start);
   // console.log(end);
   // start = start.toISOString();
@@ -272,7 +303,10 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
   // console.log(end);
 
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
-    Post.find({ "complete": 0 })
+    Post.find({
+      "complete": 0 ,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -283,9 +317,14 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
     });
   }
   else {
+    var start = new Date(req.params.starterDate);
+    var end = new Date(req.params.endDate);
+    end.setDate(end.getDate() + 1);
+
     Post.find({
       "modifiedTime": {$gte: start, $lte: end},
-      "complete": 0
+      "complete": 0,
+      "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
@@ -300,8 +339,14 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
 });
 
 app.get('/post/sort/lost/:lost', function(req, res){
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
   if (req.params.lost == "All") {
-    Post.find({ "complete": 0 })
+    Post.find({
+      "complete": 0 ,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -314,7 +359,8 @@ app.get('/post/sort/lost/:lost', function(req, res){
   else {
     Post.find({
       "lost": {"$eq": req.params.lost},
-      "complete": 0
+      "complete": 0,
+      "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
