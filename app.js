@@ -283,7 +283,7 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
 });
 
 app.get('/post/sort/lost/:lost', function(req, res){
-  if (req.params.lost == "All") {
+  if (req.params.lost == "undefined") {
     Post.find({ "complete": 0 })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
