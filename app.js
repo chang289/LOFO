@@ -39,9 +39,10 @@ app.use('/', express.static(__dirname + '/'));
 //create new post
 app.post('/post/create', function (req, res){
   var newPost = new Post(req.body);
-  var nw = new Date();
-  nw.setMonth(nw.getMonth() - 2);
-  newPost.createTime = nw;
+  //testing code for expired post
+  // var nw = new Date();
+  // nw.setMonth(nw.getMonth() - 2);
+  // newPost.createTime = nw;
   newPost.save((err)=>{
       if (err){
           return res.json({info: 'error', error: err});
