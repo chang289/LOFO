@@ -280,7 +280,6 @@ export class MapComponent implements OnInit{
             iconUrl: newPostIcon,
             draggable: false,
         }
-        this.markers.push(newMarker);
         this.newMarker = null;
         this.fullname = null;
         this.title = null;
@@ -290,7 +289,6 @@ export class MapComponent implements OnInit{
         this.tag = -1;
         this.markers = [];
         this.addNewMarker();
-        //console.log(this.postService.createPost(post));
     }
 
     googleMarkers : any;
