@@ -250,8 +250,9 @@ app.get('/post/sort/tag/:tag', function(req, res){
 });
 
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
-  var start = new Date(req.params.starterDate).toISOString();
-  var end = new Date(req.params.endDate).toISOString();
+  var start = new Date(req.params.starterDate);
+  var end = new Date(req.params.endDate);
+  end.setDate(end.getDate() + 1);
 
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
     Post.find({ "complete": 0 })
@@ -282,7 +283,7 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
 });
 
 app.get('/post/sort/lost/:lost', function(req, res){
-  if (req.params.lost == "All") {
+  if (req.params.lost == "undefined") {
     Post.find({ "complete": 0 })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){

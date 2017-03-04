@@ -330,6 +330,7 @@ export class MapComponent implements OnInit{
         var byDate;
         var byLost;
         var lost;
+
         function isEqual(post1, post2) {
             if (post1._id == post2._id) {
                 return true;
