@@ -1,3 +1,4 @@
 node_modules
 mlab.env
 npm-debug.log
+sendgrid.env

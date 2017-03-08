@@ -5,6 +5,11 @@ var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var uuidV1 = require('uuid/v1');
+var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 // var multiparty = require('multiparty');
 // var multiparty = require('connect-multiparty');
@@ -210,6 +215,7 @@ app.post('/user/login', function(req, res) {
       return res.json({ info : 'No such user'});
     }
     if (req.body.password == user.password) {
+      if (user.initialize == false) {return res.json({info: 'Unverified user', data: user});}
       res.json({info: 'Login successfully', data: user});
     } else { res.json({ info : 'Password invalid'}); }
   })
@@ -394,6 +400,77 @@ app.get('/post/sort/lost/:lost', function(req, res){
       else {res.json({info: 'Posts found', data: posts}); }
     });
   }
+});
+
+//send verification email
+app.post('/user/init/send', function(req,res){
+  async.waterfall([
+    function(done){
+      crypto.randomBytes(3, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done){
+      User.findOne({ 'email': req.body.email }, function(err, user){
+        if (!user) {
+          return res.json({info: 'No such user'});
+        }
+          console.log(user);
+          user.initToken = token;
+          console.log(user);
+          // user.resetExpires = Date.now() + 3600000; // 30min
+          user.save(function(err) {
+            done(err, token, user);
+          });
+        });
+    },
+    function(token, user, done){
+      var helper = require('sendgrid').mail;
+      var from_email = new helper.Email('noreply@LOFO.com');
+      var to_email = new helper.Email(user.email);
+      var subject = 'Account initilization';
+      var content = new helper.Content('text/plain', 'You are receiving this because you have requested the reset of the password for your account.\n\n' +
+      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+      'http://' + req.headers.host + '/user/init/verify/\n\n' +
+      'Your initilization token is ' + token + '\n\n');
+
+      var mail = new helper.Mail(from_email, subject, to_email, content);
+      var request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON(),
+      });
+
+      sg.API(request, function(error, response) {
+        if (error) {
+          console.log(response.statusCode);
+          console.log(response.body);
+          console.log(response.headers);
+          res.json({info: 'send fail'});
+        }
+        else {res.json({info: 'send success'});}
+      });
+    }
+  ], function(err) {
+      if (err) return res.json({info: 'error', error: err});
+        // res.redirect('back');
+  });
+});
+
+app.post('/user/init/verify', function(req,res){
+  User.findOne({ 'email': req.body.email }, function(err, user){
+    if (req.body.token != user.initToken) {
+      return res.json({info: 'No such user'});
+    }
+    user.initToken = undefined;
+    user.initialize = true;
+    user.save(function(err, user){
+      if(err)
+        return res.json({info: 'error', error: err});
+      res.json({info: 'User verified', data: user});
+    });
+  });
 });
 
 const server = app.listen(port, function(err) {
