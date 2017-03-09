@@ -21,6 +21,7 @@ export class RegisterComponent {
     pPassword: string  //entered password
     pPassword02: string; //re-entered password
     pEmail: string;     //entered email
+    pVcode: string;     //Verification Code
 
     constructor(private userService: UserService, private cookieService: CookieService, private router: Router) { }
     
