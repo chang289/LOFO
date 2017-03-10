@@ -405,24 +405,10 @@ app.post('/user/init/send', function(req,res){
         done(err, token);
       });
     },
-    function(token, done){
-      User.findOne({ 'email': req.body.email }, function(err, user){
-        if (!user) {
-          return res.json({info: 'No such user'});
-        }
-          console.log(user);
-          user.initToken = token;
-          console.log(user);
-          // user.resetExpires = Date.now() + 3600000; // 30min
-          user.save(function(err) {
-            done(err, token, user);
-          });
-        });
-    },
     function(token, user, done){
       var helper = require('sendgrid').mail;
       var from_email = new helper.Email('noreply@LOFO.com');
-      var to_email = new helper.Email(user.email);
+      var to_email = new helper.Email(req.body.email);
       var subject = 'Account initilization';
       var content = new helper.Content('text/plain', 'You are receiving this because you have requested the reset of the password for your account.\n\n' +
       'Please click on the following link, or paste this into your browser to complete the process:\n\n' +

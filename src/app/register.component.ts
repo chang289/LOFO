@@ -59,7 +59,27 @@ export class RegisterComponent {
     }
 
     clickSendVcode(): void {
+
+        if (this.pPassword != this.pPassword02) {
+            alert("Re-entered password should be the same with password");
+            return;
+        }
+
+        if (!this.pEmail.endsWith("@purdue.edu")) {
+            alert("Please enter a valid Purdue Email");
+            return;
+        }
+
+        console.log("Enter function succedd");
+
+        this.user = new Users();
+
+        this.user.username = this.pUsername;
+        this.user.password = this.pPassword;
+        this.user.email = this.pEmail;
+        this.userService.sendvcode(this.user);
         
+        console.log("Send code finished");     
     }
 
     clickBack(): void {
