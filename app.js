@@ -473,6 +473,35 @@ app.post('/user/init/verify', function(req,res){
   });
 });
 
+app.post('/user/report', function(req, res) {
+  req.body.description
+
+  var hostemail = 'changketao233@gmail.com';
+  var helper = require('sendgrid').mail;
+  var from_email = new helper.Email('noreply@LOFO.com');
+  var to_email = new helper.Email(hostemail);
+  var subject = 'Report';
+  var content = new helper.Content('text/plain', req.body.description + '\n\n' +
+  'Reporter information:' + req.body.contact + '\n\n');
+
+  var mail = new helper.Mail(from_email, subject, to_email, content);
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+
+  sg.API(request, function(error, response) {
+    if (error) {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+      res.json({info: 'send fail'});
+    }
+    else {res.json({info: 'send success'});}
+  });
+});
+
 const server = app.listen(port, function(err) {
   if (err) {
       console.log(err);
