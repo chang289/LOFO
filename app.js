@@ -208,8 +208,8 @@ app.post('/user/signup', function(req, res) {
             }
             res.json({info: 'User created successfully', data: newUser});
         });
-      }
-    }
+      } else { res.json({info: 'Wrong token'}); }
+    } else {return res.json({info: 'No such token'});}
   });
 });
 
