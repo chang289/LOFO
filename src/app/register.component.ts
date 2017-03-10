@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 
 import { Users } from './users';
 import { UserService } from './user.service';
+
+import { LoginComponent } from './login.component';
 import { CookieService } from 'angular2-cookie/core';
 import { Router } from '@angular/router';
 
@@ -54,5 +56,9 @@ export class RegisterComponent {
                     this.router.navigateByUrl('/map');
                 }
             });
+    }
+
+    clickBack(): void {
+        this.router.navigateByUrl('/login');
     }
 }
