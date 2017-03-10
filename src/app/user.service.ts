@@ -9,6 +9,7 @@ export class UserService {
 	private URL = window.location.origin;
 	private signupURL = this.URL + '/user/signup';
 	private loginURL = this.URL + '/user/login';
+	private sendvcodeURL = this.URL + '/user/init/send';
 	constructor(private http: Http) { }
 
     signupUser(user: Users): Promise<Users> {
@@ -25,6 +26,15 @@ export class UserService {
     	let options = new RequestOptions({ headers: headers });
         console.log("Login process...");
 		return this.http.post(this.loginURL, user, options)
+			.toPromise()
+			.then(response => response.json().data as Users)
+			.catch(this.handleError);
+	}
+
+	sendvcode(user: Users): Promise<Users> { 
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+    	let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.sendvcodeURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
 			.catch(this.handleError);
