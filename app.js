@@ -5,12 +5,30 @@ var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var uuidV1 = require('uuid/v1');
+var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+
+// var multiparty = require('multiparty');
+// var multiparty = require('connect-multiparty');
+// var multimidd = multiparty();
+// var fs = require('fs');
+// var S3FS = require('s3fs');
+// var uuidV1 = require('uuid/v1');
+// var s3fsImpl = new S3FS('lofo-purdue', {
+//   accessKeyId: '',
+//   secretAccessKey: ''
+// });
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-var port = process.env.PORT || 4200;
-mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", function(error){
+// app.use(multimidd);
+var port = process.env.PORT || 3000;
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGO_URL, function(error){
   if (error)
       console.log(error);
   else {
@@ -21,14 +39,15 @@ mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", f
 
 // routes(app);
 
-app.use('/', express.static(__dirname + '/dist'));
-//create new post
-//create new post
 app.use('/', express.static(__dirname + '/'));
 
 //create new post
 app.post('/post/create', function (req, res){
   var newPost = new Post(req.body);
+  //testing code for expired post
+  // var nw = new Date();
+  // nw.setMonth(nw.getMonth() - 2);
+  // newPost.createTime = nw;
   newPost.save((err)=>{
       if (err){
           return res.json({info: 'error', error: err});
@@ -39,7 +58,14 @@ app.post('/post/create', function (req, res){
 
 //display all ongoing post
 app.get('/post/get/ongoing', function(req, res) {
-  Post.find({ "complete": 0 })
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+  console.log(nw);
+
+  Post.find({
+      "complete": 0,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -52,7 +78,32 @@ app.get('/post/get/ongoing', function(req, res) {
 
 //display all complete post
 app.get('/post/get/complete', function(req, res) {
-  Post.find({ "complete": 1 })
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  Post.find({
+      "complete": 1,
+      "createTime": {$gte: nw}
+    })
+    .sort({ modifiedTime: -1 })
+    .exec(function(err, post){
+      if (err){
+          return res.json({info: 'error', error: err});
+      }
+      if (post.length == 0) {res.json({info: 'No posts found'});}
+      else {res.json({info: 'Posts found', data: post}); }
+    });
+});
+
+//display all expired post
+app.get('/post/get/expired', function(req, res) {
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+  console.log(nw);
+
+  Post.find({
+      "createTime": {$lte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -66,17 +117,24 @@ app.get('/post/get/complete', function(req, res) {
 //get post by id
 app.get('/post/get/:id', function(req, res){
   Post.findById(req.params.id, function (err, post) {
-    if(err)
-      return res.json({info: 'error', error: err});
-    if (!post)
-      return res.json({info: 'No post found'});
+    if(err) {return res.json({info: 'error', error: err});}
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
+    if (!post) {return res.json({info: 'No post found'});}
+    if (post.createTime < nw) {return res.json({info: 'Post expired'});}
     res.json({info: 'Post found', data: post});
   });
 });
 
 //get post by poster's email
 app.get('/post/get/email/:poster', function(req, res){
-  Post.find( {'poster': req.params.poster})
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  Post.find( {
+    'poster': req.params.poster,
+    "createTime": {$gte: nw}
+  })
   .sort({ modifiedTime: -1 })
   .exec(function(err, post){
     if(err)
@@ -115,6 +173,10 @@ app.post('/post/edit/:id', function(req, res){
     if(!post){
       return res.json({ info : 'No such post'});
     }
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
+    if (post.createTime < nw) {return res.json({ info : 'Post expired'});}
+
     post.fullname = req.body.fullname;
     post.title = req.body.title;
     post.description = req.body.description;
@@ -153,6 +215,7 @@ app.post('/user/login', function(req, res) {
       return res.json({ info : 'No such user'});
     }
     if (req.body.password == user.password) {
+      if (user.initialize == false) {return res.json({info: 'Unverified user', data: user});}
       res.json({info: 'Login successfully', data: user});
     } else { res.json({ info : 'Password invalid'}); }
   })
@@ -222,8 +285,13 @@ app.get('/post/sort/:tag/:starterDate/:endDate/:lost/des', function(req, res){
 });
 
 app.get('/post/sort/tag/:tag', function(req, res){
+    var nw = new Date();
+    nw.setDate(nw.getDate() - 30);
     if (req.params.tag == -1) {
-      Post.find({ "complete": 0 })
+      Post.find({
+        "complete": 0,
+        "createTime": {$gte: nw}
+      })
       .sort({ modifiedTime: -1 })
       .exec(function(err, post){
         if (err){
@@ -236,7 +304,8 @@ app.get('/post/sort/tag/:tag', function(req, res){
     else {
       Post.find({
         "tag": {"$eq": req.params.tag},
-        "complete": 0
+        "complete": 0,
+        "createTime": {$gte: nw}
       })
       .sort({ modifiedTime: -1 })
       .exec(function(err, posts){
@@ -250,12 +319,23 @@ app.get('/post/sort/tag/:tag', function(req, res){
 });
 
 app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
-  var start = new Date(req.params.starterDate);
-  var end = new Date(req.params.endDate);
-  end.setDate(end.getDate() + 1);
+  // console.log(req.params.starterDate);
+  // console.log(req.params.endDate);
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  // console.log(start);
+  // console.log(end);
+  // start = start.toISOString();
+  // end = end.toISOString();
+  // console.log(start);
+  // console.log(end);
 
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
-    Post.find({ "complete": 0 })
+    Post.find({
+      "complete": 0 ,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -266,9 +346,14 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
     });
   }
   else {
+    var start = new Date(req.params.starterDate);
+    var end = new Date(req.params.endDate);
+    end.setDate(end.getDate() + 1);
+
     Post.find({
       "modifiedTime": {$gte: start, $lte: end},
-      "complete": 0
+      "complete": 0,
+      "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
@@ -283,8 +368,14 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
 });
 
 app.get('/post/sort/lost/:lost', function(req, res){
-  if (req.params.lost == "undefined") {
-    Post.find({ "complete": 0 })
+  var nw = new Date();
+  nw.setDate(nw.getDate() - 30);
+
+  if (req.params.lost == "All") {
+    Post.find({
+      "complete": 0 ,
+      "createTime": {$gte: nw}
+    })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
       if (err){
@@ -297,7 +388,8 @@ app.get('/post/sort/lost/:lost', function(req, res){
   else {
     Post.find({
       "lost": {"$eq": req.params.lost},
-      "complete": 0
+      "complete": 0,
+      "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
@@ -310,6 +402,76 @@ app.get('/post/sort/lost/:lost', function(req, res){
   }
 });
 
+//send verification email
+app.post('/user/init/send', function(req,res){
+  async.waterfall([
+    function(done){
+      crypto.randomBytes(3, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done){
+      User.findOne({ 'email': req.body.email }, function(err, user){
+        if (!user) {
+          return res.json({info: 'No such user'});
+        }
+          console.log(user);
+          user.initToken = token;
+          console.log(user);
+          // user.resetExpires = Date.now() + 3600000; // 30min
+          user.save(function(err) {
+            done(err, token, user);
+          });
+        });
+    },
+    function(token, user, done){
+      var helper = require('sendgrid').mail;
+      var from_email = new helper.Email('noreply@LOFO.com');
+      var to_email = new helper.Email(user.email);
+      var subject = 'Account initilization';
+      var content = new helper.Content('text/plain', 'You are receiving this because you have requested the reset of the password for your account.\n\n' +
+      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+      'http://' + req.headers.host + '/user/init/verify/\n\n' +
+      'Your initilization token is ' + token + '\n\n');
+
+      var mail = new helper.Mail(from_email, subject, to_email, content);
+      var request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON(),
+      });
+
+      sg.API(request, function(error, response) {
+        if (error) {
+          console.log(response.statusCode);
+          console.log(response.body);
+          console.log(response.headers);
+          res.json({info: 'send fail'});
+        }
+        else {res.json({info: 'send success'});}
+      });
+    }
+  ], function(err) {
+      if (err) return res.json({info: 'error', error: err});
+        // res.redirect('back');
+  });
+});
+
+app.post('/user/init/verify', function(req,res){
+  User.findOne({ 'email': req.body.email }, function(err, user){
+    if (req.body.token != user.initToken) {
+      return res.json({info: 'No such user'});
+    }
+    user.initToken = undefined;
+    user.initialize = true;
+    user.save(function(err, user){
+      if(err)
+        return res.json({info: 'error', error: err});
+      res.json({info: 'User verified', data: user});
+    });
+  });
+});
 
 const server = app.listen(port, function(err) {
   if (err) {
