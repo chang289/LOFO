@@ -9,7 +9,7 @@ var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var uuidV1 = require('uuid/v1');
-var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+var sg = require('sendgrid')('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');
 
 // var multiparty = require('multiparty');
 // var multiparty = require('connect-multiparty');
