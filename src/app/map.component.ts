@@ -48,6 +48,7 @@ export class MapComponent implements OnInit{
 
     success:boolean = false;
 
+    imageURL: string;
     selectedTitle: string = "title";
     selectedUser:string;
     selectedPhone:string;
@@ -85,18 +86,25 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    src: string = "";
+    src: File;
     resizeOptions: ResizeOptions = {
         resizeMaxHeight: 128,
         resizeMaxWidth: 128
     };
 
-    selected(imageResult: ImageResult) {
-        this.src = imageResult.resized
-            && imageResult.resized.dataURL
-            || imageResult.dataURL;
-        console.log(imageResult.file); 
-    }
+    // selected(imageResult: ImageResult) {
+    //     this.src = imageResult.resized
+    //         && imageResult.resized.dataURL
+    //         || imageResult.dataURL;
+    //     console.log(imageResult.file);
+    //     this.postService.uploadImage(this.src)
+    //         .then((imageURL: string) => {
+    //             this.imageURL = imageURL;
+    //             console.log(this.imageURL);
+    //     });
+
+
+    // }
 
     constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {}
 
