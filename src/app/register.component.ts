@@ -58,6 +58,10 @@ export class RegisterComponent {
             });
     }
 
+    clickSendVcode(): void {
+        
+    }
+
     clickBack(): void {
         this.router.navigateByUrl('/login');
     }

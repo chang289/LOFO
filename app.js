@@ -5,30 +5,20 @@ var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
+
+//Add for email verification ****************************
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var uuidV1 = require('uuid/v1');
-var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-
-// var multiparty = require('multiparty');
-// var multiparty = require('connect-multiparty');
-// var multimidd = multiparty();
-// var fs = require('fs');
-// var S3FS = require('s3fs');
-// var uuidV1 = require('uuid/v1');
-// var s3fsImpl = new S3FS('lofo-purdue', {
-//   accessKeyId: '',
-//   secretAccessKey: ''
-// });
+var sg = require('sendgrid')('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');
+//Add for email verification ****************************
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(multimidd);
-var port = process.env.PORT || 3000;
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGO_URL, function(error){
+var port = process.env.PORT || 4200;
+mongoose.connect("mongodb://tester:abc123@ds021166.mlab.com:21166/playground", function(error){
   if (error)
       console.log(error);
   else {
@@ -39,8 +29,12 @@ mongoose.connect(process.env.MONGO_URL, function(error){
 
 // routes(app);
 
+app.use('/', express.static(__dirname + '/dist'));
+//create new post
+//create new post
 app.use('/', express.static(__dirname + '/'));
 
+//create new post
 //create new post
 app.post('/post/create', function (req, res){
   var newPost = new Post(req.body);
@@ -231,20 +225,20 @@ app.delete('/user/delete/:id', function(req, res){
   });
 });
 
-// app.post('/image/upload', function(req, res) {
-//   // console.log(req.files);
-//   var file = req.files.file;
-//   var stream = fs.createReadStream(file.path);
-//   var uid = uuidV1() + "." + req.body.format;
-//   console.log(uid);
-//   s3fsImpl.writeFile(uid, stream).then(function(){
-//     // fs.unlink(req.body.path, function(err){
-//     //   if (err)
-//     //     console.log("Sending failed");
-//       return res.send('https://s3.amazonaws.com/lofo-purdue/' + uid);
-//     // });
-//   });
-// });
+app.post('/image/upload', function(req, res) {
+  // console.log(req.files);
+  var file = req.files.file;
+  var stream = fs.createReadStream(file.path);
+  var uid = uuidV1() + "." + req.body.format;
+  console.log(uid);
+  s3fsImpl.writeFile(uid, stream).then(function(){
+    // fs.unlink(req.body.path, function(err){
+    //   if (err)
+    //     console.log("Sending failed");
+      return res.send('https://s3.amazonaws.com/lofo-purdue/' + uid);
+    // });
+  });
+});
 
 //ascending
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
@@ -472,6 +466,7 @@ app.post('/user/init/verify', function(req,res){
     });
   });
 });
+
 
 const server = app.listen(port, function(err) {
   if (err) {
