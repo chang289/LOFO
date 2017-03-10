@@ -10,6 +10,8 @@ export class PostService {
 	private getOngoingURL = this.URL + '/post/get/ongoing';
 	private getCompleteURL = this.URL + '/post/get/complete';
 	private getScreenedURL = this.URL + '/post/sort/';
+	private getExpiredURL = this.URL + '/post/get/expired';
+	privatae uploadURL = this.URL + '/image/upload';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -19,7 +21,14 @@ export class PostService {
 	// 		.catch(this.handleError);
 	// }
 
-
+	sendImage(file: File): Promise<string> {
+		let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+		let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.uploadURL, file, options)
+			.toPromise()
+			.then(response => response.json().data as Posts)
+			.catch(this.handleError);
+	}
 
 	createPost(post: Posts): Promise<Posts> {
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -41,6 +50,14 @@ export class PostService {
 	getCompletePosts(): Promise<Posts[]> {
 
 		return this.http.get(this.getCompleteURL)
+			.toPromise()
+			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	getExpiredPosts(): Promise<Posts[]> {
+
+		return this.http.get(this.getExpiredURL)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);

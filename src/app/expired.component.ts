@@ -16,6 +16,7 @@ export class ExpiredComponent implements OnInit{
 
 	lofoemail: string;
 	sample_posts:Posts[];
+	expired_posts:Posts[];
 	len: number;
 
 	constructor(
@@ -33,8 +34,19 @@ export class ExpiredComponent implements OnInit{
 				this.len = 0;
 			}
 		});
-
+		
+		this.postService.getExpiredPosts()
+		.then(expired_posts=>{
+			this.expired_posts=expired_posts;
+			if(this.expired_posts != null){ 
+				this.len = this.expired_posts.length;
+			}else{
+				this.len = 0;
+			}
+		});
 	}
+
+
 
 	ngOnInit(): void {
 	    this.lofoemail = this.cookieService.get("lofoemail");
