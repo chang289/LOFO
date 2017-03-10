@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
+var Token = require("./model/mongoose/token");
 // var routes = require('./model/api/posts');
 var async = require('async');
 var crypto = require('crypto');
@@ -197,12 +198,18 @@ app.post('/post/edit/:id', function(req, res){
 
 //signup
 app.post('/user/signup', function(req, res) {
-  var newUser = new User(req.body);
-  newUser.save((err)=>{
-      if (err){
-          return res.json({info: 'error', error: err});
+  Token.findOne({'email': req.body.email}, function(err, token) {
+    if (!token) {
+      if (token.initToken == req.body.token) {
+        var newUser = new User(req.body);
+        newUser.save((err)=>{
+          if (err){
+              return res.json({info: 'error', error: err});
+            }
+            res.json({info: 'User created successfully', data: newUser});
+        });
       }
-      res.json({info: 'User created successfully', data: newUser});
+    }
   });
 });
 
@@ -215,7 +222,6 @@ app.post('/user/login', function(req, res) {
       return res.json({ info : 'No such user'});
     }
     if (req.body.password == user.password) {
-      if (user.initialize == false) {return res.json({info: 'Unverified user', data: user});}
       res.json({info: 'Login successfully', data: user});
     } else { res.json({ info : 'Password invalid'}); }
   })
@@ -412,13 +418,16 @@ app.post('/user/init/send', function(req,res){
       });
     },
     function(token, done){
-      User.findOne({ 'email': req.body.email }, function(err, user){
+      Token.findOne({ 'email': req.body.email }, function(err, user){
         if (!user) {
-          return res.json({info: 'No such user'});
+          var newToken = new Token();
+          newToken.email = req.body.email;
+          newToken.initToken = token;
+          newToken.save((err)=>{
+              done(err, token, newToken);
+          });
         }
-          console.log(user);
           user.initToken = token;
-          console.log(user);
           // user.resetExpires = Date.now() + 3600000; // 30min
           user.save(function(err) {
             done(err, token, user);
@@ -430,9 +439,7 @@ app.post('/user/init/send', function(req,res){
       var from_email = new helper.Email('noreply@LOFO.com');
       var to_email = new helper.Email(user.email);
       var subject = 'Account initilization';
-      var content = new helper.Content('text/plain', 'You are receiving this because you have requested the reset of the password for your account.\n\n' +
-      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-      'http://' + req.headers.host + '/user/init/verify/\n\n' +
+      var content = new helper.Content('text/plain', 'You are receiving this because you try to signup a LOFO account through this email.\n\n' +
       'Your initilization token is ' + token + '\n\n');
 
       var mail = new helper.Mail(from_email, subject, to_email, content);
@@ -447,7 +454,7 @@ app.post('/user/init/send', function(req,res){
           console.log(response.statusCode);
           console.log(response.body);
           console.log(response.headers);
-          res.json({info: 'send fail'});
+          return res.json({info: 'send fail'});
         }
         else {res.json({info: 'send success'});}
       });
@@ -458,23 +465,22 @@ app.post('/user/init/send', function(req,res){
   });
 });
 
-app.post('/user/init/verify', function(req,res){
-  User.findOne({ 'email': req.body.email }, function(err, user){
-    if (req.body.token != user.initToken) {
-      return res.json({info: 'No such user'});
-    }
-    user.initToken = undefined;
-    user.initialize = true;
-    user.save(function(err, user){
-      if(err)
-        return res.json({info: 'error', error: err});
-      res.json({info: 'User verified', data: user});
-    });
-  });
-});
+// app.post('/user/init/verify', function(req,res){
+//   User.findOne({ 'email': req.body.email }, function(err, user){
+//     if (req.body.token != user.initToken) {
+//       return res.json({info: 'No such user'});
+//     }
+//     user.initToken = undefined;
+//     user.initialize = true;
+//     user.save(function(err, user){
+//       if(err)
+//         return res.json({info: 'error', error: err});
+//       res.json({info: 'User verified', data: user});
+//     });
+//   });
+// });
 
 app.post('/user/report', function(req, res) {
-  req.body.description
 
   var hostemail = 'changketao233@gmail.com';
   var helper = require('sendgrid').mail;
