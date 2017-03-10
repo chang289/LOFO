@@ -5,6 +5,12 @@ var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var uuidV1 = require('uuid/v1');
+var sg = require('sendgrid')('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');
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -308,6 +314,34 @@ app.get('/post/sort/lost/:lost', function(req, res){
       else {res.json({info: 'Posts found', data: posts}); }
     });
   }
+});
+
+app.post('/user/report', function(req, res) {
+
+  var hostemail = 'changketao233@gmail.com';
+  var helper = require('sendgrid').mail;
+  var from_email = new helper.Email('noreply@LOFO.com');
+  var to_email = new helper.Email(hostemail);
+  var subject = 'Report';
+  var content = new helper.Content('text/plain', req.body.description + '\n\n' +
+  'Reporter information:' + req.body.contact + '\n\n');
+
+  var mail = new helper.Mail(from_email, subject, to_email, content);
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+
+  sg.API(request, function(error, response) {
+    if (error) {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+      res.json({info: 'send fail'});
+    }
+    else {res.json({info: 'send success'});}
+  });
 });
 
 

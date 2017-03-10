@@ -18,6 +18,10 @@ export class ExpiredComponent implements OnInit{
 	sample_posts:Posts[];
 	len: number;
 
+	description:string;
+	contact:string;
+
+
 	constructor(
 		private postService: PostService, private router: Router, private cookieService: CookieService){}
 
@@ -36,7 +40,17 @@ export class ExpiredComponent implements OnInit{
 
 	}
 	Report():void{
-		alert("to be completed");
+		this.postService.reportPost(this.description,this.contact)
+		.then((info) => {
+			if (info == null) {
+				alert("Report failed");
+				window.location.reload();
+			}
+			else {
+				alert("You've reported this post successfully.");
+				window.location.reload();
+			}
+		});
 	}
 
 	ngOnInit(): void {

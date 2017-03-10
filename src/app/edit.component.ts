@@ -35,9 +35,7 @@ console
 
 	@Input() edited_post: Posts;
 
-
 	tag: number = 0;
-	
 	editClicked() : void {
 		this.tag = this.edited_post.tag;
 	}
