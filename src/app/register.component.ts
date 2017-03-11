@@ -80,8 +80,13 @@ export class RegisterComponent {
         this.user.username = this.pUsername;
         this.user.password = this.pPassword;
         this.user.email = this.pEmail;
-        this.userService.sendvcode(this.user);
-        
+        var promise = this.userService.sendvcode(this.user)
+                .then((user: Users) => {
+                this.user = user;
+                if (this.user == null) {
+                    alert("Send vcode Failed");
+                }
+        })
         console.log("clickSendVcode() function finished");     
     }
 
