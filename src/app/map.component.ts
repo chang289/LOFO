@@ -48,6 +48,7 @@ export class MapComponent implements OnInit{
 
     success:boolean = false;
 
+    imageURL: string;
     selectedTitle: string = "title";
     selectedUser:string;
     selectedPhone:string;
@@ -85,19 +86,25 @@ export class MapComponent implements OnInit{
         'Cloth'
     ]
 
-    src: string = "";
+    src: File;
     resizeOptions: ResizeOptions = {
         resizeMaxHeight: 128,
         resizeMaxWidth: 128
     };
 
-    selected(imageResult: ImageResult) {
-        this.src = imageResult.resized
-            && imageResult.resized.dataURL
-            || imageResult.dataURL;
-        (imageResult.file);
-        
-    }
+    // selected(imageResult: ImageResult) {
+    //     this.src = imageResult.resized
+    //         && imageResult.resized.dataURL
+    //         || imageResult.dataURL;
+    //     console.log(imageResult.file);
+    //     this.postService.uploadImage(this.src)
+    //         .then((imageURL: string) => {
+    //             this.imageURL = imageURL;
+    //             console.log(this.imageURL);
+    //     });
+
+
+    // }
 
     constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {}
 
@@ -223,8 +230,10 @@ export class MapComponent implements OnInit{
         this.post.contact = this.phone;
         this.post.locationX = this.newMarker.lat;
         this.post.locationY = this.newMarker.lng;
-        this.post.createTime = new Date();
-        this.post.modifiedTime = new Date();
+        // this.post.createTime = new Date();
+        // this.post.modifiedTime = new Date();
+        this.post.createTime = new Date(2016, 10, 10);
+        this.post.modifiedTime = new Date(2016, 10, 10);
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
         if (this.tag == null) {

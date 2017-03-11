@@ -16,7 +16,12 @@ export class ExpiredComponent implements OnInit{
 
 	lofoemail: string;
 	sample_posts:Posts[];
+	expired_posts:Posts[];
 	len: number;
+
+	description:string;
+	contact:string;
+
 
 	constructor(
 		private postService: PostService, private router: Router, private cookieService: CookieService){}
@@ -33,8 +38,32 @@ export class ExpiredComponent implements OnInit{
 				this.len = 0;
 			}
 		});
-
+		
+		this.postService.getExpiredPosts()
+		.then(expired_posts=>{
+			this.expired_posts=expired_posts;
+			if(this.expired_posts != null){ 
+				this.len = this.expired_posts.length;
+			}else{
+				this.len = 0;
+			}
+		});
 	}
+	Report():void{
+		this.postService.reportPost(this.description,this.contact)
+		.then((info) => {
+			if (info == null) {
+				alert("Report failed");
+				window.location.reload();
+			}
+			else {
+				alert("You've reported this post successfully.");
+				window.location.reload();
+			}
+		});
+	}
+
+
 
 	ngOnInit(): void {
 	    this.lofoemail = this.cookieService.get("lofoemail");

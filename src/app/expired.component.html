@@ -22,7 +22,7 @@
 
 
 		<ul class="sample_posts">
-			<li *ngFor = "let post of sample_posts" style="position:relative">
+			<li *ngFor = "let post of expired_posts" style="position:relative">
 
 					<div *ngIf="!post.lost" class = "info_block_left" style="margin-right:6%;">
 						<span class ="info" >Found</span>
@@ -204,11 +204,11 @@
 
 		          	<label for="description"></label>
 
-		          	<textarea class="form-control" rows="5" id="description" type="text" style="margin-bottom:0;max-width:100%"></textarea>
+		          	<textarea [(ngModel)]="description" class="form-control" rows="5" id="description" type="text" style="margin-bottom:0;max-width:100%"></textarea>
 
 				    <div class="form-group">
 				      <label for="contact" class = "confirm_title" style="font-size:medium">Contact:</label>
-				      <input  type="text" class="form-control" >
+				      <input  [(ngModel)]="contact" type="text" class="form-control" >
 				    </div>
 
 			        <button type="button" class="btn btn-secondary"  style="margin-right:3em"
@@ -217,7 +217,7 @@
 			        </button>
 
 			        <button type = "button" class="btn btn-danger"   style="margin-left:3.5em" 
-			        aria-label="Close" (click)="smModal.hide()" (click) = "Confirm()">
+			        aria-label="Close" (click)="smModal.hide()" (click) = "Report()">
 			          <span class="glyphicon glyphicon-exclamation-sign" ></span>Report
 			        </button>
 		    	</div>

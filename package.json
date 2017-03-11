@@ -52,7 +52,14 @@
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
     "typescript": "~2.0.3",
-    "zone.js": "^0.7.2"
+    "zone.js": "^0.7.2",
+    "uuid": "^3.0.1",
+    "sinon": "^1.17.7",
+    "s3fs": "^2.5.0",
+    "sendgrid": "^4.7.1",
+    "nodemailer": "^2.6.4",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0"
   },
   "devDependencies": {}
 }
