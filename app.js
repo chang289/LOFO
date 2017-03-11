@@ -199,7 +199,7 @@ app.post('/post/edit/:id', function(req, res){
 //signup
 app.post('/user/signup', function(req, res) {
   Token.findOne({'email': req.body.email}, function(err, token) {
-    if (!token) {
+    if (token) {
       if (token.initToken == req.body.token) {
         var newUser = new User(req.body);
         newUser.save((err)=>{
@@ -419,6 +419,8 @@ app.post('/user/init/send', function(req,res){
     },
     function(token, done){
       Token.findOne({ 'email': req.body.email }, function(err, user){
+        console.log(req.body.email);
+        console.log(user);
         if (!user) {
           var newToken = new Token();
           newToken.email = req.body.email;
@@ -426,13 +428,15 @@ app.post('/user/init/send', function(req,res){
           newToken.save((err)=>{
               done(err, token, newToken);
           });
-        }
+        } else {
+          console.log(user);
           user.initToken = token;
           // user.resetExpires = Date.now() + 3600000; // 30min
           user.save(function(err) {
             done(err, token, user);
           });
-        });
+        }
+      });
     },
     function(token, user, done){
       var helper = require('sendgrid').mail;
