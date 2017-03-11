@@ -56,9 +56,21 @@
     transform: scaleX(1);
 }
 
+#reportBtn {
+	background-color: #d9534f;
+	border: none;
+
+}
+#reportBtn:hover:enabled {
+	background-color: white;
+	color:#d9534f;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 8px 20px 0 rgba(0,0,0,0.19);
+    transition: box-shadow 1s, background-color 0.5s, color 1s;
+}
+
 #btn_container{
-	float: right;
-	width: 20%;
+	position: absolute;
+	bottom: 0;
 }
 
 .modal_div{

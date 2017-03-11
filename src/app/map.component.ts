@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, OnInit } from '@angular/core';
+import { Component, ContentChild, ContentChildren, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import {IMyOptions, IMyDateRangeModel} from 'mydaterangepicker';
 import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 import { PostService } from './post.service';
@@ -7,6 +7,8 @@ import './markerclusterer.js';
 import { Posts } from './posts';
 import { Router } from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
+import { MarkerCluster } from './marker-cluster';
+
 declare var google: any;
 import * as _ from 'lodash';
 
@@ -18,10 +20,46 @@ import * as _ from 'lodash';
 })
 export class MapComponent implements OnInit{ 
 
-	// title: string = 'LOFO';
-	lat: number = 40.424660;
-	lng: number = -86.911482;
-    public isCollapsed:boolean = true;
+    @ViewChild(MarkerCluster) marker_cluster: MarkerCluster;
+    @ViewChild('lgModal') modal: any;
+
+    isCollapsed:boolean = true;
+
+    ngAfterViewInit() {
+        this.selectedTitle = this.marker_cluster.selectedTitle;
+        this.selectedDesc = this.marker_cluster.selectedDesc;
+        this.selectedUser = this.marker_cluster.selectedUser;
+    }
+
+    handleNotify(data:string[]) {
+        var tmp = data;
+        this.selectedTitle = data[0];
+        this.selectedUser = data[1];
+        this.selectedEmail = data[2];
+        this.selectedPhone = data[3];
+        if (data[4] == "true")
+            this.selectedLost = "Lost";
+        else 
+            this.selectedLost = "Found";
+        this.selectedDate = new Date(data[5]);
+        this.selectedDesc = data[6];
+        this.selectedUrl = data[7];
+    }
+
+    success:boolean = false;
+
+    selectedTitle: string = "title";
+    selectedUser:string;
+    selectedPhone:string;
+    selectedEmail:string;
+    selectedDesc:string;
+    selectedUrl:string;
+    selectedLost:string;
+    selectedDate:Date;
+
+    // title: string = 'LOFO';
+    lat: number = 40.424660;
+    lng: number = -86.911482;
 
     zoom: number = 5;
     str='abc';
@@ -34,10 +72,10 @@ export class MapComponent implements OnInit{
     tag: number;
     post: Posts;
     photoUrl: string;
-    lost: string = 'true';
+    lost: string = "true";
     lofoemail: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: any;
+    endDate: any;
 
     tags: string[] = [
         'Phone',
@@ -52,15 +90,13 @@ export class MapComponent implements OnInit{
         resizeMaxHeight: 128,
         resizeMaxWidth: 128
     };
- 
+
     selected(imageResult: ImageResult) {
         this.src = imageResult.resized
             && imageResult.resized.dataURL
             || imageResult.dataURL;
-        console.log(imageResult.file);
-        console.log(imageResult.url);
-        console.log(imageResult.dataURL);
-        console.log(this.src);
+        (imageResult.file);
+        
     }
 
     constructor(private postService: PostService, private cookieService: CookieService, private router: Router) {}
@@ -68,10 +104,9 @@ export class MapComponent implements OnInit{
     markers: marker[] = [];
     m: marker;
 
-    points: any[] = []; 
+    points: any[] = [];
 
     getPost(): Promise<Posts[]> {
-        console.log("pdd");
         return this.postService.getOngoingPosts().then(posts => this.posts = posts);
     }
 
@@ -80,28 +115,71 @@ export class MapComponent implements OnInit{
         if(this.lofoemail == null) {
             this.router.navigateByUrl("/login");
         }
+        this.addNewMarker();
+    }
+
+    addNewMarker(): void {
         var promise = this.getPost();
-        console.log(promise);
         promise.then(posts => {
             // Here you can use the data because it's ready
             // this.myVariable = data;
             this.posts = posts;
-            console.log(posts);
+            var newPostIcon: string;
 
-            this.postsToMarkers(this.posts);
-          }).catch((ex) => {
-            console.log(ex);
-          }
-        );
-        console.log(this.posts);
+            for (var i in posts) {
+                var singlePost = posts[i];
+                var tag = posts[i].tag;
+                if (tag == 0) {
+                    newPostIcon = 'assets/icon_phone.png';
+                } else if (tag == 1) {
+                    newPostIcon = 'assets/icon_key.png';
+                } else if (tag == 2) {
+                    newPostIcon = 'assets/icon_wallet.png';
+                } else if (tag == 3) {
+                    newPostIcon = 'assets/icon_backpack.png';
+                } else if (tag == 4) {
+                    newPostIcon = 'assets/icon_cloth.png';
+                }
+
+                var newMarker = {
+                    title: singlePost.title,
+                    name: singlePost.fullname,
+                    poster: singlePost.poster,
+                    contact: singlePost.contact,
+                    lost: singlePost.lost,
+                    createTime: singlePost.createTime,
+                    lat: singlePost.locationX,
+                    lng: singlePost.locationY,
+                    description: singlePost.description,
+                    imgUrl: singlePost.photo,
+                    iconUrl: newPostIcon,
+                    draggable: false,
+                }
+                this.markers.push(newMarker);
+            }
+            this.marker_cluster.handleMap();
+
+          }).catch((ex) => {});
+          setInterval(() => this.ngAfterViewInit, 1000);
     }
+
+//     onClick(): void {
+// =======
+//             console.log(posts);
+
+//             this.postsToMarkers(this.posts);
+//           }).catch((ex) => {
+//             console.log(ex);
+//           }
+//         );
+//         console.log(this.posts);
+//     }
 
     postsToMarkers(posts: Posts[]): void{
         var newPostIcon: string;
 
         this.markers = [];
         for (var i in posts) {
-            console.log(i);
             var singlePost = posts[i];
             var tag = posts[i].tag;
             if (tag == 0) {
@@ -117,16 +195,21 @@ export class MapComponent implements OnInit{
             }
 
             var newMarker = {
+                title: singlePost.title,
                 name: singlePost.fullname,
+                poster: singlePost.poster,
+                contact: singlePost.contact,
+                lost: singlePost.lost,
+                createTime: singlePost.createTime,
                 lat: singlePost.locationX,
                 lng: singlePost.locationY,
                 description: singlePost.description,
+                imgUrl: singlePost.photo,
                 iconUrl: newPostIcon,
                 draggable: false,
             }
             this.markers.push(newMarker);
         }
-        console.log(this.markers);
     }
 
     onClick(): void{
@@ -164,11 +247,13 @@ export class MapComponent implements OnInit{
             .then((post: Posts) => {
                 this.post = post;
                 if (this.post == null) {
+                    this.success = true;
                     alert("Fail to create a new post");
                 }
                 else {
                     alert("Create Successfully");
-                    window.location.reload();
+                    this.modal.hide();
+                    //window.location.reload();
                 }
         });
 
@@ -195,19 +280,20 @@ export class MapComponent implements OnInit{
             iconUrl: newPostIcon,
             draggable: false,
         }
-        this.markers.push(newMarker);
         this.newMarker = null;
         this.fullname = null;
         this.title = null;
         this.description = null;
+        this.photoUrl = null;
         this.phone = null;
         this.tag = -1;
-        //console.log(this.postService.createPost(post));
+        this.markers = [];
+        this.addNewMarker();
     }
 
-	googleMarkers : any;
-	MarkerClusterer : any;
-	map : any;
+    googleMarkers : any;
+    MarkerClusterer : any;
+    map : any;
 
     backpackUrl: string = 'app/backpack_icon.png';
     walletUrl: string = 'app/wallet_icon.png';
@@ -232,12 +318,17 @@ export class MapComponent implements OnInit{
     newMarker: marker;
 
  
-
+    
     updateFilter() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.style.display = 'none';
+        this.marker_cluster.clearMap();
+
         var byTag;
         var byDate;
         var byLost;
         var lost;
+
         function isEqual(post1, post2) {
             if (post1._id == post2._id) {
                 return true;
@@ -251,45 +342,31 @@ export class MapComponent implements OnInit{
             byTag = posts;
             this.postService.getScreenedPostsByDate(this.startDate, this.endDate).then(posts => {
                 byDate = posts;
-                if (this.mapLostOrFound == "lost") {
-                    lost = "true";
+                if (this.mapLostOrFound == "Lost") {
+                    lost = true;
+                }
+                else if (this.mapLostOrFound == "Found") {
+                    lost = false;
                 }
                 else {
-                    lost = "false";
+                    lost = undefined;
                 }
-                this.postService.getScreenedPostsByLost(this.lost).then(posts => {
+                this.postService.getScreenedPostsByLost(lost).then(posts => {
                     byLost = posts;
-                    console.log(byTag);
-                    console.log(byDate);
-                    console.log(byLost);
-                    this.postsToMarkers(_.intersectionWith(byTag, byDate, isEqual));
+                    this.postsToMarkers(_.intersectionWith(byTag, byDate,byLost, isEqual));
 
                 })
             });
         });
-        console.log(this.mapLostOrFound);
-        console.log(this.startDate);
-        console.log(this.endDate);
+        this.marker_cluster.handleMap();
     }
-
-    clickedMarker(marker:marker) {
     
-        console.log("clicked marker: " + marker.name + " length is " + this.markers.length);
-        var sidebar = document.getElementById('sidebar');
-        if (sidebar.style.display != 'none') {
-            sidebar.style.display = 'none';
-        } else {
-            sidebar.style.display = 'block';
-        }
-    }
+    onNotify(message:string):void {
+        alert(message);
+      }
 
-    mapClicked($event:any) {
-
-        console.log('Map clicked');
-        console.log($event.coords.lat);
-        console.log($event.coords.lng);
-        console.log(this.markers);
-
+    mapRightClicked($event:any) {
+        this.ngAfterViewInit();        
         var newMarker = {
             name: 'New Post',
             lat: $event.coords.lat,
@@ -300,6 +377,10 @@ export class MapComponent implements OnInit{
         this.newMarker = newMarker;
     }
 
+    mapClicked($event:any) {
+        this.newMarker = null;
+    }
+
 
     markerDragEnd(marker:any, $event:any) {
         console.log('dragEnd', marker, $event);
@@ -308,22 +389,18 @@ export class MapComponent implements OnInit{
     newPostOnMap() {
         console.log('hello');
         var newMarker = this.markers[this.markers.length-1];
-        console.log(newMarker.lat);
-        console.log(newMarker.lng);
     }
 
     cluster($maker:any, $event:any) {
-    	console.log('zoomed');
     }
 
     cancelPost($event:any) {
-        console.log("cancel");
         this.newMarker = null;
     }
 
 
-	//-------------for datepicler-----------------
-	private myDateRangePickerOptions: IMyOptions = {
+    //-------------for datepicler-----------------
+    private myDateRangePickerOptions: IMyOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy',
         height: '34px',
@@ -333,17 +410,18 @@ export class MapComponent implements OnInit{
     onDateRangeChanged(event: IMyDateRangeModel) {
         // event properties are: event.beginDate, event.endDate, event.formatted,
         // event.beginEpoc and event.endEpoc
+        var dateFormat = require('dateformat');
         this.startDate = event.beginJsDate;
         this.endDate = event.endJsDate;
         this.updateFilter();
     }
     
-	//-------------for datepicler-----------------
+    //-------------for datepicler-----------------
     private _opened: boolean = false;
     private _closeOnClickOutside: boolean = true;
-	private _toggleSidebar() {
-		this._opened = !this._opened;
-	}
+    private _toggleSidebar() {
+        this._opened = !this._opened;
+    }
 
     private signOut() {
         this.cookieService.remove("lofoemail");
@@ -352,8 +430,6 @@ export class MapComponent implements OnInit{
 
 }
 
-
-
 interface marker {
     name?: string;
     lat: number;
@@ -361,4 +437,3 @@ interface marker {
     draggable: boolean;
     iconUrl?: string;
 }
-

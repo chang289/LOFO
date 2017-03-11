@@ -35,8 +35,8 @@ const APP_DECLARATION = [
 
 @NgModule({
   imports: [ 
-  	BrowserModule,
-  	CommonModule,
+    BrowserModule,
+    CommonModule,
     FormsModule,
     MyDateRangePickerModule,
     HttpModule,

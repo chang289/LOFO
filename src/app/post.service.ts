@@ -10,6 +10,7 @@ export class PostService {
 	private getOngoingURL = this.URL + '/post/get/ongoing';
 	private getCompleteURL = this.URL + '/post/get/complete';
 	private getScreenedURL = this.URL + '/post/sort/';
+	private getReportURL = this.URL+'/user/report';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -53,17 +54,33 @@ export class PostService {
 			.catch(this.handleError);
 	}
 
-	getScreenedPostsByDate(start: Date, end: Date): Promise<Posts[]> {
+	getScreenedPostsByDate(start: any, end: any): Promise<Posts[]> {
 		return this.http.get(this.getScreenedURL + "date" + "/" + start + "/" + end)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
 			.catch(this.handleError);
 	}
 
-	getScreenedPostsByLost(lost: String): Promise<Posts[]> {
+	getScreenedPostsByLost(lost: boolean): Promise<Posts[]> {
 		return this.http.get(this.getScreenedURL + "lost" + "/" + lost)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	reportPost(description : string, contact: string):Promise<string> {
+		console.log(description);
+		console.log(contact);
+		var report = {
+			description:description,
+			contact:contact
+		}
+
+	    let headers = new Headers({ 'Content-Type': 'application/json' });
+    	let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.getReportURL, report, options)
+			.toPromise()
+			.then(response => response.json().info as string)
 			.catch(this.handleError);
 	}
 

@@ -1,13 +1,13 @@
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<nav id="navbar" style="margin-bottom: 0" class="navbar navbar-inverse ">
+<nav id="navbar" style="margin-bottom: 0; border-radius:0px " class="navbar navbar-inverse ">
   <div class="container-fluid" id="navbar">
    
-    <a class="navbar-brand" style="margin-top: 17px">LOFO</a>
+    <a class="navbar-brand" style="margin-top: 17px; cursor:default">LOFO</a>
 
     <div class="navbar-collapse collapse" >
-      <ul class="nav navbar-nav navbar-left" >
+      <ul class="nav navbar-nav navbar-left">
         <li style="margin-top: 24.5px;">
         <my-date-range-picker placeholder="Select the date range"
 			  [attr.options]="myDateRangePickerOptions"
@@ -86,8 +86,25 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div id="sidebar" style="display: none;" class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
+    <div id="sidebar" style="display: none; width: 20%; height: 86vh;" class="col-sm-3 col-md-2 sidebar">
+    <ul class="list-group" style="margin-top: 10px; word-wrap: break-word; height: 86vh; overflow: scroll;">
+      <li *ngIf="selectedTitle" class="list-group-item active">{{selectedTitle}}</li>
+      <li *ngIf="selectedDate" class="list-group-item">{{selectedDate | date:'fullDate'}}</li>
+      <li *ngIf="selectedUser" class="list-group-item">{{selectedUser}}</li>
+      <li *ngIf="selectedPhone" class="list-group-item">{{selectedPhone}}</li>
+      <li *ngIf="selectedEmail" class="list-group-item">{{selectedEmail}}</li>
+      <li *ngIf="selectedDesc" class="list-group-item">{{selectedDesc}}</li>
+      <li *ngIf="selectedUrl" class="list-group-item">
+        <img src="{{selectedUrl}}" width="100%" height="auto">
+      </li>
+  </ul>
+      <!-- <my-infobox
+        [selectedUser]="selectedUser"
+        [selectedTitle]="selectedTitle"
+        [selectedDesc]="selectedDesc">
+        
+      </my-infobox> -->
+      <!-- <ul class="nav nav-sidebar">
         <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Reports</a></li>
         <li><a href="#">Analytics</a></li>
@@ -104,7 +121,7 @@
         <li><a href="">Nav item again</a></li>
         <li><a href="">One more nav</a></li>
         <li><a href="">Another nav item</a></li>
-      </ul>
+      </ul> -->
     </div>
 <!--     <div id="floating-panel" style="margin-top: 17px">
       <p class="navbar-brand">LOFO</p>
@@ -120,9 +137,10 @@
       [zoom]="13"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      (mapRightClick)="mapClicked($event)"
+      (mapRightClick)="mapRightClicked($event)"
+      (mapClick)="mapClicked($event)"
       (idle)="cluster($event)"
-      style="height: 100vh">
+      style="height: 92vh">
 
       <sebm-google-map-marker id='newMarker'
           *ngIf="newMarker"
@@ -140,6 +158,7 @@
 
         </sebm-google-map-marker>
       <marker-cluster [points]="markers"
+        (notify)="handleNotify($event)"
       >
         <!-- <sebm-google-map-info-window id='oldInfo'>
           <strong>{{m.name}}</strong><br>
@@ -243,7 +262,7 @@
         </div>   
         <br>
         <div>
-          <button type="button" class="btn btn-primary" (click)="onClick()">Submit</button>
+          <button id="sbbtn" type="button" class="btn btn-primary" (click)="onClick()">Submit</button>
         </div>
       </div>
     </div>

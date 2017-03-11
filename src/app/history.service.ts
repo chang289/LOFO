@@ -20,7 +20,6 @@ export class HistoryService {
 	private deletePostByIdUrl = this.URL + '/post/delete/';
 
 	getPosts(): Promise<Posts[]> {
-		console.log(this.getUserPostsUrl);
 		return this.http.get(this.getUserPostsUrl + this.lofoEmail)
 				.toPromise()
 				.then(response=>response.json().data as Posts[])
@@ -28,11 +27,8 @@ export class HistoryService {
 	}
 
 	updatePosts(post: Posts):Promise<Posts> {
-
-		console.log(post._id);
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
-    	console.log("hhhh");
     	return this.http.post(this.updatePostUrl + post._id,post,options)
     	.toPromise()
     	.then(response => response.json().data as Posts)
