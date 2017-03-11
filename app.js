@@ -419,8 +419,6 @@ app.post('/user/init/send', function(req,res){
     },
     function(token, done){
       Token.findOne({ 'email': req.body.email }, function(err, user){
-        console.log(req.body.email);
-        console.log(user);
         if (!user) {
           var newToken = new Token();
           newToken.email = req.body.email;
