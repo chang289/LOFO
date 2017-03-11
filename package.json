@@ -57,7 +57,9 @@
     "sinon": "^1.17.7",
     "s3fs": "^2.5.0",
     "sendgrid": "^4.7.1",
-    "nodemailer": "^2.6.4"
+    "nodemailer": "^2.6.4",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0"
 
 
 
