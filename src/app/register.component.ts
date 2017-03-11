@@ -44,6 +44,7 @@ export class RegisterComponent {
         this.user.username = this.pUsername;
         this.user.password = this.pPassword;
         this.user.email = this.pEmail;
+        this.user.token = this.pVcode;
         var promise = this.userService.signupUser(this.user)
             .then((user: Users) => {
                 this.user = user;
@@ -60,6 +61,8 @@ export class RegisterComponent {
 
     clickSendVcode(): void {
 
+        console.log("Enter clickSendVcode() function successed");
+
         if (this.pPassword != this.pPassword02) {
             alert("Re-entered password should be the same with password");
             return;
@@ -70,7 +73,7 @@ export class RegisterComponent {
             return;
         }
 
-        console.log("Enter function succedd");
+        console.log("re-password check finished");
 
         this.user = new Users();
 
@@ -79,7 +82,7 @@ export class RegisterComponent {
         this.user.email = this.pEmail;
         this.userService.sendvcode(this.user);
         
-        console.log("Send code finished");     
+        console.log("clickSendVcode() function finished");     
     }
 
     clickBack(): void {

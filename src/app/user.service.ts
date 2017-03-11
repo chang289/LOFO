@@ -34,7 +34,7 @@ export class UserService {
 	sendvcode(user: Users): Promise<Users> { 
 		let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
-		return this.http.post(this.sendvcodeURL, user, options)
+		return this.http.post(this.signupURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
 			.catch(this.handleError);
