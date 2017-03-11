@@ -13,15 +13,15 @@ var uuidV1 = require('uuid/v1');
 var sg = require('sendgrid')('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');
 
 // var multiparty = require('multiparty');
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
-var fs = require('fs');
-var S3FS = require('s3fs');
-var uuidV1 = require('uuid/v1');
-var s3fsImpl = new S3FS('lofo-purdue', {
-  accessKeyId: 'AKIAJNRORJM5LYSQX4SA',
-  secretAccessKey: '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'
-});
+// var multipart = require('connect-multiparty');
+// var multipartMiddleware = multipart();
+// var fs = require('fs');
+// var S3FS = require('s3fs');
+// var uuidV1 = require('uuid/v1');
+// var s3fsImpl = new S3FS('lofo-purdue', {
+//   accessKeyId: '',
+//   secretAccessKey: ''
+// });
 
 var app = express();
 app.use(bodyParser.json());
@@ -236,20 +236,20 @@ app.delete('/user/delete/:id', function(req, res){
   });
 });
 
-app.post('/image/upload', multipartMiddleware, function(req, res) {
-  console.log(req.files);
-  var file = req.files.file;
-  var stream = fs.createReadStream(file.path);
-  var uid = uuidV1() + "." + req.body.format;
-  console.log(uid);
-  s3fsImpl.writeFile(uid, stream).then(function(){
-    // fs.unlink(req.body.path, function(err){
-    //   if (err)
-    //     console.log("Sending failed");
-      return res.send('https://s3.amazonaws.com/lofo-purdue/' + uid);
-    // });
-  });
-});
+// app.post('/image/upload', multipartMiddleware, function(req, res) {
+//   console.log(req.files);
+//   var file = req.files.file;
+//   var stream = fs.createReadStream(file.path);
+//   var uid = uuidV1() + "." + req.body.format;
+//   console.log(uid);
+//   s3fsImpl.writeFile(uid, stream).then(function(){
+//     // fs.unlink(req.body.path, function(err){
+//     //   if (err)
+//     //     console.log("Sending failed");
+//       return res.send('https://s3.amazonaws.com/lofo-purdue/' + uid);
+//     // });
+//   });
+// });
 
 //ascending
 app.get('/post/sort/:tag/:starterDate/:endDate/:lost/asc', function(req, res){
