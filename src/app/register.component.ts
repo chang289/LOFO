@@ -34,10 +34,10 @@ export class RegisterComponent {
             return;
         }
 
-        // if (!this.pEmail.endsWith("@purdue.edu")) {
-        //     alert("Please enter a valid Purdue Email");
-        //     return;
-        // }
+        if (!this.pEmail.endsWith("@purdue.edu")) {
+            alert("Please enter a valid Purdue Email");
+            return;
+        }
 
         this.user = new Users();
 
@@ -68,10 +68,10 @@ export class RegisterComponent {
             return;
         }
 
-        // if (!this.pEmail.endsWith("@purdue.edu")) {
-        //     alert("Please enter a valid Purdue Email");
-        //     return;
-        // }
+        if (!this.pEmail.endsWith("@purdue.edu")) {
+            alert("Please enter a valid Purdue Email");
+            return;
+        }
 
         console.log("re-password check finished");
 
