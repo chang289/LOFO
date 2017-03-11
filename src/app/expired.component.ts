@@ -19,6 +19,10 @@ export class ExpiredComponent implements OnInit{
 	expired_posts:Posts[];
 	len: number;
 
+	description:string;
+	contact:string;
+
+
 	constructor(
 		private postService: PostService, private router: Router, private cookieService: CookieService){}
 
@@ -42,6 +46,19 @@ export class ExpiredComponent implements OnInit{
 				this.len = this.expired_posts.length;
 			}else{
 				this.len = 0;
+			}
+		});
+	}
+	Report():void{
+		this.postService.reportPost(this.description,this.contact)
+		.then((info) => {
+			if (info == null) {
+				alert("Report failed");
+				window.location.reload();
+			}
+			else {
+				alert("You've reported this post successfully.");
+				window.location.reload();
 			}
 		});
 	}

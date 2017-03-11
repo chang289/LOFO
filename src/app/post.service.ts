@@ -11,7 +11,7 @@ export class PostService {
 	private getCompleteURL = this.URL + '/post/get/complete';
 	private getScreenedURL = this.URL + '/post/sort/';
 	private getExpiredURL = this.URL + '/post/get/expired';
-	private uploadURL = this.URL + '/image/upload';
+	private getReportURL = this.URL+'/user/report';
 	constructor(private http: Http) { }
 
 	// demo(): Posts {
@@ -74,6 +74,22 @@ export class PostService {
 		return this.http.get(this.getScreenedURL + "lost" + "/" + lost)
 			.toPromise()
 			.then(response => response.json().data as Posts[])
+			.catch(this.handleError);
+	}
+
+	reportPost(description : string, contact: string):Promise<string> {
+		console.log(description);
+		console.log(contact);
+		var report = {
+			description:description,
+			contact:contact
+		}
+
+	    let headers = new Headers({ 'Content-Type': 'application/json' });
+    	let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.getReportURL, report, options)
+			.toPromise()
+			.then(response => response.json().info as string)
 			.catch(this.handleError);
 	}
 
