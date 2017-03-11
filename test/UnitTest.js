@@ -252,105 +252,105 @@ describe('API for Posts and Users', () => {
 
   });
 
-  describe('API for User: unique email, register, login', () => {
-    it('it should Create a new user', (done) => {
-      newUser = new User({
-        email : "tester@lofo",
-        username  : "Tester",
-        password : "abc123",
-      });
-      // console.log(newPost);
-      chai.request(route)
-          .post('/user/signup')
-          .send(newUser)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'User created successfully');
-            // console.log(res.body.data);
-            assert.equal(res.body.data.email, newUser.email);
-            assert.equal(res.body.data.username, newUser.username);
-            assert.equal(res.body.data.password, newUser.password);
-            newUserID=res.body.data._id;
-            done();
-          });
-    });
-
-    it('it should not Create a new user due to the repeated email used', (done) => {
-      newUser = new User({
-        email : "tester@lofo",
-        username  : "Tester2",
-        password : "abc123",
-      });
-      // console.log(newUser);
-      chai.request(route)
-          .post('/user/signup')
-          .send(newUser)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'error');
-            done();
-          });
-    });
-
-    it('it should enter login the user we just created', (done) => {
-      var user = {
-        email : "tester@lofo",
-        password : "abc123",
-      };
-      chai.request(route)
-          .post('/user/login')
-          .send(user)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'Login successfully');
-            assert.equal(res.body.data.email, user.email);
-            assert.equal(res.body.data.password, user.password);
-            done();
-          });
-    });
-
-    it('it should fail to login due to the non-existed email', (done) => {
-      var user = {
-        email : "test@lofo",
-        password : "abc123",
-      };
-      chai.request(route)
-          .post('/user/login')
-          .send(user)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'No such user');
-            done();
-          });
-    });
-
-    it('it should fail to login due to the wrong password', (done) => {
-      var user = {
-        email : "tester@lofo",
-        password : "abcd1234",
-      };
-      chai.request(route)
-          .post('/user/login')
-          .send(user)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'Password invalid');
-            done();
-          });
-    });
-
-    it('Delete the tester account', (done) => {
-      var url = "/user/delete/" + newUserID
-      // console.log("url now: " + url);
-      chai.request(route)
-          .delete(url)
-          .end((err, res) => {
-
-            assert.equal(res.body.info, 'User delete');
-            done();
-          });
-    });
-
-  });
+  // describe('API for User: unique email, register, login', () => {
+  //   it('it should Create a new user', (done) => {
+  //     newUser = new User({
+  //       email : "tester@lofo",
+  //       username  : "Tester",
+  //       password : "abc123",
+  //     });
+  //     // console.log(newPost);
+  //     chai.request(route)
+  //         .post('/user/signup')
+  //         .send(newUser)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'User created successfully');
+  //           // console.log(res.body.data);
+  //           assert.equal(res.body.data.email, newUser.email);
+  //           assert.equal(res.body.data.username, newUser.username);
+  //           assert.equal(res.body.data.password, newUser.password);
+  //           newUserID=res.body.data._id;
+  //           done();
+  //         });
+  //   });
+  //
+  //   it('it should not Create a new user due to the repeated email used', (done) => {
+  //     newUser = new User({
+  //       email : "tester@lofo",
+  //       username  : "Tester2",
+  //       password : "abc123",
+  //     });
+  //     // console.log(newUser);
+  //     chai.request(route)
+  //         .post('/user/signup')
+  //         .send(newUser)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'error');
+  //           done();
+  //         });
+  //   });
+  //
+  //   it('it should enter login the user we just created', (done) => {
+  //     var user = {
+  //       email : "tester@lofo",
+  //       password : "abc123",
+  //     };
+  //     chai.request(route)
+  //         .post('/user/login')
+  //         .send(user)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'Login successfully');
+  //           assert.equal(res.body.data.email, user.email);
+  //           assert.equal(res.body.data.password, user.password);
+  //           done();
+  //         });
+  //   });
+  //
+  //   it('it should fail to login due to the non-existed email', (done) => {
+  //     var user = {
+  //       email : "test@lofo",
+  //       password : "abc123",
+  //     };
+  //     chai.request(route)
+  //         .post('/user/login')
+  //         .send(user)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'No such user');
+  //           done();
+  //         });
+  //   });
+  //
+  //   it('it should fail to login due to the wrong password', (done) => {
+  //     var user = {
+  //       email : "tester@lofo",
+  //       password : "abcd1234",
+  //     };
+  //     chai.request(route)
+  //         .post('/user/login')
+  //         .send(user)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'Password invalid');
+  //           done();
+  //         });
+  //   });
+  //
+  //   it('Delete the tester account', (done) => {
+  //     var url = "/user/delete/" + newUserID
+  //     // console.log("url now: " + url);
+  //     chai.request(route)
+  //         .delete(url)
+  //         .end((err, res) => {
+  //
+  //           assert.equal(res.body.info, 'User delete');
+  //           done();
+  //         });
+  //   });
+  //
+  // });
 
 });
