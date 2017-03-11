@@ -5,6 +5,11 @@ var path = require('path');
 var Post = require("./model/mongoose/post");
 var User = require("./model/mongoose/user");
 // var routes = require('./model/api/posts');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var uuidV1 = require('uuid/v1');
+var sg = require('sendgrid')('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');
 
 var app = express();
 app.use(bodyParser.json());
