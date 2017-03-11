@@ -34,10 +34,10 @@ export class RegisterComponent {
             return;
         }
 
-        if (!this.pEmail.endsWith("@purdue.edu")) {
-            alert("Please enter a valid Purdue Email");
-            return;
-        }
+        // if (!this.pEmail.endsWith("@purdue.edu")) {
+        //     alert("Please enter a valid Purdue Email");
+        //     return;
+        // }
 
         this.user = new Users();
 
@@ -61,17 +61,17 @@ export class RegisterComponent {
 
     clickSendVcode(): void {
 
-        console.log("Enter clickSendVcode() function successed");
+        console.log("Enter clickSendVcode() function start");
 
         if (this.pPassword != this.pPassword02) {
             alert("Re-entered password should be the same with password");
             return;
         }
 
-        if (!this.pEmail.endsWith("@purdue.edu")) {
-            alert("Please enter a valid Purdue Email");
-            return;
-        }
+        // if (!this.pEmail.endsWith("@purdue.edu")) {
+        //     alert("Please enter a valid Purdue Email");
+        //     return;
+        // }
 
         console.log("re-password check finished");
 
@@ -80,14 +80,9 @@ export class RegisterComponent {
         this.user.username = this.pUsername;
         this.user.password = this.pPassword;
         this.user.email = this.pEmail;
-        var promise = this.userService.sendvcode(this.user)
-                .then((user: Users) => {
-                this.user = user;
-                if (this.user == null) {
-                    alert("Send vcode Failed");
-                }
-        })
-        console.log("clickSendVcode() function finished");     
+        this.userService.sendvcode(this.user)
+
+        console.log("clickSendVcode() function End");     
     }
 
     clickBack(): void {

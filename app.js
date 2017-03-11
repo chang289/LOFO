@@ -332,6 +332,7 @@ app.post('/user/init/send', function(req,res){
       });
     },
     function(token, done){
+      console.log("Send API Called");
       Token.findOne({ 'email': req.body.email }, function(err, user){
         if (!user) {
           var newToken = new Token();

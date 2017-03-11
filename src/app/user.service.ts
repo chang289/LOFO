@@ -36,7 +36,7 @@ export class UserService {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
 		console.log("Seding function called ...");
-		return this.http.post(this.signupURL, user, options)
+		return this.http.post(this.sendvcodeURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
 			.catch(this.handleError);
