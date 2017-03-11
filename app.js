@@ -340,13 +340,15 @@ app.post('/user/init/send', function(req,res){
           newToken.save((err)=>{
               done(err, token, newToken);
           });
-        }
+        } else {
+          console.log(user);
           user.initToken = token;
           // user.resetExpires = Date.now() + 3600000; // 30min
           user.save(function(err) {
             done(err, token, user);
           });
-        });
+        }
+      });
     },
     function(token, user, done){
       var helper = require('sendgrid').mail;

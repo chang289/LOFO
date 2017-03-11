@@ -15,6 +15,7 @@ export class UserService {
     signupUser(user: Users): Promise<Users> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
     	let options = new RequestOptions({ headers: headers });
+		console.log("Enter signupUser() function successed");
 		return this.http.post(this.signupURL, user, options)
 			.toPromise()
 			.then(response => response.json().data as Users)
