@@ -350,10 +350,10 @@ export class MapComponent implements OnInit{
             this.postService.getScreenedPostsByDate(this.startDate, this.endDate).then(posts => {
                 byDate = posts;
                 if (this.mapLostOrFound == "Lost") {
-                    lost = true;
+                    lost = false;
                 }
                 else if (this.mapLostOrFound == "Found") {
-                    lost = false;
+                    lost = true;
                 }
                 else {
                     lost = undefined;
