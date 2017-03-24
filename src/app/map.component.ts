@@ -23,7 +23,7 @@ export class MapComponent implements OnInit{
     @ViewChild(MarkerCluster) marker_cluster: MarkerCluster;
     @ViewChild('lgModal') modal: any;
 
-    isCollapsed:boolean = true;
+    isCollapsed:boolean = false;
 
     ngAfterViewInit() {
         this.selectedTitle = this.marker_cluster.selectedTitle;
