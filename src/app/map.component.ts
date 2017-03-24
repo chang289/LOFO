@@ -119,9 +119,9 @@ export class MapComponent implements OnInit{
 
     ngOnInit(): void {
         this.lofoemail = this.cookieService.get("lofoemail");
-        if(this.lofoemail == null) {
-            this.router.navigateByUrl("/login");
-        }
+        // if(this.lofoemail == null) {
+        //     this.router.navigateByUrl("/login");
+        // }
         this.addNewMarker();
     }
 
@@ -259,7 +259,7 @@ export class MapComponent implements OnInit{
                 }
                 else {
                     alert("Create Successfully");
-                    this.modal.hide();
+                    // this.modal.hide();
                     //window.location.reload();
                 }
         });
