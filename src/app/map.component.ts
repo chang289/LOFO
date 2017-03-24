@@ -23,7 +23,7 @@ export class MapComponent implements OnInit{
     @ViewChild(MarkerCluster) marker_cluster: MarkerCluster;
     @ViewChild('lgModal') modal: any;
 
-    isCollapsed:boolean = true;
+    isCollapsed:boolean = false;
 
     ngAfterViewInit() {
         this.selectedTitle = this.marker_cluster.selectedTitle;
@@ -234,10 +234,10 @@ export class MapComponent implements OnInit{
         this.post.modifiedTime = new Date();
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
-        if (this.tag == null) {
-            alert("Please choose a Genre");
-            return;
-        }
+        // if (this.tag == null) {
+        //     alert("Please choose a Genre");
+        //     return;
+        // }
         if (this.title == null) {
             alert("Title can not be empty");
             return;

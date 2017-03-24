@@ -9,7 +9,11 @@
   <span class="glyphicon glyphicon-check" ></span>Completed
 </button> -->
 
-<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
+<!-- <button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt" [disabled] = "edited_post.complete">
+  <span class="glyphicon glyphicon-pencil" ></span>Edit Post
+</button> -->
+
+<button type="button" class="btn btn-success" (click)="lgModal.show()"   id = "edt" >
   <span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
 
@@ -59,7 +63,9 @@
         <div class="form-group" dropdown>
           <label for="sel1">Select list:</label>
 
-          <select [(ngModel)]="edited_post.tag" class="form-control" id="sel1">  
+<!--           defect:cannot change item type.
+          <select [(ngModel)]="edited_post.tag" class="form-control" id="sel1">   -->
+          <select  class="form-control" id="sel1">  
             <option value="0">Phone</option>
             <option value="1">Key</option>
             <option value="2">Wallet</option>
