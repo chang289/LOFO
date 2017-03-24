@@ -46,8 +46,9 @@ export class MarkerCluster {
   handleMap() {
     let tpThis = this;
     this.gmapsApi.getNativeMap().then(map => {
-
-      var backpackUrl: string = 'app/icon_backpack.png';
+      //defect: backpacl will be icon wallet
+      //var backpackUrl: string = 'app/icon_backpack.png';
+      var backpackUrl: string = 'app/icon_wallet.png';
       var walletUrl: string = 'app/icon_wallet.png';
       var keyUrl: string = 'app/icon_key.png';
       var cellphoneUrl: string = 'app/icon_phone.png';
@@ -84,11 +85,14 @@ export class MarkerCluster {
         //.skipWhile((s) => this.points == null || this.points.length <= 0)
         .take(1)
         .subscribe(() => {
+        
         for (let point of this.points) {
 
           let marker = new google.maps.Marker({
             position: new google.maps.LatLng(point.lat, point.lng),
             icon:point.iconUrl,
+            //defect: set draggable to false
+            draggable: true,
           });
 
           var type;

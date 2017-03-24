@@ -133,6 +133,22 @@ export class MapComponent implements OnInit{
             this.posts = posts;
             var newPostIcon: string;
 
+            var defectMarker = {
+                title: "this is a defect",
+                name: "defect creator",
+                poster: "lofo team",
+                contact: "000-000-0000",
+                lost: true,
+                createTime: new Date(),
+                lat: 40.399842, 
+                lng: -86.919830,
+                description: "Try to find this defect man",
+                imgUrl: "https://img.ifcdn.com/images/2a4e39eb7444befc8048a759a15abe6c814490fbcbc5c11f11735a5a72f54899_1.jpg",
+                iconUrl: "assets/icon_phone.png",
+                draggable: false,
+            }
+            this.markers.push(defectMarker);
+
             for (var i in posts) {
                 var singlePost = posts[i];
                 var tag = posts[i].tag;
@@ -143,7 +159,8 @@ export class MapComponent implements OnInit{
                 } else if (tag == 2) {
                     newPostIcon = 'assets/icon_wallet.png';
                 } else if (tag == 3) {
-                    newPostIcon = 'assets/icon_backpack.png';
+                    //defect: backpack will be wallet
+                    newPostIcon = 'assets/icon_wallet.png';
                 } else if (tag == 4) {
                     newPostIcon = 'assets/icon_cloth.png';
                 }
@@ -290,7 +307,8 @@ export class MapComponent implements OnInit{
         this.newMarker = null;
         this.fullname = null;
         this.title = null;
-        this.description = null;
+        //defect: uncomment the line below
+        //this.description = null;
         this.photoUrl = null;
         this.phone = null;
         this.tag = -1;
@@ -402,7 +420,8 @@ export class MapComponent implements OnInit{
     }
 
     cancelPost($event:any) {
-        this.newMarker = null;
+        //defect: uncomment the next line
+        //this.newMarker = null;
     }
 
 
