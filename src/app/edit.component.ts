@@ -40,33 +40,34 @@ console
 		this.tag = this.edited_post.tag;
 	}
 
-	//BUG1 :title or description must be entered
+	//defect :title or description could be blank.
 	//REG BUG1 : must reload the page otherwise title or description could not be displayed.
 	//BUG2 : A post must have title and description. So users cannot remove the title and description.
 	//BUG3 : If a user does not have any post, there should be a warning when they go to the history page.
 	//REG BUG2 : The warning div should not appear with the records. ERROR
 	Edit(): void {
 		this.tag = this.edited_post.tag;
-		if(this.edited_post.title.length == 0) {
-			alert("Edit Failed:Please enter title!");
-			window.location.reload();
-		}else if(this.edited_post.description.length == 0) {
-			alert("Edit Failed:Please enter description!");
-			window.location.reload();
-		}
-		else{
+		// if(this.edited_post.title.length == 0) {
+		// 	alert("Edit Failed:Please enter title!");
+		// 	window.location.reload();
+		// }else if(this.edited_post.description.length == 0) {
+		// 	alert("Edit Failed:Please enter description!");
+		// 	window.location.reload();
+		// }
+		// else{
+		// }
 			this.historyService.updatePosts(this.edited_post)
 			.then((info) => {
 				if (info == null) {
-					alert("Edit Failed");
+					alert("Edit Failed: Check your Internet and check if this post is expired.");
 					window.location.reload();
 				}
-				else {
+				else{
 					alert("Edit Success");
 					window.location.reload();
 				}
 			});
-		}
+
 
 	}
 	Delete(): void {
@@ -84,7 +85,7 @@ console
 			
 
 	}
-	//BUG1: should not be able to confirm user self.
+	//defect: users are  able to confirm themselves.
 	Confirm(): void {
 		this.user = new Users();
         this.user.email = this.confirm_email;
@@ -96,9 +97,11 @@ console
                 this.user = user;
                 if (this.user == null) {
                     alert("Confirm Failed:Incorrect Email or Password!");
-                }else if (this.lofoemail == user.email){
-                    alert("Confirm Failed:Confirmer Must Be Another User!");
-                }else {
+                }
+                // else if (this.lofoemail == user.email){
+                //     alert("Confirm Failed:Confirmer Must Be Another User!");
+                // }
+                else {
                 	this.edited_post.complete = true;
                 	this.edited_post.confirmer = this.confirm_email;
                 	
