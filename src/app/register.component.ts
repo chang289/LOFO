@@ -83,6 +83,6 @@ export class RegisterComponent {
     }
 
     clickBack(): void {
-        this.router.navigateByUrl('/login');
+        //this.router.navigateByUrl('/login');
     }
 }
