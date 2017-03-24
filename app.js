@@ -120,12 +120,10 @@ app.get('/post/get/:id', function(req, res){
 
 //get post by poster's email
 app.get('/post/get/email/:poster', function(req, res){
-  var nw = new Date();
-  nw.setDate(nw.getDate() - 30);
+
 
   Post.find( {
     'poster': req.params.poster,
-    "createTime": {$gte: nw}
   })
   .sort({ modifiedTime: -1 })
   .exec(function(err, post){
@@ -287,7 +285,7 @@ app.get('/post/sort/tag/:tag', function(req, res){
     if (req.params.tag == -1) {
       Post.find({
         "complete": 0,
-        "createTime": {$gte: nw}
+        // "createTime": {$gte: nw}
       })
       .sort({ modifiedTime: -1 })
       .exec(function(err, post){
@@ -302,7 +300,7 @@ app.get('/post/sort/tag/:tag', function(req, res){
       Post.find({
         "tag": {"$eq": req.params.tag},
         "complete": 0,
-        "createTime": {$gte: nw}
+        // "createTime": {$gte: nw}
       })
       .sort({ modifiedTime: -1 })
       .exec(function(err, posts){
@@ -331,7 +329,7 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
   if (req.params.starterDate == "undefined" || req.params.endDate == "undefined") {
     Post.find({
       "complete": 0 ,
-      "createTime": {$gte: nw}
+      // "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
@@ -350,7 +348,7 @@ app.get('/post/sort/date/:starterDate/:endDate', function(req, res){
     Post.find({
       "modifiedTime": {$gte: start, $lte: end},
       "complete": 0,
-      "createTime": {$gte: nw}
+      // "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
@@ -371,7 +369,7 @@ app.get('/post/sort/lost/:lost', function(req, res){
   if (req.params.lost == "All") {
     Post.find({
       "complete": 0 ,
-      "createTime": {$gte: nw}
+      // "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, post){
@@ -386,7 +384,7 @@ app.get('/post/sort/lost/:lost', function(req, res){
     Post.find({
       "lost": {"$eq": req.params.lost},
       "complete": 0,
-      "createTime": {$gte: nw}
+      // "createTime": {$gte: nw}
     })
     .sort({ modifiedTime: -1 })
     .exec(function(err, posts){
