@@ -1,12 +1,12 @@
 
-
-<button *ngIf="!edited_post.lost && !edited_post.complete" type="button" class="btn btn-warning" (click)="smModal2.show()" id = "cfm" >
+<!-- defect: still can confirm a comfirmed post. -->
+<button *ngIf="!edited_post.lost " type="button" class="btn btn-warning" (click)="smModal2.show()" id = "cfm" >
   <span class="glyphicon glyphicon-ok" ></span>Confirm Finder
 </button>
 
-<button *ngIf="!edited_post.lost && edited_post.complete" type="button" class="btn btn-warning"  id = "cfm2" [disabled] = "true">
+<!-- <button *ngIf="!edited_post.lost && edited_post.complete" type="button" class="btn btn-warning"  id = "cfm2" [disabled] = "true">
   <span class="glyphicon glyphicon-check" ></span>Completed
-</button>
+</button> -->
 
 <button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt" [disabled] = "edited_post.complete">
   <span class="glyphicon glyphicon-pencil" ></span>Edit Post
