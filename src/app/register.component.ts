@@ -29,15 +29,15 @@ export class RegisterComponent {
     
     clickSubmit(): void {
 
-        if (this.pPassword != this.pPassword02) {
-            alert("Re-entered password should be the same with password");
-            return;
-        }
+        // if (this.pPassword != this.pPassword02) {
+        //     alert("Re-entered password should be the same with password");
+        //     return;
+        // }
 
-        if (!this.pEmail.endsWith("@purdue.edu")) {
-            alert("Please enter a valid Purdue Email");
-            return;
-        }
+        // if (!this.pEmail.endsWith("@purdue.edu")) {
+        //     alert("Please enter a valid Purdue Email");
+        //     return;
+        // }
 
         this.user = new Users();
 
@@ -62,15 +62,15 @@ export class RegisterComponent {
     clickSendVcode(): void {
 
 
-        if (this.pPassword != this.pPassword02) {
-            alert("Re-entered password should be the same with password");
-            return;
-        }
+        // if (this.pPassword != this.pPassword02) {
+        //     alert("Re-entered password should be the same with password");
+        //     return;
+        // }
 
-        if (!this.pEmail.endsWith("@purdue.edu")) {
-            alert("Please enter a valid Purdue Email");
-            return;
-        }
+        // if (!this.pEmail.endsWith("@purdue.edu")) {
+        //     alert("Please enter a valid Purdue Email");
+        //     return;
+        // }
 
 
         this.user = new Users();
@@ -83,6 +83,6 @@ export class RegisterComponent {
     }
 
     clickBack(): void {
-        this.router.navigateByUrl('/login');
+        //this.router.navigateByUrl('/login');
     }
 }
