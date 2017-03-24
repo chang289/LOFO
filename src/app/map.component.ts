@@ -230,10 +230,8 @@ export class MapComponent implements OnInit{
         this.post.contact = this.phone;
         this.post.locationX = this.newMarker.lat;
         this.post.locationY = this.newMarker.lng;
-        // this.post.createTime = new Date();
-        // this.post.modifiedTime = new Date();
-        this.post.createTime = new Date(2016, 10, 10);
-        this.post.modifiedTime = new Date(2016, 10, 10);
+        this.post.createTime = new Date();
+        this.post.modifiedTime = new Date();
         if (this.lost == 'true') this.post.lost = true;
         else if (this.lost == 'false') this.post.lost = false;
         if (this.tag == null) {
