@@ -120,12 +120,9 @@ app.get('/post/get/:id', function(req, res){
 
 //get post by poster's email
 app.get('/post/get/email/:poster', function(req, res){
-  var nw = new Date();
-  nw.setDate(nw.getDate() - 30);
 
   Post.find( {
     'poster': req.params.poster,
-    "createTime": {$gte: nw}
   })
   .sort({ modifiedTime: -1 })
   .exec(function(err, post){
