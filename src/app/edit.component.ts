@@ -46,7 +46,7 @@ console
 	//BUG3 : If a user does not have any post, there should be a warning when they go to the history page.
 	//REG BUG2 : The warning div should not appear with the records. ERROR
 	Edit(): void {
-		// this.tag = this.edited_post.tag;
+		this.tag = this.edited_post.tag;
 		// if(this.edited_post.title.length == 0) {
 		// 	alert("Edit Failed:Please enter title!");
 		// 	window.location.reload();
@@ -59,10 +59,10 @@ console
 			this.historyService.updatePosts(this.edited_post)
 			.then((info) => {
 				if (info == null) {
-					alert("Edit Failed");
+					alert("Edit Failed: Check your Internet and check if this post is expired.");
 					window.location.reload();
 				}
-				else {
+				else{
 					alert("Edit Success");
 					window.location.reload();
 				}

@@ -1,5 +1,6 @@
 
-<!-- defect: still can confirm a comfirmed post. -->
+<!-- defect: still can confirm a comfirmed post. 
+[disabled] = "edited_post.complete" -->
 <button *ngIf="!edited_post.lost " type="button" class="btn btn-warning" (click)="smModal2.show()" id = "cfm" >
   <span class="glyphicon glyphicon-ok" ></span>Confirm Finder
 </button>
@@ -8,7 +9,7 @@
   <span class="glyphicon glyphicon-check" ></span>Completed
 </button> -->
 
-<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt" [disabled] = "edited_post.complete">
+<button type="button" class="btn btn-success" (click)="lgModal.show()"  (click)="editClicked()" id = "edt">
   <span class="glyphicon glyphicon-pencil" ></span>Edit Post
 </button>
 
@@ -167,9 +168,10 @@
           <input [(ngModel)]="confirm_email"  type="text" class="form-control" class="confirm_input">
         </div>
 
+<!--         defect:password could be seen -->
         <div class="form-group">
           <label for="title" class = "confirm_title">Password:</label>
-          <input [(ngModel)]="confirm_password" type="password" class="form-control" class="confirm_input">
+          <input [(ngModel)]="confirm_password" type="text" class="form-control" class="confirm_input">
         </div>
 
         <button type="button" class="btn btn-secondary"  style="margin-right:2em"

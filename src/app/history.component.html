@@ -35,9 +35,9 @@
 				<div *ngIf="post.lost"class = "info_block_left" style="margin-right:7.1%;">
 					<span *ngIf="post.lost"class ="info">Lost</span>
 				</div>
-
+				<!-- defect:unreadable create time. {{post.createTime | date:'short'}}-->
 				<div style="margin-right:4%;display:inline-block; width:15%">
-					<span class="info">{{post.createTime | date:'short'}}</span> 
+					<span class="info">{{post.createTime}}</span> 
 				</div>
 
 
