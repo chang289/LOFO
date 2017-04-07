@@ -3,6 +3,8 @@ node_modules
 app.js
 npm-debug.log
 angular-cli.json
+mlab.env
+sendgrid.env
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
@@ -44,5 +46,3 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
-
-
