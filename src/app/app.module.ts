@@ -48,35 +48,34 @@ const APP_DECLARATION = [
     RouterModule.forRoot([
         {
           path: '',
-          redirectTo: '/pipi',
+          redirectTo: '/login',
           pathMatch: 'full'
         },
         {
           path: 'pipi',
           component: PipiComponent
-        }
-        // },
-        // {
-        //   path: 'map',
-        //   component: MapComponent
-        // },
-        // {
-        //   path: 'history',
-        //   component: HistoryComponent
-        // },
-        // {
-        //   path: 'login',
-        //   component: LoginComponent
-        // },
-        // {
-        //   path: 'register',
-        //   component: RegisterComponent
+        },
+        {
+          path: 'map',
+          component: MapComponent
+        },
+        {
+          path: 'history',
+          component: HistoryComponent
+        },
+        {
+          path: 'login',
+          component: LoginComponent
+        },
+        {
+          path: 'register',
+          component: RegisterComponent
 
-        // },
-        // {
-        //   path: 'expired',
-        //   component: ExpiredComponent
-        // }
+        },
+        {
+          path: 'expired',
+          component: ExpiredComponent
+        }
       ]),
 
     AgmCoreModule.forRoot({
