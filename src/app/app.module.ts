@@ -18,7 +18,7 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
 //for map
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { CollapseModule, ModalModule, ButtonsModule, TabsModule, DropdownModule } from 'ng2-bootstrap';
+import { CollapseModule, ModalModule, ButtonsModule, TabsModule } from 'ng2-bootstrap';
 import { PipiComponent } from './pipi.component';
 import { MapComponent } from './map.component';
 import { HistoryComponent } from './history.component';
@@ -43,7 +43,6 @@ const APP_DECLARATION = [
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
     TabsModule.forRoot(),
-    DropdownModule.forRoot(),
     ImageUploadModule,
     RouterModule.forRoot([
         {
